@@ -1,0 +1,50 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block title %}Masinga NG-CDF Admin Dashboard{% endblock %}
+
+{% block content %}
+<h1>📊 Dashboard Summary</h1>
+
+<div style="display:flex; flex-wrap:wrap; gap:20px; margin-top:20px;">
+  <div class="card">
+    <h2>🧍 Total Applications</h2>
+    <p>{{ total_apps }}</p>
+  </div>
+  <div class="card">
+    <h2>💰 Total Amount Requested</h2>
+    <p>KSh {{ total_amount|floatformat:2 }}</p>
+  </div>
+  <div class="card">
+    <h2>🏫 Total Institutions</h2>
+    <p>{{ total_institutions }}</p>
+  </div>
+  <div class="card">
+    <h2>📅 Latest Submission</h2>
+    <p>{{ latest_submission|date:"F j, Y, g:i a" }}</p>
+    <a href="{% url 'admin_logout' %}" class="logout-btn">Logout</a>
+
+  </div>
+</div>
+
+<style>
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+  flex: 1 1 200px;
+  text-align: center;
+  border-top: 5px solid #0066cc;
+}
+.card h2 {
+  font-size: 16px;
+  color: #003366;
+  margin-bottom: 10px;
+}
+.card p {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0066cc;
+}
+</style>
+{% endblock %}
