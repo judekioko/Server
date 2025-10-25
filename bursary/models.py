@@ -1,6 +1,67 @@
 from django.db import models
+from django.contrib.auth.models import User
 import uuid
 from django.db import transaction
+from django.utils import timezone
+
+
+class ApplicationDeadline(models.Model):
+    """Model to manage application deadlines"""
+    name = models.CharField(max_length=255)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-end_date']
+        verbose_name_plural = "Application Deadlines"
+
+    def __str__(self):
+        return f"{self.name} ({self.start_date.date()} - {self.end_date.date()})"
+
+    @property
+    def is_open(self):
+        """Check if application window is currently open"""
+        now = timezone.now()
+        return self.is_active and self.start_date <= now <= self.end_date
+
+    @property
+    def days_remaining(self):
+        """Get days remaining until deadline"""
+        if self.is_open:
+            delta = self.end_date - timezone.now()
+            return delta.days
+        return 0
+
+
+class ApplicationStatusLog(models.Model):
+    """Audit log for application status changes"""
+    application = models.ForeignKey(
+        'BursaryApplication',
+        on_delete=models.CASCADE,
+        related_name='status_logs'
+    )
+    old_status = models.CharField(max_length=20, null=True, blank=True)
+    new_status = models.CharField(max_length=20)
+    changed_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='application_status_changes'
+    )
+    reason = models.TextField(blank=True, null=True)
+    changed_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-changed_at']
+        verbose_name_plural = "Application Status Logs"
+
+    def __str__(self):
+        return f"{self.application.reference_number}: {self.old_status} → {self.new_status}"
+
 
 class BursaryApplication(models.Model):
     # =====================
