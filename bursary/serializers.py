@@ -1,4 +1,3 @@
-# serializers.py
 from rest_framework import serializers
 from .models import BursaryApplication, ApplicationStatusLog, ApplicationDeadline
 
@@ -13,8 +12,8 @@ class ApplicationStatusLogSerializer(serializers.ModelSerializer):
 
 
 class BursaryApplicationSerializer(serializers.ModelSerializer):
-    status_logs = ApplicationStatusLogSerializer(many=True, read_only=True, source='status_logs')
-    
+    status_logs = ApplicationStatusLogSerializer(many=True, read_only=True)  # ✅ Fixed line
+
     class Meta:
         model = BursaryApplication
         fields = '__all__'
