@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 """
 Django settings for core project.
 """
@@ -8,10 +15,12 @@ import os
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# =========================
 # SECURITY
-SECRET_KEY = 'django-insecure-*%20*=(xq(ucj2=3(4fjz@8zmga=09c-2t$xuuqr4vj6q@o+fw'
-DEBUG = True
-ALLOWED_HOSTS = ["*"]
+# =========================
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-default-key')
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
 # =========================
 # Installed Apps
@@ -71,11 +80,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bursary',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.environ.get('DB_NAME', 'bursary'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', '1234'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
@@ -100,21 +109,17 @@ USE_TZ = True
 # =========================
 # Static & Media Files
 # =========================
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.environ.get('STATIC_ROOT', BASE_DIR / 'staticfiles')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
 
 # =========================
 # CORS Settings
 # =========================
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:5500",
-    "http://localhost:5500",
-]
 
 # =========================
 # Default primary key
@@ -144,9 +149,9 @@ REST_FRAMEWORK = {
 # Email Configuration for Password Reset
 # =========================
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'mutisojude47@gmail.com'
-EMAIL_HOST_PASSWORD = 'zsvd razn pzku qzhj'  # ⚠️ use your Gmail App Password
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'mutisojude47@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get('zsvd razn pzku qzhj', '')  # Use Gmail App Password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
