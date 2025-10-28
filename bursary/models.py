@@ -72,6 +72,8 @@ class BursaryApplication(models.Model):
         max_length=10,
         choices=[("male", "Male"), ("female", "Female")]
     )
+    
+
     disability = models.BooleanField(default=False)
     id_number = models.CharField(max_length=50, unique=True)
 
@@ -79,6 +81,7 @@ class BursaryApplication(models.Model):
     id_upload_back = models.FileField(upload_to="uploads/ids/back/", blank=True, null=True)
 
     phone_number = models.CharField(max_length=15)
+    email = models.EmailField(max_length=255, blank=False, null=False)
     guardian_phone = models.CharField(max_length=15)
     guardian_id = models.CharField(max_length=50)
 

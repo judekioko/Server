@@ -4,7 +4,7 @@ from .models import BursaryApplication, ApplicationStatusLog, ApplicationDeadlin
 
 class ApplicationStatusLogSerializer(serializers.ModelSerializer):
     changed_by_username = serializers.CharField(source='changed_by.username', read_only=True)
-    
+
     class Meta:
         model = ApplicationStatusLog
         fields = ['id', 'old_status', 'new_status', 'changed_by_username', 'reason', 'changed_at']
@@ -12,7 +12,8 @@ class ApplicationStatusLogSerializer(serializers.ModelSerializer):
 
 
 class BursaryApplicationSerializer(serializers.ModelSerializer):
-    status_logs = ApplicationStatusLogSerializer(many=True, read_only=True)  # ✅ Fixed line
+    status_logs = ApplicationStatusLogSerializer(many=True, read_only=True)
+    email = serializers.EmailField(required=True)  # ✅ Ensure email is validated properly
 
     class Meta:
         model = BursaryApplication

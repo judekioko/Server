@@ -1,4 +1,3 @@
-# views.py
 from rest_framework import generics, permissions, filters, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -20,7 +19,9 @@ class StandardResultsSetPagination(PageNumberPagination):
     max_page_size = 100
 
 
-# Create Application
+# ===========================
+#  Create Application
+# ===========================
 class BursaryApplicationCreateView(generics.CreateAPIView):
     queryset = BursaryApplication.objects.all()
     serializer_class = BursaryApplicationSerializer
@@ -54,14 +55,16 @@ Masinga NG-CDF Bursary Management System
                 subject,
                 message,
                 settings.DEFAULT_FROM_EMAIL,
-                [application.phone_number],  # In production, use email field
-                fail_silently=True,
+                [application.email],  # ✅ send to applicant’s functional email
+                fail_silently=False,
             )
         except Exception as e:
-            print(f"Error sending email: {e}")
+            print(f"Error sending confirmation email: {e}")
 
 
-# List Applications (Admin Only) with Pagination and Filtering
+# ===========================
+#  List Applications (Admin Only)
+# ===========================
 class BursaryApplicationListView(generics.ListAPIView):
     queryset = BursaryApplication.objects.all().order_by("-submitted_at")
     serializer_class = BursaryApplicationSerializer
@@ -73,7 +76,9 @@ class BursaryApplicationListView(generics.ListAPIView):
     ordering_fields = ['submitted_at', 'amount', 'status']
 
 
-# Retrieve Application by Reference Number
+# ===========================
+#  Retrieve Application by Reference
+# ===========================
 class BursaryApplicationDetailView(generics.RetrieveAPIView):
     queryset = BursaryApplication.objects.all()
     serializer_class = BursaryApplicationSerializer
@@ -81,7 +86,9 @@ class BursaryApplicationDetailView(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-# Update Application Status with Audit Logging
+# ===========================
+#  Update Application Status (Admin)
+# ===========================
 class BursaryApplicationUpdateStatusView(generics.UpdateAPIView):
     queryset = BursaryApplication.objects.all()
     serializer_class = BursaryApplicationSerializer
@@ -147,14 +154,16 @@ Masinga NG-CDF Bursary Management System
                 subject,
                 message,
                 settings.DEFAULT_FROM_EMAIL,
-                [application.phone_number],
-                fail_silently=True,
+                [application.email],  # ✅ send to applicant’s email
+                fail_silently=False,
             )
         except Exception as e:
             print(f"Error sending status update email: {e}")
 
 
-# Get Application Status History
+# ===========================
+#  Application Status History
+# ===========================
 @api_view(['GET'])
 @permission_classes([permissions.IsAdminUser])
 def application_status_history(request, reference_number):
@@ -180,7 +189,9 @@ def application_status_history(request, reference_number):
         return Response({'error': 'Application not found'}, status=status.HTTP_404_NOT_FOUND)
 
 
-# Get Application Deadline Status
+# ===========================
+#  Get Application Deadline
+# ===========================
 @api_view(['GET'])
 @permission_classes([permissions.AllowAny])
 def deadline_status(request):
@@ -202,7 +213,9 @@ def deadline_status(request):
     })
 
 
-# Logout view
+# ===========================
+#  Logout View
+# ===========================
 def logout_view(request):
     logout(request)
     request.session.flush()
