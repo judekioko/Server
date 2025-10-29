@@ -1,0 +1,40 @@
+# =======================
+# PYTHON / DJANGO PROJECT
+# =======================
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+
+# Environment variables
+.env
+*.env
+
+# Django static files
+/static/
+staticfiles/
+
+# Media (user uploads)
+media/
+
+# SQLite database (if used)
+*.sqlite3
+
+# Logs
+*.log
+
+# VS Code settings
+.vscode/
+
+# PyCharm
+.idea/
+
+# OS garbage
+Thumbs.db
+.DS_Store
