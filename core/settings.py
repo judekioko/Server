@@ -85,6 +85,17 @@ DATABASES = {
     }
 }
 
+# ✅ Add this EXACTLY BELOW the DATABASES block
+import dj_database_url
+
+# Switch to Render PostgreSQL when DATABASE_URL exists
+if os.environ.get("DATABASE_URL"):
+    DATABASES['default'] = dj_database_url.parse(
+        os.environ.get("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True,
+    )
+
 # =========================
 # Password Validation
 # =========================
@@ -102,15 +113,22 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Africa/Nairobi'
 USE_I18N = True
 USE_TZ = True
-
 # =========================
 # Static & Media Files
 # =========================
 STATIC_URL = '/static/'
+
+# Collect static files here (Render will serve from this folder)
 STATIC_ROOT = os.environ.get('STATIC_ROOT', BASE_DIR / 'staticfiles')
 
+# Tell Django where your frontend assets (CSS/JS/images) are located
+STATICFILES_DIRS = [
+    BASE_DIR / 'Tertiary',  # <-- Add this
+]
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.environ.get('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', BASE_DIR / 'media')
+
 
 # =========================
 # CORS Settings
