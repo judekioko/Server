@@ -1,0 +1,210 @@
+/* ============================
+   Magical Scholarship SVG
+=============================== */
+.scholarship-icon {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+.scholarship-icon svg {
+    width: 120px;
+    height: 120px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: filter 0.3s ease;
+}
+.scholarship-icon svg.glow {
+    filter: drop-shadow(0 0 6px #ff0000)
+            drop-shadow(0 0 6px #ffffff)
+            drop-shadow(0 0 6px #008000);
+    animation: pulse-glow 2s infinite alternate;
+}
+@keyframes pulse-glow {
+    from { filter: drop-shadow(0 0 6px #ff0000); }
+    to   { filter: drop-shadow(0 0 12px #008000); }
+}
+
+/* ============================
+   Scroll Reveal
+=============================== */
+.welcome-section h2,
+.welcome-section h3,
+.welcome-section h4,
+.welcome-section p,
+.welcome-section .info-box,
+.welcome-section .apply-btn {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+}
+.welcome-section h2.show,
+.welcome-section h3.show,
+.welcome-section h4.show,
+.welcome-section p.show,
+.welcome-section .info-box.show,
+.welcome-section .apply-btn.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================
+   Apply Button Effects
+=============================== */
+.apply-btn {
+    background: linear-gradient(90deg, #ff0000, #ffffff, #008000);
+    color: #000;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.apply-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(0,0,0,0.3);
+}
+.apply-btn.bounce {
+    animation: bounceAnim 0.6s;
+}
+@keyframes bounceAnim {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+
+/* Bursary Form Styling */
+#bursary-form {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+#bursary-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #006400; /* Dark green for Kenyan flag */
+}
+
+form fieldset {
+    border: 2px solid #000;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    background: #f9f9f9;
+}
+
+form legend {
+    font-weight: bold;
+    color: #bb0000; /* Kenyan flag red */
+    padding: 0 10px;
+}
+
+form label {
+    display: block;
+    margin: 0.7rem 0 0.3rem;
+    font-weight: 600;
+}
+
+form input, 
+form select {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+form input[type="file"] {
+    padding: 0.4rem;
+    background: #fff;
+}
+
+form button {
+    display: block;
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 1.1rem;
+    background: linear-gradient(90deg, #006400, #bb0000, #000000); /* Kenyan flag colors */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+form button:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(90deg, #000000, #bb0000, #006400);
+}
+
+#thank-you-message {
+    text-align: center;
+    padding: 2rem;
+    background: #e6ffe6;
+    border: 1px solid #008000;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    background: #000;
+    color: #fff;
+}
+
+
+/* Success Message Styles */
+.success-container {
+    text-align: center;
+    padding: 3rem;
+    background: #e6ffe6;
+    border: 2px solid #008000;
+    border-radius: 12px;
+    margin: 2rem 0;
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: #008000;
+    margin-bottom: 1rem;
+}
+
+.reference-number {
+    background: #ffffff;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 2px dashed #008000;
+    margin: 1.5rem 0;
+    font-size: 1.2rem;
+}
+
+.note {
+    color: #666;
+    font-style: italic;
+    margin: 1rem 0;
+}
+
+.new-app-btn {
+    background: linear-gradient(90deg, #006400, #bb0000);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.new-app-btn:hover {
+    transform: translateY(-2px);
+}

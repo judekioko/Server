@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bursary Application - Masinga NG-CDF</title>
+   <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/bursary.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- FontAwesome for Icons -->
+    <script src="https://kit.fontawesome.com/YOUR-FONTAWESOME-KIT.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+   <header>
+  <!-- LEFT SIDE - Website Title -->
+  <div class="header-left">
+    <h1>
+      <img src="assets/images/cdf-logo.jpg" alt="Masinga Logo" class="logo">
+      Masinga NG-CDF Website
+    </h1>
+  </div>
+
+  <!-- RIGHT SIDE - Navigation & Menu Toggle -->
+  <div class="header-right">
+    <nav>
+      <ul>
+        
+        <li><a href="bursary-application.html" class="active"><i class="fas fa-file-alt"></i> Bursary Application</a></li>
+      </ul>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+  </div>
+</header>
+    
+    <div class="scholarship-icon">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <!-- Document Shape -->
+            <rect x="20" y="20" width="80" height="100" rx="5" 
+                fill="transparent" stroke="#007bff" stroke-width="3" stroke-dasharray="350" stroke-dashoffset="350"/>
+    
+            <!-- Graduation Cap -->
+            <polygon points="40,50 80,30 120,50 80,70" 
+                fill="transparent" stroke="#007bff" stroke-width="3" stroke-dasharray="250" stroke-dashoffset="250"/>
+            
+            <line x1="80" y1="70" x2="80" y2="85" stroke="#007bff" stroke-width="3" stroke-dasharray="20" stroke-dashoffset="20"/>
+    
+            <!-- Certificate Ribbon -->
+            <circle cx="60" cy="90" r="8" fill="transparent" stroke="#ff9800" stroke-width="3" stroke-dasharray="50" stroke-dashoffset="50"/>
+        </svg>
+    </div>
+    
+    <section class="welcome-section">
+        <h2><i class="fas fa-hand-holding-heart"></i> Welcome to the Bursary Application</h2>
+        <p><i class="fas fa-info-circle"></i> Please follow all the steps necessary before applying.</p>
+        
+        <h3><i class="fas fa-graduation-cap"></i> NG-CDF Masinga Bursary Program</h3>
+        <p><i class="fas fa-university"></i> The NG-CDF Masinga Bursary Program is designed to support students from financially disadvantaged backgrounds by providing financial assistance for secondary school, college, and university education.</p>
+        
+        <h4><i class="fas fa-user-check"></i> Who Can Apply?</h4>
+        <div class="info-box">
+            <p><i class="fas fa-user-graduate"></i> Students enrolled in recognized secondary schools, colleges, or universities.</p>
+            <p><i class="fas fa-map-marker-alt"></i> Applicants must be residents of Masinga Constituency.</p>
+        </div>
+        
+        <h4><i class="fas fa-file-alt"></i> How to Apply</h4>
+        <p><i class="fas fa-laptop"></i> All applications must be submitted online through our dedicated bursary application portal. Click the button below to access the bursary application website.</p>
+        
+        <button class="apply-btn" onclick="openApplicationForm()"><i class="fas fa-paper-plane"></i> Apply Now</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Masinga NG-CDF. All Rights Reserved.</p>
+    </footer>
+    <script src="assets/js/global.js"></script>
+    <script src="assets/js/bursary.js"></script>
+    
+</body>
+</html>

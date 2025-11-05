@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bursary Application Form - Masinga NG-CDF</title>
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/bursary.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- FontAwesome for Icons -->
+    <script src="https://kit.fontawesome.com/YOUR-FONTAWESOME-KIT.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <h1> <i class="fas fa-landmark"></i>Masinga NG-CDF - Bursary Application Form</h1>
+            <img src="assets/images/cdf-logo.jpg" alt="CDF Logo" class="logo">
+        </div>
+    </header>
+
+    <section id="bursary-form">
+        <h2>Bursary Application Form</h2>
+       <form id="bursaryApplicationForm">
+   
+
+            <!-- Personal Information -->
+            <fieldset>
+                <legend><i class="fas fa-user"></i> Personal Information</legend>
+
+                <label for="full-name"><i class="fas fa-id-card"></i> Full Name:</label>
+                <input type="text" id="full-name" name="full-name" required>
+
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="form-control" 
+                        placeholder="Enter your valid email address" 
+                        required 
+                    />
+                </div>
+
+                <label for="gender"><i class="fas fa-venus-mars"></i> Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+
+                <label for="disability"><i class="fas fa-wheelchair"></i> Disability:</label>
+                <input type="checkbox" id="disability" name="disability">
+
+                <label for="id-number"><i class="fas fa-id-badge"></i> National ID/Birth Certificate:</label>
+                <input type="text" id="id-number" name="id-number" required>
+
+                <label for="id-upload-front">
+                    <i class="fas fa-upload"></i> Upload Front Side of National ID/Birth Certificate:
+                </label>
+                <input 
+                    type="file" 
+                    id="id-upload-front" 
+                    name="id-upload-front" 
+                    accept=".jpg,.jpeg,.png" 
+                    required 
+                    title="Upload clear image (.jpg, .jpeg, .png) — Max size: 2MB">
+
+                <label for="id-upload-back">
+                    <i class="fas fa-upload"></i> Upload Back Side of National ID:(Optional)
+                </label>
+                <input 
+                    type="file" 
+                    id="id-upload-back" 
+                    name="id-upload-back" 
+                    accept=".jpg,.jpeg,.png" 
+                    title="Upload clear image (.jpg, .jpeg, .png) — Max size: 2MB">
+
+                <label for="phone-number"><i class="fas fa-phone-alt"></i> Phone Number:</label>
+                <input type="tel" id="phone-number" name="phone-number" required>
+
+                <label for="guardian-phone"><i class="fas fa-user-shield"></i> Guardian's/Parent's Mobile Number:</label>
+                <input type="tel" id="guardian-phone" name="guardian-phone" required>
+
+                <label for="guardian-id"><i class="fas fa-id-card-alt"></i> Guardian's/Parent's ID:</label>
+                <input type="text" id="guardian-id" name="guardian-id" required>
+            </fieldset>
+ 
+            <!-- Residence Details -->
+            <fieldset>
+                <legend><i class="fas fa-home"></i> Residence Details</legend>
+
+                <label for="ward"><i class="fas fa-map-marker-alt"></i> Ward:</label>
+                <select id="ward" name="ward" required>
+                    <option value="kivaa">Kivaa</option>
+                    <option value="masinga-central">Masinga Central</option>
+                    <option value="ndithini">Ndithini</option>
+                    <option value="ekalakala">Ekalakala</option>
+                    <option value="muthesya">Muthesya</option>
+                </select>
+
+                <label for="village"><i class="fas fa-city"></i> Village:</label>
+                <input type="text" id="village" name="village" required>
+
+                <label for="chief-name"><i class="fas fa-user-tie"></i> Chief's Name:</label>
+                <input type="text" id="chief-name" name="chief-name" required>
+
+                <label for="chief-phone"><i class="fas fa-phone-alt"></i> Chief's Phone Number:</label>
+                <input type="tel" id="chief-phone" name="chief-phone" required>
+
+                <label for="sub-chief-name"><i class="fas fa-user-tie"></i> Sub-Chief's Name:</label>
+                <input type="text" id="sub-chief-name" name="sub-chief-name" required>
+
+                <label for="sub-chief-phone"><i class="fas fa-phone-alt"></i> Sub-Chief's Phone Number:</label>
+                <input type="tel" id="sub-chief-phone" name="sub-chief-phone" required>
+            </fieldset>
+
+            <!-- Institution Details -->
+            <fieldset>
+                <legend><i class="fas fa-school"></i> Institution Details</legend>
+
+                <label for="level-of-study"><i class="fas fa-graduation-cap"></i> Level of Study:</label>
+                <select id="level-of-study" name="level-of-study" required onchange="toggleInstitutionDetails()">
+                    <option value="degree">Degree</option>
+                    <option value="certificate">Certificate</option>
+                    <option value="diploma">Diploma</option>
+                    <option value="artisan">Artisan</option>
+                </select>
+
+                <!-- College or University -->
+                <label for="institution-type"><i class="fas fa-university"></i> Institution Type:</label>
+                <select id="institution-type" name="institution-type" required onchange="toggleInstitutionFields()">
+                    <option value="college">College</option>
+                    <option value="university">University</option>
+                </select>
+
+                <!-- University or College Field (Name of Institution) -->
+                <div id="institution-field">
+                    <label for="institution-name"><i class="fas fa-building"></i> Name of Institution (as it appears in your admission letter):</label>
+                    <input type="text" id="institution-name" name="institution-name" required>
+                    <span style="color: red;">*Please ensure the name matches exactly with your admission letter.</span>
+                </div>
+                
+                <label for="admission-number"><i class="fas fa-id-badge"></i> Admission/Registration Number:</label>
+                <input type="text" id="admission-number" name="admission-number" required>
+
+                <label for="amount"><i class="fas fa-dollar-sign"></i> Amount Applied For:</label>
+                <input type="number" id="amount" name="amount" required>
+
+                <label for="mode-of-study"><i class="fas fa-user-clock"></i> Mode of Study:</label>
+                <select id="mode-of-study" name="mode-of-study" required>
+                    <option value="full-time">Full-time</option>
+                    <option value="part-time">Part-time</option>
+                </select>
+
+                <label for="year-of-study"><i class="fas fa-calendar-alt"></i> Year of Study:</label>
+                <select id="year-of-study" name="year-of-study" required>
+                    <option value="first-year">First Year</option>
+                    <option value="second-year">Second Year</option>
+                    <option value="third-year">Third Year</option>
+                    <option value="final-year">Final Year</option>
+                </select>
+
+                <!-- Add admission letter field -->
+                <label for="admission-letter"><i class="fas fa-file-upload"></i> Admission Letter:(Optional)</label>
+                <input type="file" id="admission-letter" name="admission-letter" accept=".jpg,.jpeg,.png,.pdf">
+            </fieldset>
+            
+            <!-- Family Details -->
+            <fieldset>
+                <legend><i class="fas fa-users"></i> Family Details</legend>
+
+                <label for="family-status"><i class="fas fa-home"></i> Family Status:</label>
+                <select id="family-status" name="family-status" required onchange="toggleOrphanProof()">
+                    <option value="both-parents-alive">Both Parents Alive</option>
+                    <option value="single-parent">Single Parent</option>
+                    <option value="partial-orphan">Partial Orphan</option>
+                    <option value="total-orphan">Total Orphan</option>
+                </select>
+
+                <!-- Orphan Proof (Only shown if Total Orphan is selected) -->
+                <div id="orphan-proof" style="display: none;">
+                    <label for="father-death-certificate"><i class="fas fa-file-upload"></i> Father's Death Certificate:</label>
+                    <input type="file" id="father-death-certificate" name="father-death-certificate" accept="image/*">
+
+                    <label for="mother-death-certificate"><i class="fas fa-file-upload"></i> Mother's Death Certificate:</label>
+                    <input type="file" id="mother-death-certificate" name="mother-death-certificate" accept="image/*">
+                </div>
+
+                <!-- Father's and Mother's Income (only if not orphan) -->
+                <div id="income-fields">
+                    <label for="father-income"><i class="fas fa-wallet"></i> Father's Income:</label>
+                    <select id="father-income" name="father-income">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+
+                    <label for="mother-income"><i class="fas fa-wallet"></i> Mother's Income:</label>
+                    <select id="mother-income" name="mother-income">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <!-- Data Protection Consent -->
+            <fieldset>
+                <legend><i class="fas fa-shield-alt"></i> Data Protection Consent</legend>
+                
+                <div class="consent-section">
+                    <h3>Kenya Data Protection Act Consent</h3>
+                    <div class="consent-text">
+                        <p>In accordance with the Data Protection Act, 2019 of Kenya, we are required to inform you about how your personal data will be used and to obtain your consent for processing.</p>
+                        
+                        <h4>Purpose of Data Collection:</h4>
+                        <p>Your personal information is being collected for the purpose of processing your bursary application with Masinga NG-CDF. This includes:</p>
+                        <ul>
+                            <li>Verifying your eligibility for the bursary</li>
+                            <li>Contacting you regarding your application status</li>
+                            <li>Processing and disbursing funds if approved</li>
+                            <li>Maintaining records as required by law</li>
+                        </ul>
+                        
+                        <h4>Data Sharing:</h4>
+                        <p>Your information may be shared with:</p>
+                        <ul>
+                            <li>Masinga NG-CDF Committee members</li>
+                            <li>Relevant government agencies for verification purposes</li>
+                            <li>Educational institutions for confirmation of admission</li>
+                        </ul>
+                        
+                        <h4>Data Retention:</h4>
+                        <p>Your data will be retained for a period of 7 years as required by Kenyan law for financial records, after which it will be securely disposed of.</p>
+                        
+                        <h4>Your Rights:</h4>
+                        <p>You have the right to:</p>
+                        <ul>
+                            <li>Access your personal data</li>
+                            <li>Request correction of inaccurate data</li>
+                            <li>Withdraw consent (though this may affect your application)</li>
+                            <li>Lodge a complaint with the Office of the Data Protection Commissioner</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="consent-checkboxes">
+                        <label for="data-consent">
+                            <input type="checkbox" id="data-consent" name="data-consent" required>
+                            <strong>I hereby consent to the collection, processing, and storage of my personal data as described above for the purpose of my bursary application.</strong>
+                        </label>
+                        
+                        <label for="communication-consent">
+                            <input type="checkbox" id="communication-consent" name="communication-consent">
+                            I consent to receive communications regarding my application via email and SMS
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Confirmation -->
+            <fieldset>
+                <legend><i class="fas fa-check-circle"></i> Confirmation</legend>
+
+                <label for="confirmation">
+                    <i class="fas fa-exclamation-circle"></i> I confirm all details are correct:
+                </label>
+                <input type="checkbox" id="confirmation" name="confirmation" required>
+            </fieldset>
+
+            <!-- Submit Button - change type to button -->
+            <button type="button" id="submit-btn">
+                <i class="fas fa-paper-plane"></i> Submit Application
+            </button>
+            
+            <!-- Add loading and message sections -->
+            <div id="loading" style="display: none;">
+                <p><i class="fas fa-spinner fa-spin"></i> Submitting your application...</p>
+            </div>
+            
+           <div id="success-message" style="display: none;">
+    <div class="success-container">
+        <i class="fas fa-check-circle success-icon"></i>
+        <h2>Thank you for applying!</h2>
+        <p>Your application has been successfully submitted.</p>
+        <div class="reference-number">
+            <strong>Reference Number: <span id="reference-number"></span></strong>
+        </div>
+        <p class="note">Please save this reference number for future inquiries.</p>
+        <button id="new-application-btn" class="new-app-btn">
+            <i class="fas fa-plus"></i> Submit Another Application
+        </button>
+    </div>
+</div>
+            
+            <div id="error-message" style="display: none; color: red;">
+                <h2>Error Submitting Application</h2>
+                <p id="error-text"></p>
+            </div>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Masinga NG-CDF. All Rights Reserved.</p>
+        <p> Created by Jude Kioko</p>
+    </footer>
+    <script src="assets/js/global.js"></script>
+    <script src="assets/js/bursary.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    
+</body>
+</html>
