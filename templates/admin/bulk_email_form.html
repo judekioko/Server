@@ -1,0 +1,76 @@
+BULK_EMAIL_TEMPLATE = """
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 20px auto; padding: 20px;">
+    <h1>Send Bulk Email</h1>
+    
+    <div style="background: #e8f5e9; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+        <p><strong>Recipients:</strong> {{ count }} application(s) selected</p>
+    </div>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div style="margin-bottom: 20px;">
+            <label for="subject" style="display: block; margin-bottom: 5px; font-weight: bold;">
+                Email Subject:
+            </label>
+            <input 
+                type="text" 
+                name="subject" 
+                id="subject" 
+                required 
+                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"
+                placeholder="Enter email subject"
+            >
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <label for="message" style="display: block; margin-bottom: 5px; font-weight: bold;">
+                Email Message:
+            </label>
+            <textarea 
+                name="message" 
+                id="message" 
+                required 
+                rows="10"
+                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"
+                placeholder="Enter your message. Each recipient will see their application details included automatically."
+            ></textarea>
+            <small style="color: #666;">
+                Note: Recipient name and application details will be included automatically
+            </small>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <h3>Preview Recipients (first 10):</h3>
+            <ul style="background: #f5f5f5; padding: 15px; border-radius: 4px;">
+                {% for app in applications|slice:":10" %}
+                <li>{{ app.full_name }} - {{ app.email }}</li>
+                {% endfor %}
+                {% if count > 10 %}
+                <li><em>... and {{ count|add:"-10" }} more</em></li>
+                {% endif %}
+            </ul>
+        </div>
+        
+        <div style="display: flex; gap: 10px;">
+            <button 
+                type="submit" 
+                style="background: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;"
+            >
+                Send Email
+            </button>
+            <a 
+                href="{% url 'admin:bursary_bursaryapplication_changelist' %}" 
+                style="background: #666; color: white; padding: 10px 20px; border: none; border-radius: 4px; text-decoration: none; display: inline-block;"
+            >
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+"""

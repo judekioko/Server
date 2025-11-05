@@ -1,43 +1,121 @@
 // ================================
+// Configuration
+// ================================
+const CONFIG = {
+    API_BASE_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://127.0.0.1:8000'
+        : window.location.origin,
+    MAX_FILE_SIZE: 2 * 1024 * 1024, // 2MB in bytes
+    ALLOWED_IMAGE_TYPES: ['image/jpeg', 'image/jpg', 'image/png'],
+    ALLOWED_DOC_TYPES: ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'],
+    REQUEST_TIMEOUT: 30000 // 30 seconds
+};
+
+// ================================
+// Utility Functions
+// ================================
+const Utils = {
+    /**
+     * Get CSRF token from cookie
+     */
+    getCsrfToken() {
+        const name = 'csrftoken';
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    },
+
+    /**
+     * Validate file size and type
+     */
+    validateFile(file, allowedTypes = CONFIG.ALLOWED_IMAGE_TYPES) {
+        if (!file) return { valid: true }; // Optional file
+
+        if (file.size > CONFIG.MAX_FILE_SIZE) {
+            return {
+                valid: false,
+                error: `File size must be less than ${CONFIG.MAX_FILE_SIZE / 1024 / 1024}MB`
+            };
+        }
+
+        if (!allowedTypes.includes(file.type)) {
+            return {
+                valid: false,
+                error: `File type must be one of: ${allowedTypes.join(', ')}`
+            };
+        }
+
+        return { valid: true };
+    },
+
+    /**
+     * Format error messages from DRF
+     */
+    formatErrorMessage(data) {
+        if (data.detail) {
+            return data.detail;
+        }
+        
+        if (typeof data === 'object') {
+            const errors = [];
+            for (const [field, messages] of Object.entries(data)) {
+                const fieldName = field.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                const errorMsg = Array.isArray(messages) ? messages.join(', ') : messages;
+                errors.push(`${fieldName}: ${errorMsg}`);
+            }
+            return errors.join('\n');
+        }
+        
+        return 'An unexpected error occurred. Please try again.';
+    },
+
+    /**
+     * Show success notification with confetti
+     */
+    showSuccessAnimation() {
+        if (typeof confetti !== 'undefined') {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+    }
+};
+
+// ================================
 // Bursary Page Animations
 // ================================
-
 document.addEventListener("DOMContentLoaded", () => {
     // Animate Scholarship SVG
     const svg = document.querySelector(".scholarship-icon svg");
-    const paths = svg.querySelectorAll("rect, polygon, line, circle");
-    // Add new application button functionality
-document.getElementById('new-application-btn')?.addEventListener('click', function() {
-    const form = document.getElementById('bursaryApplicationForm');
-    const successDiv = document.getElementById('success-message');
-    
-    // Show form and hide success message
-    form.style.display = 'block';
-    successDiv.style.display = 'none';
-    
-    // Reset form
-    form.reset();
-    
-    // Scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+    if (svg) {
+        const paths = svg.querySelectorAll("rect, polygon, line, circle");
+        
+        paths.forEach((path, index) => {
+            let length = path.getTotalLength ? path.getTotalLength() : 300;
+            path.style.strokeDasharray = length;
+            path.style.strokeDashoffset = length;
 
-    paths.forEach((path, index) => {
-        let length = path.getTotalLength ? path.getTotalLength() : 300;
-        path.style.strokeDasharray = length;
-        path.style.strokeDashoffset = length;
+            setTimeout(() => {
+                path.style.transition = "stroke-dashoffset 2s ease";
+                path.style.strokeDashoffset = "0";
+            }, index * 800);
+        });
 
-        // Animate each path with staggered timing
         setTimeout(() => {
-            path.style.transition = "stroke-dashoffset 2s ease";
-            path.style.strokeDashoffset = "0";
-        }, index * 800);
-    });
-
-    // After full animation, glow effect
-    setTimeout(() => {
-        svg.classList.add("glow");
-    }, paths.length * 800 + 500);
+            svg.classList.add("glow");
+        }, paths.length * 800 + 500);
+    }
 
     // Scroll reveal for welcome-section
     const revealElements = document.querySelectorAll(
@@ -54,39 +132,60 @@ document.getElementById('new-application-btn')?.addEventListener('click', functi
         });
     };
 
-    window.addEventListener("scroll", revealOnScroll);
-    revealOnScroll();
+    if (revealElements.length > 0) {
+        window.addEventListener("scroll", revealOnScroll);
+        revealOnScroll();
+    }
 
     // Apply Now button bounce
     const applyBtn = document.querySelector(".apply-btn");
-    applyBtn.addEventListener("mouseenter", () => {
-        applyBtn.classList.add("bounce");
-    });
-    applyBtn.addEventListener("animationend", () => {
-        applyBtn.classList.remove("bounce");
-    });
+    if (applyBtn) {
+        applyBtn.addEventListener("mouseenter", () => {
+            applyBtn.classList.add("bounce");
+        });
+        applyBtn.addEventListener("animationend", () => {
+            applyBtn.classList.remove("bounce");
+        });
+    }
+
+    // New application button functionality
+    const newAppBtn = document.getElementById('new-application-btn');
+    if (newAppBtn) {
+        newAppBtn.addEventListener('click', function() {
+            const form = document.getElementById('bursaryApplicationForm');
+            const successDiv = document.getElementById('success-message');
+            
+            if (form && successDiv) {
+                form.style.display = 'block';
+                successDiv.style.display = 'none';
+                form.reset();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
 });
 
-// assets/js/bursary.js
+// ================================
+// Navigation Function
+// ================================
 function openApplicationForm() {
-    window.location.href = "bursary-application-form.html"; 
+    window.location.href = "bursary-application-form.html";
 }
 
-
 // ================================
-// Bursary Form Page Logic
+// Form Logic & Conditional Fields
 // ================================
-
 document.addEventListener("DOMContentLoaded", () => {
     const familyStatus = document.getElementById("family-status");
     const orphanProof = document.getElementById("orphan-proof");
     const incomeFields = document.getElementById("income-fields");
 
-    const fatherIncome = document.getElementById("father-income")?.closest("label") || null;
-    const motherIncome = document.getElementById("mother-income")?.closest("label") || null;
+    if (!familyStatus || !orphanProof || !incomeFields) return;
 
-    const fatherDeath = document.getElementById("father-death-certificate")?.closest("label") || null;
-    const motherDeath = document.getElementById("mother-death-certificate")?.closest("label") || null;
+    const fatherIncome = document.getElementById("father-income")?.closest("label");
+    const motherIncome = document.getElementById("mother-income")?.closest("label");
+    const fatherDeath = document.getElementById("father-death-certificate")?.closest("label");
+    const motherDeath = document.getElementById("mother-death-certificate")?.closest("label");
 
     function toggleOrphanProof() {
         const value = familyStatus.value;
@@ -100,6 +199,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (fatherDeath) fatherDeath.style.display = "none";
         if (motherDeath) motherDeath.style.display = "none";
 
+        // Clear required attributes
+        const fatherDeathInput = document.getElementById("father-death-certificate");
+        const motherDeathInput = document.getElementById("mother-death-certificate");
+        if (fatherDeathInput) fatherDeathInput.removeAttribute('required');
+        if (motherDeathInput) motherDeathInput.removeAttribute('required');
+
         // Logic by parental status
         switch (value) {
             case "both-parents-alive":
@@ -110,33 +215,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
             case "single-parent":
                 incomeFields.style.display = "block";
-                // Let’s assume "father alive" (keep father’s income)
+                // Show both income fields - let user choose which parent is alive
                 if (fatherIncome) fatherIncome.style.display = "block";
+                if (motherIncome) motherIncome.style.display = "block";
                 break;
 
             case "partial-orphan":
                 orphanProof.style.display = "block";
                 incomeFields.style.display = "block";
-                // Assume father deceased, so show father’s death + mother income
+                // Show both death and income - user provides what's applicable
                 if (fatherDeath) fatherDeath.style.display = "block";
+                if (motherDeath) motherDeath.style.display = "block";
+                if (fatherIncome) fatherIncome.style.display = "block";
                 if (motherIncome) motherIncome.style.display = "block";
                 break;
 
             case "total-orphan":
                 orphanProof.style.display = "block";
-                if (fatherDeath) fatherDeath.style.display = "block";
-                if (motherDeath) motherDeath.style.display = "block";
+                if (fatherDeath) {
+                    fatherDeath.style.display = "block";
+                    if (fatherDeathInput) fatherDeathInput.setAttribute('required', 'required');
+                }
+                if (motherDeath) {
+                    motherDeath.style.display = "block";
+                    if (motherDeathInput) motherDeathInput.setAttribute('required', 'required');
+                }
                 break;
         }
     }
 
-    // Run once on page load
     toggleOrphanProof();
-
-    // Listen to family status change
     familyStatus.addEventListener("change", toggleOrphanProof);
 
-    // Handle form submission success (simulation only)
+    // Form submission handler
     const submitBtn = document.getElementById('submit-btn');
     if (submitBtn) {
         submitBtn.addEventListener('click', function(e) {
@@ -144,160 +255,237 @@ document.addEventListener("DOMContentLoaded", () => {
             submitApplicationToAPI();
         });
     }
+
+    // File validation on change
+    const fileInputs = document.querySelectorAll('input[type="file"]');
+    fileInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            const file = this.files[0];
+            const allowedTypes = this.accept.includes('pdf') 
+                ? CONFIG.ALLOWED_DOC_TYPES 
+                : CONFIG.ALLOWED_IMAGE_TYPES;
+            
+            const validation = Utils.validateFile(file, allowedTypes);
+            
+            if (!validation.valid) {
+                alert(validation.error);
+                this.value = '';
+            }
+        });
+    });
 });
 
-
-
-
-// Add this to your existing bursary.js file
+// ================================
+// Form Submission to API
+// ================================
 async function submitApplicationToAPI() {
     const submitBtn = document.getElementById('submit-btn');
     const loadingDiv = document.getElementById('loading');
     const successDiv = document.getElementById('success-message');
     const errorDiv = document.getElementById('error-message');
-    const errorText = document.getElementById('error-text');
     const form = document.getElementById('bursaryApplicationForm');
 
     // Reset messages
-    successDiv.style.display = 'none';
-    errorDiv.style.display = 'none';
+    if (successDiv) successDiv.style.display = 'none';
+    if (errorDiv) errorDiv.style.display = 'none';
 
     // Validate confirmation and consent
-    if (!document.getElementById('confirmation').checked) {
+    const confirmationCheck = document.getElementById('confirmation');
+    const consentCheck = document.getElementById('data-consent');
+
+    if (!confirmationCheck?.checked) {
         showError('Please confirm that all details are correct before submitting.');
         return;
     }
 
-    if (!document.getElementById('data-consent').checked) {
+    if (!consentCheck?.checked) {
         showError('You must consent to the data protection terms to submit your application.');
         return;
     }
 
+    // Validate required files
+    const frontId = document.getElementById('id-upload-front');
+    if (!frontId?.files[0]) {
+        showError('Please upload the front side of your ID/Birth Certificate');
+        return;
+    }
+
+    // Validate file sizes
+    const fileValidations = [
+        { input: frontId, name: 'ID Front' },
+        { input: document.getElementById('id-upload-back'), name: 'ID Back' },
+        { input: document.getElementById('admission-letter'), name: 'Admission Letter' },
+        { input: document.getElementById('father-death-certificate'), name: 'Father Death Certificate' },
+        { input: document.getElementById('mother-death-certificate'), name: 'Mother Death Certificate' }
+    ];
+
+    for (const { input, name } of fileValidations) {
+        if (input?.files[0]) {
+            const allowedTypes = input.accept.includes('pdf') 
+                ? CONFIG.ALLOWED_DOC_TYPES 
+                : CONFIG.ALLOWED_IMAGE_TYPES;
+            
+            const validation = Utils.validateFile(input.files[0], allowedTypes);
+            if (!validation.valid) {
+                showError(`${name}: ${validation.error}`);
+                return;
+            }
+        }
+    }
+
     // Show loading
-    submitBtn.disabled = true;
-    loadingDiv.style.display = 'block';
+    if (submitBtn) submitBtn.disabled = true;
+    if (loadingDiv) loadingDiv.style.display = 'block';
+
+    // Create abort controller for timeout
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), CONFIG.REQUEST_TIMEOUT);
 
     try {
         // Create FormData object
         const formData = new FormData();
 
-        // Map form field names to model field names
-        formData.append('full_name', document.getElementById('full-name').value);
-        formData.append('gender', document.getElementById('gender').value);
-        formData.append('disability', document.getElementById('disability').checked);
-        formData.append('id_number', document.getElementById('id-number').value);
-        formData.append('phone_number', document.getElementById('phone-number').value);
-        formData.append('email', document.getElementById('email').value);
-        formData.append('guardian_phone', document.getElementById('guardian-phone').value);
-        formData.append('guardian_id', document.getElementById('guardian-id').value);
-        
-        // Residence details
-        formData.append('ward', document.getElementById('ward').value);
-        formData.append('village', document.getElementById('village').value);
-        formData.append('chief_name', document.getElementById('chief-name').value);
-        formData.append('chief_phone', document.getElementById('chief-phone').value);
-        formData.append('sub_chief_name', document.getElementById('sub-chief-name').value);
-        formData.append('sub_chief_phone', document.getElementById('sub-chief-phone').value);
-        
-        // Institution details
-        formData.append('level_of_study', document.getElementById('level-of-study').value);
-        formData.append('institution_type', document.getElementById('institution-type').value);
-        formData.append('institution_name', document.getElementById('institution-name').value);
-        formData.append('admission_number', document.getElementById('admission-number').value);
-        formData.append('amount', parseInt(document.getElementById('amount').value));
-        formData.append('mode_of_study', document.getElementById('mode-of-study').value);
-        formData.append('year_of_study', document.getElementById('year-of-study').value);
-        
-        // Family details
-        formData.append('family_status', document.getElementById('family-status').value);
+        // Map form fields
+        const fieldMappings = {
+            'full-name': 'full_name',
+            'gender': 'gender',
+            'disability': 'disability',
+            'id-number': 'id_number',
+            'phone-number': 'phone_number',
+            'email': 'email',
+            'guardian-phone': 'guardian_phone',
+            'guardian-id': 'guardian_id',
+            'ward': 'ward',
+            'village': 'village',
+            'chief-name': 'chief_name',
+            'chief-phone': 'chief_phone',
+            'sub-chief-name': 'sub_chief_name',
+            'sub-chief-phone': 'sub_chief_phone',
+            'level-of-study': 'level_of_study',
+            'institution-type': 'institution_type',
+            'institution-name': 'institution_name',
+            'admission-number': 'admission_number',
+            'amount': 'amount',
+            'mode-of-study': 'mode_of_study',
+            'year-of-study': 'year_of_study',
+            'family-status': 'family_status'
+        };
+
+        // Add text fields
+        for (const [htmlId, apiName] of Object.entries(fieldMappings)) {
+            const element = document.getElementById(htmlId);
+            if (element) {
+                if (element.type === 'checkbox') {
+                    formData.append(apiName, element.checked);
+                } else if (apiName === 'amount') {
+                    formData.append(apiName, parseInt(element.value));
+                } else {
+                    formData.append(apiName, element.value);
+                }
+            }
+        }
+
+        // Add consent fields
         formData.append('confirmation', true);
         formData.append('data_consent', true);
-        formData.append('communication_consent', document.getElementById('communication-consent').checked);
+        formData.append('communication_consent', 
+            document.getElementById('communication-consent')?.checked || false);
 
         // Add income fields if they have values
-        const fatherIncome = document.getElementById('father-income').value;
-        const motherIncome = document.getElementById('mother-income').value;
+        const fatherIncome = document.getElementById('father-income')?.value;
+        const motherIncome = document.getElementById('mother-income')?.value;
         if (fatherIncome) formData.append('father_income', fatherIncome);
         if (motherIncome) formData.append('mother_income', motherIncome);
 
-        // Add file uploads - FRONT ID IS STILL REQUIRED
-        if (document.getElementById('id-upload-front').files[0]) {
-            formData.append('id_upload_front', document.getElementById('id-upload-front').files[0]);
-        } else {
-            throw new Error('Please upload the front side of your ID/Birth Certificate');
+        // Add file uploads
+        const fileFields = [
+            { id: 'id-upload-front', name: 'id_upload_front', required: true },
+            { id: 'id-upload-back', name: 'id_upload_back', required: false },
+            { id: 'admission-letter', name: 'admission_letter', required: false },
+            { id: 'father-death-certificate', name: 'father_death_certificate', required: false },
+            { id: 'mother-death-certificate', name: 'mother_death_certificate', required: false }
+        ];
+
+        for (const { id, name, required } of fileFields) {
+            const input = document.getElementById(id);
+            if (input?.files[0]) {
+                formData.append(name, input.files[0]);
+            } else if (required) {
+                throw new Error(`Please upload ${name.replace(/_/g, ' ')}`);
+            }
         }
 
-        // BACK ID IS NOW OPTIONAL
-        if (document.getElementById('id-upload-back').files[0]) {
-            formData.append('id_upload_back', document.getElementById('id-upload-back').files[0]);
-        }
+        // Get CSRF token
+        const csrfToken = Utils.getCsrfToken();
 
-        // ADMISSION LETTER IS NOW OPTIONAL
-        if (document.getElementById('admission-letter').files[0]) {
-            formData.append('admission_letter', document.getElementById('admission-letter').files[0]);
-        }
-
-        // Add death certificates if they exist
-        const fatherDeathCert = document.getElementById('father-death-certificate').files[0];
-        const motherDeathCert = document.getElementById('mother-death-certificate').files[0];
-        if (fatherDeathCert) formData.append('father_death_certificate', fatherDeathCert);
-        if (motherDeathCert) formData.append('mother_death_certificate', motherDeathCert);
-
-        // Make API call to DRF endpoint
-        const response = await fetch('http://127.0.0.1:8000/bursary/apply/', {
+        // Make API call
+        const response = await fetch(`${CONFIG.API_BASE_URL}/bursary/apply/`, {
             method: 'POST',
-            body: formData
+            headers: csrfToken ? { 'X-CSRFToken': csrfToken } : {},
+            body: formData,
+            signal: controller.signal
         });
+
+        clearTimeout(timeout);
 
         const data = await response.json();
 
         if (response.ok) {
-            // Success - Hide form and show success message
-            loadingDiv.style.display = 'none';
-            form.style.display = 'none';
+            // Success
+            if (loadingDiv) loadingDiv.style.display = 'none';
+            if (form) form.style.display = 'none';
             
-            // Display reference number
-            document.getElementById('reference-number').textContent = data.reference_number || 'MAS-' + Date.now();
-            successDiv.style.display = 'block';
+            const refNumber = document.getElementById('reference-number');
+            if (refNumber) {
+                refNumber.textContent = data.reference_number || 'MAS-' + Date.now();
+            }
+            
+            if (successDiv) {
+                successDiv.style.display = 'block';
+                Utils.showSuccessAnimation();
+            }
+            
+            // Scroll to success message
+            successDiv?.scrollIntoView({ behavior: 'smooth' });
             
         } else {
-            // Handle validation errors from DRF
-            let errorMessage = 'Failed to submit application. ';
-            if (data.detail) {
-                errorMessage += data.detail;
-            } else if (typeof data === 'object') {
-                // Format field validation errors
-                const fieldErrors = [];
-                for (const [field, errors] of Object.entries(data)) {
-                    fieldErrors.push(`${field}: ${Array.isArray(errors) ? errors.join(', ') : errors}`);
-                }
-                errorMessage += fieldErrors.join('; ');
-            } else {
-                errorMessage += 'Please check your information and try again.';
-            }
+            // Handle errors
+            const errorMessage = Utils.formatErrorMessage(data);
             throw new Error(errorMessage);
         }
 
     } catch (error) {
-        loadingDiv.style.display = 'none';
-        showError(error.message);
+        if (loadingDiv) loadingDiv.style.display = 'none';
+        
+        let errorMessage = error.message;
+        if (error.name === 'AbortError') {
+            errorMessage = 'Request timeout. Please check your connection and try again.';
+        } else if (!navigator.onLine) {
+            errorMessage = 'No internet connection. Please check your network and try again.';
+        }
+        
+        showError(errorMessage);
     } finally {
-        submitBtn.disabled = false;
+        clearTimeout(timeout);
+        if (submitBtn) submitBtn.disabled = false;
     }
 }
 
-// Duplicate block removed — submitApplicationToAPI already handles success/error and completes with its own try/catch/finally.
-
+// ================================
+// Error Display Function
+// ================================
 function showError(message) {
     const errorDiv = document.getElementById('error-message');
     const errorText = document.getElementById('error-text');
     
-    errorText.textContent = message;
-    errorDiv.style.display = 'block';
+    if (errorText) errorText.textContent = message;
+    if (errorDiv) {
+        errorDiv.style.display = 'block';
+        errorDiv.scrollIntoView({ behavior: 'smooth' });
+    }
     
-    // Scroll to error message
-    errorDiv.scrollIntoView({ behavior: 'smooth' });
+    // Auto-hide after 10 seconds
+    setTimeout(() => {
+        if (errorDiv) errorDiv.style.display = 'none';
+    }, 10000);
 }
-
-// Keep your existing functions (toggleInstitutionDetails, toggleInstitutionFields, toggleOrphanProof, scanIDDocument)
-// These remain unchanged
