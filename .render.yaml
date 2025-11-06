@@ -1,7 +1,9 @@
 services:
+  # Django Backend API Service
   - type: web
     name: masinga-ngcdf-bursary
     env: python
+    rootDir: .                       # Backend is in root folder
     buildCommand: pip install -r requirements.txt
     preDeployCommand: python manage.py migrate && python manage.py collectstatic --noinput
     startCommand: gunicorn core.wsgi:application --bind 0.0.0.0:$PORT
@@ -12,10 +14,21 @@ services:
         value: "False"
       - key: SECRET_KEY
         generateValue: true
+      - key: ALLOWED_HOSTS
+        value: "*.onrender.com"
+      - key: PYTHON_VERSION
+        value: 3.12.3
       - key: DATABASE_URL
         fromDatabase:
           name: bursary-db
           property: connectionString
+
+  # FRONTEND STATIC SERVICE
+  - type: static
+    name: masinga-ngcdf-frontend
+    rootDir: Tertiary               # <-- frontend path
+    buildCommand: ""                # No build step, HTML/CSS/JS only
+    staticPublishPath: .            # publish everything in Tertiary folder
 
 databases:
   - name: bursary-db
