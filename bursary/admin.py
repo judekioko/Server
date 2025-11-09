@@ -7,6 +7,7 @@ Enhanced Admin with all features:
 - Status Management
 """
 
+from urllib import request
 from django.contrib import admin
 from django.http import HttpResponse
 from django.db.models import Sum, Count
@@ -151,6 +152,13 @@ class ApplicationStatusLogInline(admin.TabularInline):
 # =============================
 # Bursary Application Admin
 # =============================
+# ✅ Add this action function ABOVE the BursaryApplicationAdmin class
+
+@admin.action(description="Force delete selected applications (Cannot be undone)")
+def force_delete_applications(modeladmin, request, queryset):
+    queryset.delete()
+
+
 @admin.register(BursaryApplication)
 class BursaryApplicationAdmin(admin.ModelAdmin):
     list_display = (
@@ -167,8 +175,10 @@ class BursaryApplicationAdmin(admin.ModelAdmin):
         mark_rejected,
         send_bulk_email_action,
         send_deadline_reminder_action,
-        find_all_duplicates
+        find_all_duplicates,
+        force_delete_applications,  # ✅ now properly defined and working
     ]
+
     inlines = [ApplicationStatusLogInline]
 
     fieldsets = (
@@ -262,8 +272,10 @@ class ApplicationStatusLogAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return False
+
     def has_delete_permission(self, request, obj=None):
-        return False
+        return request.user.is_superuser
+
 
 # =============================
 # Custom Admin Dashboard

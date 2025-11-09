@@ -5,7 +5,7 @@ const CONFIG = {
     API_BASE_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://127.0.0.1:8000'
         : window.location.origin,
-    MAX_FILE_SIZE: 2 * 1024 * 1024, // 2MB in bytes
+    MAX_FILE_SIZE: 5 * 1024 * 1024, // 5MB in bytes
     ALLOWED_IMAGE_TYPES: ['image/jpeg', 'image/jpg', 'image/png'],
     ALLOWED_DOC_TYPES: ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'],
     REQUEST_TIMEOUT: 30000 // 30 seconds
@@ -215,7 +215,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             case "single-parent":
                 incomeFields.style.display = "block";
-                // Show both income fields - let user choose which parent is alive
                 if (fatherIncome) fatherIncome.style.display = "block";
                 if (motherIncome) motherIncome.style.display = "block";
                 break;
@@ -223,7 +222,6 @@ document.addEventListener("DOMContentLoaded", () => {
             case "partial-orphan":
                 orphanProof.style.display = "block";
                 incomeFields.style.display = "block";
-                // Show both death and income - user provides what's applicable
                 if (fatherDeath) fatherDeath.style.display = "block";
                 if (motherDeath) motherDeath.style.display = "block";
                 if (fatherIncome) fatherIncome.style.display = "block";
@@ -310,6 +308,13 @@ async function submitApplicationToAPI() {
         return;
     }
 
+    // Validate email
+    const emailInput = document.getElementById('email');
+    if (!emailInput?.value || !emailInput.value.includes('@')) {
+        showError('Please provide a valid email address');
+        return;
+    }
+
     // Validate file sizes
     const fileValidations = [
         { input: frontId, name: 'ID Front' },
@@ -345,7 +350,7 @@ async function submitApplicationToAPI() {
         // Create FormData object
         const formData = new FormData();
 
-        // Map form fields
+        // Map form fields including email
         const fieldMappings = {
             'full-name': 'full_name',
             'gender': 'gender',
@@ -387,7 +392,7 @@ async function submitApplicationToAPI() {
 
         // Add consent fields
         formData.append('confirmation', true);
-        formData.append('data_consent', true);
+        formData.append('data_consent', consentCheck?.checked || false);
         formData.append('communication_consent', 
             document.getElementById('communication-consent')?.checked || false);
 
@@ -433,8 +438,20 @@ async function submitApplicationToAPI() {
         if (response.ok) {
             // Success
             if (loadingDiv) loadingDiv.style.display = 'none';
-            if (form) form.style.display = 'none';
             
+            // Store application data for success page
+            const applicationData = {
+                reference_number: data.reference_number,
+                full_name: document.getElementById('full-name').value,
+                email: document.getElementById('email').value,
+                institution_name: document.getElementById('institution-name').value,
+                amount: document.getElementById('amount').value,
+                ward: document.getElementById('ward').value,
+                phone_number: document.getElementById('phone-number').value
+            };
+            
+            // Hide form and show success
+            if (form) form.style.display = 'none';
             const refNumber = document.getElementById('reference-number');
             if (refNumber) {
                 refNumber.textContent = data.reference_number || 'MAS-' + Date.now();
@@ -443,6 +460,9 @@ async function submitApplicationToAPI() {
             if (successDiv) {
                 successDiv.style.display = 'block';
                 Utils.showSuccessAnimation();
+                
+                // Populate email preview in success message
+                populateSuccessMessage(applicationData);
             }
             
             // Scroll to success message
@@ -488,4 +508,48 @@ function showError(message) {
     setTimeout(() => {
         if (errorDiv) errorDiv.style.display = 'none';
     }, 10000);
+}
+
+// ================================
+// Populate Success Message with Email Preview
+// ================================
+function populateSuccessMessage(data) {
+    // Update all email preview fields in the success message
+    const fields = {
+        'success-applicant-name': data.full_name,
+        'success-full-name': data.full_name,
+        'success-applicant-email': data.email,
+        'success-ref-number': data.reference_number,
+        'success-institution': data.institution_name,
+        'success-amount': parseInt(data.amount).toLocaleString(),
+        'success-ward': data.ward.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()),
+        'success-phone': data.phone_number
+    };
+    
+    for (const [id, value] of Object.entries(fields)) {
+        const element = document.getElementById(id);
+        if (element) element.textContent = value;
+    }
+    
+    // Set timestamp
+    const now = new Date();
+    const timestampEl = document.getElementById('success-timestamp');
+    if (timestampEl) {
+        timestampEl.textContent = now.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+    
+    const submissionDateEl = document.getElementById('success-submission-date');
+    if (submissionDateEl) {
+        submissionDateEl.textContent = now.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    }
 }
