@@ -163,6 +163,255 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // Copy reference number handler
+    const copyBtn = document.getElementById('copy-ref-btn');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', (e) => {
+            const refEl = document.getElementById('reference-number');
+            if (!refEl) return;
+            const refNumber = refEl.textContent;
+            navigator.clipboard.writeText(refNumber).then(() => {
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                copyBtn.style.background = '#28a745';
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHTML;
+                    copyBtn.style.background = '#006400';
+                }, 2000);
+            }).catch(() => {
+                alert('Failed to copy reference number. Please copy it manually.');
+            });
+        });
+    }
+
+    // Toggle between application form and embedded status checker
+    const showApplyBtn = document.getElementById('show-apply-btn');
+    const showStatusBtn = document.getElementById('show-status-btn');
+    const statusSection = document.getElementById('status-section');
+    const formSection = document.getElementById('bursaryApplicationForm');
+    const showEditBtn = document.getElementById('show-edit-btn');
+    const editSection = document.getElementById('edit-section');
+
+    function showApply() {
+        if (statusSection) statusSection.style.display = 'none';
+        if (editSection) editSection.style.display = 'none';
+        if (formSection) formSection.style.display = 'block';
+    }
+    function showStatus() {
+        if (formSection) formSection.style.display = 'none';
+        if (editSection) editSection.style.display = 'none';
+        if (statusSection) statusSection.style.display = 'block';
+    }
+    function showEdit() {
+        if (statusSection) statusSection.style.display = 'none';
+        if (formSection) formSection.style.display = 'none';
+        if (editSection) editSection.style.display = 'block';
+    }
+    if (showApplyBtn) showApplyBtn.addEventListener('click', showApply);
+    if (showStatusBtn) showStatusBtn.addEventListener('click', showStatus);
+    if (showEditBtn) showEditBtn.addEventListener('click', showEdit);
+
+    // Embedded status checker logic
+    const embBtn = document.getElementById('embedded-check-status-btn');
+    const embInput = document.getElementById('embedded-ref-input');
+
+    function setEmbText(id, value) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+    }
+
+    // Embedded edit: load and prefill for editing within 24 hours
+    const editLoadBtn = document.getElementById('edit-load-btn');
+    const editRefInput = document.getElementById('edit-ref-input');
+    const editEmailInput = document.getElementById('edit-email-input');
+
+    function showEditError(msg) {
+        const el = document.getElementById('edit-error');
+        if (el) {
+            el.textContent = msg || '';
+            el.style.display = msg ? 'block' : 'none';
+        }
+    }
+
+    function prefillFormFromApplication(app) {
+        const mapping = {
+            'full_name': 'full-name',
+            'email': 'email',
+            'gender': 'gender',
+            'disability': 'disability',
+            'id_number': 'id-number',
+            'phone_number': 'phone-number',
+            'guardian_phone': 'guardian-phone',
+            'guardian_id': 'guardian-id',
+            'ward': 'ward',
+            'village': 'village',
+            'chief_name': 'chief-name',
+            'chief_phone': 'chief-phone',
+            'sub_chief_name': 'sub-chief-name',
+            'sub_chief_phone': 'sub-chief-phone',
+            'level_of_study': 'level-of-study',
+            'institution_type': 'institution-type',
+            'institution_name': 'institution-name',
+            'admission_number': 'admission-number',
+            'amount': 'amount',
+            'mode_of_study': 'mode-of-study',
+            'year_of_study': 'year-of-study',
+            'family_status': 'family-status',
+            'father_income': 'father-income',
+            'mother_income': 'mother-income'
+        };
+        Object.entries(mapping).forEach(([apiKey, htmlId]) => {
+            const el = document.getElementById(htmlId);
+            if (!el) return;
+            const value = app[apiKey];
+            if (el.type === 'checkbox') {
+                el.checked = !!value;
+            } else {
+                el.value = value ?? '';
+            }
+        });
+        // file inputs cannot be prefilled for security; leave empty
+    }
+
+    async function postJSON(url, payload) {
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+            throw new Error(data?.error || 'Request failed');
+        }
+        return data;
+    }
+
+    if (editLoadBtn && editRefInput && editEmailInput) {
+        // Pre-fill edit inputs from last submission if available
+        try {
+            const lastRef = sessionStorage.getItem('lastSubmittedRef');
+            const lastEmail = sessionStorage.getItem('lastSubmittedEmail');
+            if (lastRef) editRefInput.value = lastRef;
+            if (lastEmail) editEmailInput.value = lastEmail;
+        } catch {}
+
+        editLoadBtn.addEventListener('click', async () => {
+            const ref = (editRefInput.value || '').trim();
+            const email = (editEmailInput.value || '').trim();
+            if (!ref || !email) {
+                showEditError('Please enter your reference number and email');
+                return;
+            }
+            showEditError('');
+            try {
+                // Check eligibility
+                const elig = await postJSON(`${CONFIG.API_BASE_URL}/bursary/check-edit-eligibility/`, {
+                    reference_number: ref,
+                    email
+                });
+                if (!elig.can_edit) {
+                    showEditError(elig.reason || 'You cannot edit this application');
+                    return;
+                }
+                // Fetch application details
+                const detail = await postJSON(`${CONFIG.API_BASE_URL}/bursary/get-application-for-edit/`, {
+                    reference_number: ref,
+                    email
+                });
+                if (!detail?.application) {
+                    showEditError('Failed to load application for editing');
+                    return;
+                }
+                // Prefill form and switch to Apply view
+                prefillFormFromApplication(detail.application);
+                const hint = document.getElementById('edit-hint');
+                if (hint) hint.style.display = 'block';
+                window.__editMode = { reference_number: ref, email };
+                showApply();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                alert(`Edit window active. Time remaining: ${detail.edit_time_remaining || 'up to 24 hours from submission'}`);
+            } catch (e) {
+                showEditError(e.message || 'Failed to verify edit eligibility');
+            }
+        });
+    }
+    function embFormatAmount(v) {
+        const n = parseInt(v || 0, 10);
+        return isNaN(n) ? '0' : n.toLocaleString();
+    }
+    function embPrettyWard(w) {
+        return (w || '').replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+    }
+    async function embeddedFetchStatus(reference) {
+        const controller = new AbortController();
+        const to = setTimeout(() => controller.abort(), CONFIG.REQUEST_TIMEOUT);
+        try {
+            const res = await fetch(`${CONFIG.API_BASE_URL}/bursary/applications/${encodeURIComponent(reference)}/`, {
+                method: 'GET',
+                headers: { 'Accept': 'application/json' },
+                signal: controller.signal
+            });
+            clearTimeout(to);
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                const msg = data && data.error ? data.error : 'Application not found';
+                throw new Error(msg);
+            }
+            return await res.json();
+        } catch (e) {
+            clearTimeout(to);
+            throw e;
+        }
+    }
+    function renderEmbeddedResult(app) {
+        setEmbText('emb-res-ref', app.reference_number);
+        setEmbText('emb-res-name', app.full_name);
+        setEmbText('emb-res-institution', app.institution_name);
+        setEmbText('emb-res-amount', embFormatAmount(app.amount));
+        setEmbText('emb-res-ward', embPrettyWard(app.ward));
+        try {
+            const d = new Date(app.submitted_at);
+            setEmbText('emb-res-submitted', d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }));
+        } catch {
+            setEmbText('emb-res-submitted', app.submitted_at || '');
+        }
+        const statusEl = document.getElementById('emb-res-status');
+        if (statusEl) {
+            statusEl.textContent = (app.status || '').toUpperCase();
+            statusEl.style.color = app.status === 'approved' ? '#008000' : (app.status === 'rejected' ? '#bb0000' : '#ff9800');
+        }
+        const err = document.getElementById('embedded-status-error');
+        if (err) err.style.display = 'none';
+        const resDiv = document.getElementById('embedded-status-result');
+        if (resDiv) resDiv.style.display = 'block';
+    }
+    function showEmbeddedError(msg) {
+        const err = document.getElementById('embedded-status-error');
+        if (err) {
+            err.textContent = msg;
+            err.style.display = 'block';
+        }
+        const resDiv = document.getElementById('embedded-status-result');
+        if (resDiv) resDiv.style.display = 'none';
+    }
+    if (embBtn && embInput) {
+        embBtn.addEventListener('click', async () => {
+            const ref = (embInput.value || '').trim();
+            if (!ref) {
+                showEmbeddedError('Please enter your reference number');
+                return;
+            }
+            showEmbeddedError(''); // clear
+            try {
+                const data = await embeddedFetchStatus(ref);
+                renderEmbeddedResult(data);
+                window.scrollTo({ top: document.getElementById('status-section').offsetTop - 20, behavior: 'smooth' });
+            } catch (e) {
+                showEmbeddedError(e.message || 'Failed to fetch status');
+            }
+        });
+    }
 });
 
 // ================================
@@ -420,12 +669,19 @@ async function submitApplicationToAPI() {
             }
         }
 
-        // Get CSRF token
+        // Get CSRF token and decide create vs edit
         const csrfToken = Utils.getCsrfToken();
+        const editMode = window.__editMode || null;
+        let url = `${CONFIG.API_BASE_URL}/bursary/apply/`;
+        let method = 'POST';
+        if (editMode?.reference_number && editMode?.email) {
+            formData.append('email', editMode.email);
+            url = `${CONFIG.API_BASE_URL}/bursary/applications/${encodeURIComponent(editMode.reference_number)}/edit/`;
+            method = 'PUT';
+        }
 
-        // Make API call
-        const response = await fetch(`${CONFIG.API_BASE_URL}/bursary/apply/`, {
-            method: 'POST',
+        const response = await fetch(url, {
+            method,
             headers: csrfToken ? { 'X-CSRFToken': csrfToken } : {},
             body: formData,
             signal: controller.signal
@@ -450,23 +706,34 @@ async function submitApplicationToAPI() {
                 phone_number: document.getElementById('phone-number').value
             };
             
-            // Hide form and show success
-            if (form) form.style.display = 'none';
-            const refNumber = document.getElementById('reference-number');
-            if (refNumber) {
-                refNumber.textContent = data.reference_number || 'MAS-' + Date.now();
+            if (!editMode) {
+                // Save and redirect to standalone success page + store edit hint
+                try {
+                    sessionStorage.setItem('applicationSuccessData', JSON.stringify(applicationData));
+                    sessionStorage.setItem('lastSubmittedRef', applicationData.reference_number || '');
+                    sessionStorage.setItem('lastSubmittedEmail', applicationData.email || '');
+                } catch (e) {}
+
+                // Hide the form immediately to avoid confusion while redirecting
+                if (form) form.style.display = 'none';
+
+                // Prefer replace to avoid back button returning to form submit
+                try {
+                    window.location.replace('success.html');
+                } catch (e) {
+                    window.location.href = 'success.html';
+                }
+                // Fallback in case the browser delays navigation
+                setTimeout(() => {
+                    if (!document.hidden) {
+                        window.location.href = 'success.html';
+                    }
+                }, 100);
+            } else {
+                // Editing flow: inform and allow further edits within window
+                window.__editMode = null;
+                alert(`Application updated successfully${data.edit_time_remaining ? `. Time remaining: ${data.edit_time_remaining}` : ''}`);
             }
-            
-            if (successDiv) {
-                successDiv.style.display = 'block';
-                Utils.showSuccessAnimation();
-                
-                // Populate email preview in success message
-                populateSuccessMessage(applicationData);
-            }
-            
-            // Scroll to success message
-            successDiv?.scrollIntoView({ behavior: 'smooth' });
             
         } else {
             // Handle errors

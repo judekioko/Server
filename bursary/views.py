@@ -21,6 +21,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Q
 from django.utils import timezone
 import logging
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 # Import custom modules
 from .duplicate_detection import DuplicateApplicationDetector, DuplicatePreventionMixin
@@ -95,17 +97,65 @@ def generate_confirmation_email_html(application):
 
 
 def generate_status_email_html(application, new_status):
-    """Generate HTML email for status updates"""
-    return f"""<html><body><h1>Status Update: {new_status.upper()}</h1><p>Dear {application.full_name}, your application status has been updated.</p></body></html>"""
+    """Generate HTML email for status updates with key details"""
+    status_upper = new_status.upper()
+    amount_str = f"KSh {application.amount:,}"
+    approved_detail = ""
+    if new_status == "approved":
+        approved_detail = f"""
+            <p style="margin-top:10px;">Please contact the Masinga NG-CDF office for further instructions on fund disbursement.</p>
+        """
+    elif new_status == "rejected":
+        approved_detail = f"""
+            <p style="margin-top:10px;">If you have questions, please contact the Masinga NG-CDF office with your reference number.</p>
+        """
+    return f"""
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8" />
+        <style>
+          body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+          .container {{ max-width: 640px; margin: 0 auto; padding: 20px; }}
+          .header {{ background: linear-gradient(90deg, #006400, #bb0000, #000000); color: #fff; padding: 16px 20px; }}
+          .card {{ background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 20px; margin-top: 16px; }}
+          .row {{ display: flex; margin: 6px 0; }}
+          .label {{ width: 180px; color: #555; font-weight: bold; }}
+          .value {{ color: #111; }}
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h2 style="margin:0;">Masinga NG-CDF Bursary</h2>
+          </div>
+          <div class="card">
+            <h3 style="margin-top:0;">Application Status: {status_upper}</h3>
+            <p>Dear <strong>{application.full_name}</strong>,</p>
+            <p>Your bursary application status has been updated.</p>
+            <div style="margin:14px 0; padding:14px; background:#fff; border:1px solid #eee; border-radius:6px;">
+              <div class="row"><div class="label">Reference Number:</div><div class="value">{application.reference_number}</div></div>
+              <div class="row"><div class="label">Institution:</div><div class="value">{application.institution_name}</div></div>
+              <div class="row"><div class="label">Amount:</div><div class="value">{amount_str}</div></div>
+            </div>
+            {approved_detail}
+            <p style="margin-top:14px;">Best regards,<br/>Masinga NG-CDF Bursary Management System</p>
+          </div>
+        </div>
+      </body>
+    </html>
+    """
 
 
 # ===========================
 #  Create Application (with Duplicate Detection)
 # ===========================
+@method_decorator(csrf_exempt, name='dispatch')
 class BursaryApplicationCreateView(DuplicatePreventionMixin, generics.CreateAPIView):
     queryset = BursaryApplication.objects.all()
     serializer_class = BursaryApplicationSerializer
     permission_classes = [permissions.AllowAny]
+    authentication_classes = []
 
     def perform_create(self, serializer):
         """Override to send notifications"""

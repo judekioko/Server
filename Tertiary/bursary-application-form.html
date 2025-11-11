@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/bursary.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- FontAwesome for Icons -->
-    <script src="https://kit.fontawesome.com/YOUR-FONTAWESOME-KIT.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -21,6 +19,12 @@
 
     <section id="bursary-form">
         <h2>Bursary Application Form</h2>
+
+        <div style="display:flex; gap:10px; margin-bottom:16px;">
+            <button type="button" id="show-apply-btn" class="success-action-btn secondary"><i class="fas fa-file-alt"></i> Apply</button>
+            <button type="button" id="show-status-btn" class="success-action-btn"><i class="fas fa-search"></i> Check Status</button>
+            <button type="button" id="show-edit-btn" class="success-action-btn"><i class="fas fa-pen-to-square"></i> Edit Application</button>
+        </div>
        <form id="bursaryApplicationForm">
    
 
@@ -64,7 +68,7 @@
                     name="id-upload-front" 
                     accept=".jpg,.jpeg,.png" 
                     required 
-                    title="Upload clear image (.jpg, .jpeg, .png) — Max size: 2MB">
+                    title="Upload clear image (.jpg, .jpeg, .png) — Max size: 5MB">
 
                 <label for="id-upload-back">
                     <i class="fas fa-upload"></i> Upload Back Side of National ID:(Optional)
@@ -74,7 +78,7 @@
                     id="id-upload-back" 
                     name="id-upload-back" 
                     accept=".jpg,.jpeg,.png" 
-                    title="Upload clear image (.jpg, .jpeg, .png) — Max size: 2MB">
+                    title="Upload clear image (.jpg, .jpeg, .png) — Max size: 5MB">
 
                 <label for="phone-number"><i class="fas fa-phone-alt"></i> Phone Number:</label>
                 <input type="tel" id="phone-number" name="phone-number" required>
@@ -181,10 +185,10 @@
                 <!-- Orphan Proof (Only shown if Total Orphan is selected) -->
                 <div id="orphan-proof" style="display: none;">
                     <label for="father-death-certificate"><i class="fas fa-file-upload"></i> Father's Death Certificate:</label>
-                    <input type="file" id="father-death-certificate" name="father-death-certificate" accept="image/*">
+                    <input type="file" id="father-death-certificate" name="father-death-certificate" accept=".jpg,.jpeg,.png">
 
                     <label for="mother-death-certificate"><i class="fas fa-file-upload"></i> Mother's Death Certificate:</label>
-                    <input type="file" id="mother-death-certificate" name="mother-death-certificate" accept="image/*">
+                    <input type="file" id="mother-death-certificate" name="mother-death-certificate" accept=".jpg,.jpeg,.png">
                 </div>
 
                 <!-- Father's and Mother's Income (only if not orphan) -->
@@ -278,218 +282,7 @@
                 <p><i class="fas fa-spinner fa-spin"></i> Submitting your application...</p>
             </div>
             
-        <div id="success-message" style="display: none;">
-    <style>
-        .enhanced-success-container {
-            max-width: 800px;
-            margin: 30px auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .success-header-banner {
-            background: linear-gradient(135deg, #006400, #008000);
-            color: white;
-            padding: 40px 30px;
-            text-align: center;
-        }
-
-        .success-checkmark {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            animation: successScale 0.5s ease-out;
-        }
-
-        @keyframes successScale {
-            from { transform: scale(0); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .success-header-banner h2 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        .reference-highlight {
-            background: #e6ffe6;
-            border: 3px solid #008000;
-            padding: 25px;
-            margin: 30px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .reference-highlight h3 {
-            color: #006400;
-            margin-bottom: 15px;
-        }
-
-        .ref-number-display {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #008000;
-            letter-spacing: 2px;
-            font-family: 'Courier New', monospace;
-            padding: 15px;
-            background: white;
-            border-radius: 6px;
-            border: 2px dashed #008000;
-            margin: 10px 0;
-        }
-
-        .copy-ref-btn {
-            background: #006400;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-top: 10px;
-            transition: background 0.3s;
-        }
-
-        .copy-ref-btn:hover {
-            background: #004d00;
-        }
-
-        .email-notification-preview {
-            margin: 30px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .email-preview-title {
-            background: #f8f9fa;
-            padding: 15px 20px;
-            border-bottom: 2px solid #ddd;
-        }
-
-        .email-preview-title h3 {
-            color: #333;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
-        .email-meta-info {
-            font-size: 0.9rem;
-            color: #666;
-            margin: 3px 0;
-        }
-
-        .email-body-preview {
-            padding: 30px;
-            background: white;
-        }
-
-        .email-kenyan-flag {
-            text-align: center;
-            padding: 20px;
-            background: linear-gradient(90deg, #000000 33%, #ff0000 33%, #ff0000 66%, #006400 66%);
-            color: white;
-            margin-bottom: 20px;
-            border-radius: 6px;
-        }
-
-        .application-summary-box {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 6px;
-            margin: 20px 0;
-            border-left: 4px solid #006400;
-        }
-
-        .summary-item {
-            display: flex;
-            padding: 8px 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .summary-item:last-child {
-            border-bottom: none;
-        }
-
-        .summary-label {
-            font-weight: bold;
-            color: #555;
-            min-width: 180px;
-        }
-
-        .summary-value {
-            color: #333;
-        }
-
-        .important-notice {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
-            padding: 15px;
-            border-radius: 6px;
-            margin: 20px 0;
-        }
-
-        .success-actions {
-            padding: 30px;
-            text-align: center;
-            border-top: 2px solid #f0f0f0;
-        }
-
-        .success-action-btn {
-            background: #006400;
-            color: white;
-            text-decoration: none;
-            padding: 12px 30px;
-            border-radius: 6px;
-            display: inline-block;
-            margin: 5px;
-            font-weight: bold;
-            transition: background 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .success-action-btn:hover {
-            background: #004d00;
-        }
-
-        .success-action-btn.secondary {
-            background: #666;
-        }
-
-        .success-action-btn.secondary:hover {
-            background: #555;
-        }
-
-        @media (max-width: 600px) {
-            .enhanced-success-container {
-                margin: 15px;
-            }
-            
-            .reference-highlight {
-                margin: 15px;
-            }
-            
-            .ref-number-display {
-                font-size: 1.5rem;
-            }
-            
-            .email-notification-preview {
-                margin: 15px;
-            }
-            
-            .summary-item {
-                flex-direction: column;
-            }
-            
-            .summary-label {
-                min-width: auto;
-                margin-bottom: 5px;
-            }
-        }
-    </style>
-
+        <div id="success-message" style="display: none;" role="alert" aria-live="polite">
     <div class="enhanced-success-container">
         <!-- Success Header -->
         <div class="success-header-banner">
@@ -504,7 +297,7 @@
         <div class="reference-highlight">
             <h3><i class="fas fa-bookmark"></i> Your Application Reference Number</h3>
             <div class="ref-number-display" id="reference-number">MNG-XXXXXXXX</div>
-            <button class="copy-ref-btn" onclick="copyReferenceNumber()">
+            <button class="copy-ref-btn" id="copy-ref-btn">
                 <i class="fas fa-copy"></i> Copy Reference Number
             </button>
             <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">
@@ -630,40 +423,69 @@
     </div>
 </div>
 
-<script>
-function copyReferenceNumber() {
-    const refNumber = document.getElementById('reference-number').textContent;
-    const button = event.target.closest('.copy-ref-btn');
-    
-    navigator.clipboard.writeText(refNumber).then(() => {
-        const originalHTML = button.innerHTML;
-        button.innerHTML = '<i class="fas fa-check"></i> Copied!';
-        button.style.background = '#28a745';
-        
-        setTimeout(() => {
-            button.innerHTML = originalHTML;
-            button.style.background = '#006400';
-        }, 2000);
-    }).catch(err => {
-        alert('Failed to copy reference number. Please copy it manually.');
-    });
-}
-</script>
+
             
-            <div id="error-message" style="display: none; color: red;">
+            <div id="error-message" style="display: none; color: red;" role="alert" aria-live="assertive">
                 <h2>Error Submitting Application</h2>
                 <p id="error-text"></p>
             </div>
         </form>
+
+        <!-- Embedded Status Checker -->
+        <div id="status-section" style="display:none; margin-top:12px;">
+            <fieldset>
+                <legend><i class="fas fa-info-circle"></i> Check Your Application Status</legend>
+                <label for="embedded-ref-input"><i class="fas fa-bookmark"></i> Reference Number</label>
+                <input type="text" id="embedded-ref-input" placeholder="e.g., MNG-XXXXXXX">
+                <button type="button" id="embedded-check-status-btn" class="success-action-btn" style="margin-top:8px;">
+                    <i class="fas fa-search"></i> Check Status
+                </button>
+
+                <div id="embedded-status-error" style="display:none; color:#bb0000; margin-top:1rem;" role="alert" aria-live="assertive"></div>
+
+                <div id="embedded-status-result" style="display:none; margin-top:1rem;">
+                    <div class="application-summary-box">
+                        <h4 style="color: #006400; margin-bottom: 15px;">
+                            <i class="fas fa-clipboard-check"></i> Application Details
+                        </h4>
+                        <div class="summary-item"><span class="summary-label">Reference Number:</span><span class="summary-value" id="emb-res-ref"></span></div>
+                        <div class="summary-item"><span class="summary-label">Applicant Name:</span><span class="summary-value" id="emb-res-name"></span></div>
+                        <div class="summary-item"><span class="summary-label">Institution:</span><span class="summary-value" id="emb-res-institution"></span></div>
+                        <div class="summary-item"><span class="summary-label">Amount Requested:</span><span class="summary-value">KSh <span id="emb-res-amount"></span></span></div>
+                        <div class="summary-item"><span class="summary-label">Ward:</span><span class="summary-value" id="emb-res-ward"></span></div>
+                        <div class="summary-item"><span class="summary-label">Submitted:</span><span class="summary-value" id="emb-res-submitted"></span></div>
+                        <div class="summary-item"><span class="summary-label">Current Status:</span><span class="summary-value" id="emb-res-status" style="font-weight:bold;"></span></div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <!-- Embedded Edit Application -->
+        <div id="edit-section" style="display:none; margin-top:12px;">
+            <fieldset>
+                <legend><i class="fas fa-pen-to-square"></i> Edit Your Application (within 24 hours)</legend>
+                <label for="edit-ref-input"><i class="fas fa-bookmark"></i> Reference Number</label>
+                <input type="text" id="edit-ref-input" placeholder="e.g., MNG-XXXXXXX">
+                <label for="edit-email-input"><i class="fas fa-envelope"></i> Email used in application</label>
+                <input type="email" id="edit-email-input" placeholder="your@email.com">
+                <button type="button" id="edit-load-btn" class="success-action-btn" style="margin-top:8px;">
+                    <i class="fas fa-unlock-keyhole"></i> Load for Edit
+                </button>
+                <div id="edit-error" style="display:none; color:#bb0000; margin-top:1rem;" role="alert" aria-live="assertive"></div>
+                <div id="edit-hint" style="display:none; margin-top:1rem; background:#fff3cd; border:1px solid #ffc107; padding:10px; border-radius:6px;">
+                    You are now editing your submitted application. Only allowed fields will be updated.
+                </div>
+            </fieldset>
+        </div>
     </section>
 
     <footer>
         <p>&copy; 2024 Masinga NG-CDF. All Rights Reserved.</p>
         <p> Created by Jude Kioko</p>
     </footer>
-    <script src="assets/js/global.js"></script>
-    <script src="assets/js/bursary.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script defer src="assets/js/global.js"></script>
+    <script defer src="assets/js/bursary.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     
 </body>
