@@ -308,6 +308,102 @@ def export_analytics_csv(request):
     return response
 
 
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def export_applications_csv(request):
+    """Export applications to CSV with optional filters, optimized for large datasets"""
+    from django.http import StreamingHttpResponse
+    import csv
+    import io
+    from .models import BursaryApplication
+
+    qs = BursaryApplication.objects.all().order_by('-submitted_at')
+
+    # Filters
+    start_date = request.query_params.get('start_date')
+    end_date = request.query_params.get('end_date')
+    status_filter = request.query_params.get('status')
+    ward = request.query_params.get('ward')
+
+    if start_date:
+        qs = qs.filter(submitted_at__gte=start_date)
+    if end_date:
+        qs = qs.filter(submitted_at__lte=end_date)
+    if status_filter:
+        qs = qs.filter(status=status_filter)
+    if ward:
+        qs = qs.filter(ward=ward)
+
+    headers = [
+        'Reference Number','Full Name','Gender','Disability','ID Number',
+        'Phone Number','Guardian Phone','Guardian ID','Ward','Village',
+        'Chief Name','Chief Phone','Sub Chief Name','Sub Chief Phone',
+        'Level of Study','Institution Type','Institution Name','Admission Number',
+        'Amount','Mode of Study','Year of Study','Family Status',
+        'Father Income','Mother Income','Status','Submitted At',
+        'Email','Confirmation','Data Consent','Communication Consent'
+    ]
+
+    def row_iter():
+        # UTF-8 BOM for Excel compatibility
+        yield '\ufeff'
+        # Write header
+        sio = io.StringIO()
+        w = csv.writer(sio)
+        w.writerow(headers)
+        yield sio.getvalue()
+        batch_size = 1000
+        total = qs.count()
+        for start in range(0, total, batch_size):
+            for obj in qs[start:start+batch_size]:
+                submitted = obj.submitted_at
+                if submitted:
+                    from django.utils import timezone as tz
+                    submitted = tz.localtime(submitted) if tz.is_aware(submitted) else submitted
+                    submitted_str = submitted.strftime('%Y-%m-%d %H:%M:%S')
+                else:
+                    submitted_str = ''
+                sio = io.StringIO()
+                w = csv.writer(sio)
+                w.writerow([
+                    obj.reference_number or '',
+                    obj.full_name or '',
+                    obj.gender or '',
+                    'Yes' if getattr(obj, 'disability', False) else 'No',
+                    obj.id_number or '',
+                    obj.phone_number or '',
+                    obj.guardian_phone or '',
+                    getattr(obj, 'guardian_id', '') or '',
+                    obj.ward or '',
+                    obj.village or '',
+                    getattr(obj, 'chief_name', '') or '',
+                    getattr(obj, 'chief_phone', '') or '',
+                    getattr(obj, 'sub_chief_name', '') or '',
+                    getattr(obj, 'sub_chief_phone', '') or '',
+                    getattr(obj, 'level_of_study', '') or '',
+                    getattr(obj, 'institution_type', '') or '',
+                    obj.institution_name or '',
+                    getattr(obj, 'admission_number', '') or '',
+                    obj.amount if obj.amount is not None else '',
+                    getattr(obj, 'mode_of_study', '') or '',
+                    getattr(obj, 'year_of_study', '') or '',
+                    getattr(obj, 'family_status', '') or '',
+                    getattr(obj, 'father_income', '') or '',
+                    getattr(obj, 'mother_income', '') or '',
+                    obj.status or '',
+                    submitted_str,
+                    obj.email or '',
+                    'Yes' if getattr(obj, 'confirmation', False) else 'No',
+                    'Yes' if getattr(obj, 'data_consent', False) else 'No',
+                    'Yes' if getattr(obj, 'communication_consent', False) else 'No'
+                ])
+                yield sio.getvalue()
+
+    resp = StreamingHttpResponse(row_iter(), content_type='text/csv')
+    resp['Content-Disposition'] = 'attachment; filename="bursary_applications.csv"'
+    return resp
+
+
 # =========================
 # Analytics Dashboard View (HTML)
 # =========================

@@ -110,8 +110,8 @@ def export_to_csv(modeladmin, request, queryset):
                 submitted_str,
                 obj.email or '',
                 'Yes' if getattr(obj, 'confirmation', False) else 'No',
-                'Yes' if getattr(obj, 'confirmation', False) else 'No',
-                'Yes' if getattr(obj, 'confirmation', False) else 'No'
+                'Yes' if getattr(obj, 'data_consent', False) else 'No',
+                'Yes' if getattr(obj, 'communication_consent', False) else 'No'
             ])
 
         total_processed += len(batch)
