@@ -34,6 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
       sd.textContent = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     }
 
+    const meta = data.notifications || {};
+    const title = document.querySelector('.email-preview-title h3');
+    if (title) {
+      if (meta.email_sent === true) {
+        title.textContent = 'Confirmation Email Sent to Your Inbox';
+      } else {
+        title.textContent = 'Confirmation Email Queued';
+      }
+    }
+
     // Copy button
     const copyBtn = document.getElementById('copy-ref-btn');
     if (copyBtn) {

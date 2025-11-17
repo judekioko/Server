@@ -7,7 +7,10 @@ Sends SMS notifications for application status updates
 import os
 import logging
 from typing import Optional, Dict, List
-import africastalking
+try:
+    import africastalking
+except Exception:
+    africastalking = None
 
 logger = logging.getLogger(__name__)
 
@@ -18,10 +21,14 @@ class SMSService:
     """
     
     def __init__(self):
-        # Initialize Africa's Talking
         self.username = os.environ.get('AFRICASTALKING_USERNAME', 'sandbox')
         self.api_key = os.environ.get('AFRICASTALKING_API_KEY')
-        
+
+        if africastalking is None:
+            logger.warning("Africa's Talking SDK not installed; SMS disabled")
+            self.enabled = False
+            return
+
         if not self.api_key:
             logger.warning("Africa's Talking API key not configured")
             self.enabled = False
@@ -206,17 +213,22 @@ class NotificationManager:
     
     def notify_application_received(self, application):
         """
-        Send confirmation notification (Email + SMS)
+        Send confirmation notification (Email + SMS) and return delivery results
         """
         from .views import send_html_email, generate_confirmation_email_html
-        
-        # Send Email
+
+        results = {
+            'email_sent': False,
+            'sms_sent': False,
+            'email_error': None,
+            'sms_error': None,
+        }
+
         try:
             subject = f"Application Received - {application.reference_number}"
             plain_content = f"Dear {application.full_name}, your application has been received."
             html_content = generate_confirmation_email_html(application)
-            
-            send_html_email(
+            results['email_sent'] = send_html_email(
                 subject=subject,
                 html_content=html_content,
                 plain_content=plain_content,
@@ -224,17 +236,17 @@ class NotificationManager:
             )
         except Exception as e:
             logger.error(f"Email notification failed: {str(e)}")
-        
-        # Send SMS
+            results['email_error'] = str(e)
+
         try:
             message = SMSTemplates.application_received(
                 application.reference_number,
                 application.full_name
             )
-            
-            self.sms_service.send_sms(application.phone_number, message)
-            
-            # Also notify guardian
+            sms_res = self.sms_service.send_sms(application.phone_number, message)
+            results['sms_sent'] = bool(sms_res.get('success'))
+            if not results['sms_sent']:
+                results['sms_error'] = sms_res.get('message')
             guardian_message = (
                 f"Dear Guardian,\n"
                 f"{application.full_name} has submitted a bursary application.\n"
@@ -242,9 +254,11 @@ class NotificationManager:
                 f"- Masinga NG-CDF"
             )
             self.sms_service.send_sms(application.guardian_phone, guardian_message)
-            
         except Exception as e:
             logger.error(f"SMS notification failed: {str(e)}")
+            results['sms_error'] = str(e)
+
+        return results
     
     def notify_status_change(self, application, new_status):
         """

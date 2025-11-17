@@ -10,6 +10,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from django.utils import timezone
 from datetime import timedelta
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from .models import BursaryApplication, ApplicationDeadline, ApplicationStatusLog
 from .serializers import BursaryApplicationSerializer
 import logging
@@ -96,13 +98,15 @@ class ApplicationEditabilityChecker:
 # =========================
 # Edit Application View
 # =========================
+@method_decorator(csrf_exempt, name='dispatch')
 class BursaryApplicationUpdateView(generics.UpdateAPIView):
     """
     Update/Edit an application
     """
     queryset = BursaryApplication.objects.all()
     serializer_class = BursaryApplicationSerializer
-    permission_classes = [AllowAny]  # Custom permission in method
+    permission_classes = [AllowAny]
+    authentication_classes = []
     lookup_field = "reference_number"
     
     def get_object(self):

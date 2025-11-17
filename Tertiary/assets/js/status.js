@@ -1,7 +1,22 @@
 const STATUS_CONFIG = {
-  API_BASE_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://127.0.0.1:8000'
-    : window.location.origin,
+  API_BASE_URL: (() => {
+    try {
+      if (typeof window.API_BASE_URL === 'string' && /^https?:\/\//.test(window.API_BASE_URL)) {
+        return window.API_BASE_URL.replace(/\/+$/,'');
+      }
+      const ls = localStorage.getItem('API_BASE_URL');
+      if (ls && /^https?:\/\//.test(ls)) {
+        return ls.replace(/\/+$/,'');
+      }
+      const meta = document.querySelector('meta[name="api-base"]');
+      if (meta && /^https?:\/\//.test(meta.content || '')) {
+        return (meta.content || '').replace(/\/+$/,'');
+      }
+    } catch {}
+    const host = window.location.hostname;
+    if (host === 'localhost' || host === '127.0.0.1') return 'http://127.0.0.1:8000';
+    return window.location.origin;
+  })(),
   REQUEST_TIMEOUT: 20000
 };
 

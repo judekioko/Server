@@ -5,7 +5,6 @@ from bursary.models import BursaryApplication
 from django.db.models import Sum, Count
 from django.utils import timezone
 
-@admin.register
 def admin_dashboard_view(request):
     total_apps = BursaryApplication.objects.count()
     total_amount = BursaryApplication.objects.aggregate(total=Sum('amount'))['total'] or 0

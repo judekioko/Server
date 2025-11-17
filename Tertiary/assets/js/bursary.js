@@ -2,13 +2,28 @@
 // Configuration
 // ================================
 const CONFIG = {
-    API_BASE_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://127.0.0.1:8000'
-        : window.location.origin,
-    MAX_FILE_SIZE: 5 * 1024 * 1024, // 5MB in bytes
+    API_BASE_URL: (() => {
+        try {
+            if (typeof window.API_BASE_URL === 'string' && /^https?:\/\//.test(window.API_BASE_URL)) {
+                return window.API_BASE_URL.replace(/\/+$/,'');
+            }
+            const ls = localStorage.getItem('API_BASE_URL');
+            if (ls && /^https?:\/\//.test(ls)) {
+                return ls.replace(/\/+$/,'');
+            }
+            const meta = document.querySelector('meta[name="api-base"]');
+            if (meta && /^https?:\/\//.test(meta.content || '')) {
+                return (meta.content || '').replace(/\/+$/,'');
+            }
+        } catch {}
+        const host = window.location.hostname;
+        if (host === 'localhost' || host === '127.0.0.1') return 'http://127.0.0.1:8000';
+        return window.location.origin;
+    })(),
+    MAX_FILE_SIZE: 5 * 1024 * 1024,
     ALLOWED_IMAGE_TYPES: ['image/jpeg', 'image/jpg', 'image/png'],
     ALLOWED_DOC_TYPES: ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'],
-    REQUEST_TIMEOUT: 30000 // 30 seconds
+    REQUEST_TIMEOUT: 30000
 };
 
 // ================================
@@ -696,6 +711,7 @@ async function submitApplicationToAPI() {
             if (loadingDiv) loadingDiv.style.display = 'none';
             
             // Store application data for success page
+            const meta = (data && data.notifications) || {};
             const applicationData = {
                 reference_number: data.reference_number,
                 full_name: document.getElementById('full-name').value,
@@ -703,7 +719,11 @@ async function submitApplicationToAPI() {
                 institution_name: document.getElementById('institution-name').value,
                 amount: document.getElementById('amount').value,
                 ward: document.getElementById('ward').value,
-                phone_number: document.getElementById('phone-number').value
+                phone_number: document.getElementById('phone-number').value,
+                notifications: {
+                    email_sent: !!meta.email_sent,
+                    sms_sent: !!meta.sms_sent
+                }
             };
             
             if (!editMode) {

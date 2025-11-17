@@ -60,38 +60,48 @@ def send_html_email(subject, html_content, plain_content, recipient_list):
 
 
 def generate_confirmation_email_html(application):
-    """Generate HTML email for application confirmation"""
+    """Generate HTML email for application confirmation with full summary"""
+    amount_str = f"KSh {application.amount:,}"
+    ward_pretty = (application.ward or '').replace('-', ' ').title()
+    submitted = application.submitted_at.strftime('%B %d, %Y') if application.submitted_at else ''
     return f"""
     <!DOCTYPE html>
     <html>
-    <head>
+      <head>
+        <meta charset="utf-8" />
         <style>
-            body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
-            .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
-            .header {{ background: linear-gradient(90deg, #006400, #bb0000, #000000); 
-                       color: white; padding: 20px; text-align: center; }}
-            .content {{ background: #f9f9f9; padding: 30px; border-radius: 8px; margin-top: 20px; }}
-            .reference {{ background: #e6ffe6; border: 2px solid #008000; padding: 15px; 
-                         border-radius: 5px; text-align: center; margin: 20px 0; }}
-            .highlight {{ color: #008000; font-weight: bold; font-size: 18px; }}
+          body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+          .container {{ max-width: 640px; margin: 0 auto; padding: 20px; }}
+          .header {{ background: linear-gradient(90deg, #006400, #bb0000, #000000); color: #fff; padding: 16px 20px; text-align:center; }}
+          .card {{ background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 20px; margin-top: 16px; }}
+          .summary {{ background:#fff; border:1px solid #eee; border-radius:6px; padding:14px; margin-top:10px; }}
+          .row {{ display:flex; margin:6px 0; }}
+          .label {{ width: 180px; color:#555; font-weight:bold; }}
+          .value {{ color:#111; }}
+          .refbox {{ background:#e6ffe6; border:2px solid #008000; padding:12px; border-radius:5px; text-align:center; margin:14px 0; }}
         </style>
-    </head>
-    <body>
+      </head>
+      <body>
         <div class="container">
-            <div class="header">
-                <h1>Masinga NG-CDF Bursary</h1>
+          <div class="header">
+            <h2 style="margin:0;">Masinga NG-CDF Bursary</h2>
+          </div>
+          <div class="card">
+            <h3 style="margin-top:0;">Application Received</h3>
+            <p>Dear <strong>{application.full_name}</strong>, your bursary application has been received and is under review.</p>
+            <div class="refbox"><strong>Reference:</strong> {application.reference_number}</div>
+            <div class="summary">
+              <div class="row"><div class="label">Applicant:</div><div class="value">{application.full_name}</div></div>
+              <div class="row"><div class="label">Institution:</div><div class="value">{application.institution_name}</div></div>
+              <div class="row"><div class="label">Amount:</div><div class="value">{amount_str}</div></div>
+              <div class="row"><div class="label">Ward:</div><div class="value">{ward_pretty}</div></div>
+              <div class="row"><div class="label">Submitted:</div><div class="value">{submitted}</div></div>
             </div>
-            <div class="content">
-                <h2>Application Received!</h2>
-                <p>Dear <strong>{application.full_name}</strong>,</p>
-                <div class="reference">
-                    <p>Reference Number:</p>
-                    <p class="highlight">{application.reference_number}</p>
-                </div>
-                <p>Your application has been successfully submitted.</p>
-            </div>
+            <p style="margin-top:14px;">Keep your reference number for tracking. You will be notified by email and SMS when the status changes.</p>
+            <p style="margin-top:14px; color:#666; font-size:0.9rem;">Contact: bursary@masingacdf.go.ke</p>
+          </div>
         </div>
-    </body>
+      </body>
     </html>
     """
 
@@ -157,25 +167,18 @@ class BursaryApplicationCreateView(DuplicatePreventionMixin, generics.CreateAPIV
     permission_classes = [permissions.AllowAny]
     authentication_classes = []
 
-    def perform_create(self, serializer):
-        """Override to send notifications"""
-        try:
-            # Call parent (includes duplicate check from mixin)
-            instance = super().perform_create(serializer)
-            
-            if not instance:
-                instance = serializer.save()
-            
-            # Send notifications (Email + SMS)
-            notification_manager = NotificationManager()
-            notification_manager.notify_application_received(instance)
-            
-            logger.info(f"Application created: {instance.reference_number}")
-            return instance
-            
-        except Exception as e:
-            logger.error(f"Error creating application: {str(e)}")
-            raise
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        instance = serializer.instance
+        notification_manager = NotificationManager()
+        notif = notification_manager.notify_application_received(instance)
+        logger.info(f"Application created: {instance.reference_number}")
+        data = serializer.data
+        data['notifications'] = notif
+        headers = self.get_success_headers(data)
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 # ===========================

@@ -12,7 +12,7 @@ urlpatterns = [
 
     # Admin Dashboard
     path('admin/dashboard/', admin_dashboard_view, name='admin-dashboard'),
-    path('admin/', admin.site.urls),
+    path(settings.ADMIN_URL, admin.site.urls),
 
     # Bursary app URLs
     path('bursary/', include('bursary.urls')),
@@ -22,25 +22,25 @@ urlpatterns = [
     # =========================
     path('admin/password_reset/', 
          auth_views.PasswordResetView.as_view(
-             template_name='registration/password_reset_form.html'
+             template_name='password_reset.html'
          ), 
          name='password_reset'),
     
     path('admin/password_reset/done/', 
          auth_views.PasswordResetDoneView.as_view(
-             template_name='registration/password_reset_done.html'
+             template_name='password_reset_done.html'
          ), 
          name='password_reset_done'),
     
     path('admin/reset/<uidb64>/<token>/', 
          auth_views.PasswordResetConfirmView.as_view(
-             template_name='registration/password_reset_confirm.html'
+             template_name='password_reset_confirm.html'
          ), 
          name='password_reset_confirm'),
     
     path('admin/reset/done/', 
          auth_views.PasswordResetCompleteView.as_view(
-             template_name='registration/password_reset_complete.html'
+             template_name='password_reset_complete.html'
          ), 
          name='password_reset_complete'),
 ]

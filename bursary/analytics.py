@@ -334,7 +334,7 @@ def analytics_dashboard_view(request):
         'title': 'Bursary Analytics Dashboard'
     }
     
-    return render(request, 'admin/analytics_dashboard.html', context)
+    return render(request, 'admin/dashboard.html', context)
 
 
 # =========================
