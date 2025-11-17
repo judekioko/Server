@@ -160,7 +160,7 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
-    CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',')
+    CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGIN', '').split(',')
 
 CORS_ALLOW_CREDENTIALS = True
 
