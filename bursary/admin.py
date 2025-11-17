@@ -7,6 +7,7 @@ Enhanced Admin with all features:
 - Status Management
 """
 
+import logging
 from urllib import request
 from django.contrib import admin
 from django.http import HttpResponse
@@ -19,6 +20,8 @@ from django.contrib import messages
 
 import importlib
 import csv
+
+logger = logging.getLogger(__name__)
 
 from .models import BursaryApplication, ApplicationStatusLog, ApplicationDeadline
 from .bulk_email import (
@@ -43,10 +46,12 @@ except Exception:
 # CSV Export Action
 # =============================
 def export_to_csv(modeladmin, request, queryset):
-    """Export selected applications to CSV"""
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="bursary_applications.csv"'
-    writer = csv.writer(response)
+    """Export selected applications to CSV - Optimized for large datasets"""
+    import io
+
+    # Use StringIO for better memory handling with large datasets
+    output = io.StringIO()
+    writer = csv.writer(output)
 
     # CSV Headers
     headers = [
@@ -55,48 +60,71 @@ def export_to_csv(modeladmin, request, queryset):
         'Chief Name', 'Chief Phone', 'Sub Chief Name', 'Sub Chief Phone',
         'Level of Study', 'Institution Type', 'Institution Name', 'Admission Number',
         'Amount', 'Mode of Study', 'Year of Study', 'Family Status',
-        'Father Income', 'Mother Income', 'Status', 'Submitted At'
+        'Father Income', 'Mother Income', 'Status', 'Submitted At',
+        'Email', 'Confirmation', 'Data Consent', 'Communication Consent'
     ]
     writer.writerow(headers)
 
-    for obj in queryset:
-        submitted = obj.submitted_at
-        if submitted:
-            submitted = timezone.localtime(submitted) if timezone.is_aware(submitted) else submitted
-            submitted_str = submitted.strftime('%Y-%m-%d %H:%M:%S')
-        else:
-            submitted_str = ''
+    # Process in batches for large datasets (e.g., 6000+ records)
+    batch_size = 1000
+    total_processed = 0
 
-        writer.writerow([
-            obj.reference_number or '',
-            obj.full_name or '',
-            obj.gender or '',
-            'Yes' if getattr(obj, 'disability', False) else 'No',
-            obj.id_number or '',
-            obj.phone_number or '',
-            obj.guardian_phone or '',
-            getattr(obj, 'guardian_id', '') or '',
-            obj.ward or '',
-            obj.village or '',
-            getattr(obj, 'chief_name', '') or '',
-            getattr(obj, 'chief_phone', '') or '',
-            getattr(obj, 'sub_chief_name', '') or '',
-            getattr(obj, 'sub_chief_phone', '') or '',
-            getattr(obj, 'level_of_study', '') or '',
-            getattr(obj, 'institution_type', '') or '',
-            obj.institution_name or '',
-            getattr(obj, 'admission_number', '') or '',
-            obj.amount if obj.amount is not None else '',
-            getattr(obj, 'mode_of_study', '') or '',
-            getattr(obj, 'year_of_study', '') or '',
-            getattr(obj, 'family_status', '') or '',
-            getattr(obj, 'father_income', '') or '',
-            getattr(obj, 'mother_income', '') or '',
-            obj.status or '',
-            submitted_str
-        ])
+    for start in range(0, queryset.count(), batch_size):
+        end = start + batch_size
+        batch = queryset[start:end]
+
+        for obj in batch:
+            submitted = obj.submitted_at
+            if submitted:
+                submitted = timezone.localtime(submitted) if timezone.is_aware(submitted) else submitted
+                submitted_str = submitted.strftime('%Y-%m-%d %H:%M:%S')
+            else:
+                submitted_str = ''
+
+            writer.writerow([
+                obj.reference_number or '',
+                obj.full_name or '',
+                obj.gender or '',
+                'Yes' if getattr(obj, 'disability', False) else 'No',
+                obj.id_number or '',
+                obj.phone_number or '',
+                obj.guardian_phone or '',
+                getattr(obj, 'guardian_id', '') or '',
+                obj.ward or '',
+                obj.village or '',
+                getattr(obj, 'chief_name', '') or '',
+                getattr(obj, 'chief_phone', '') or '',
+                getattr(obj, 'sub_chief_name', '') or '',
+                getattr(obj, 'sub_chief_phone', '') or '',
+                getattr(obj, 'level_of_study', '') or '',
+                getattr(obj, 'institution_type', '') or '',
+                obj.institution_name or '',
+                getattr(obj, 'admission_number', '') or '',
+                obj.amount if obj.amount is not None else '',
+                getattr(obj, 'mode_of_study', '') or '',
+                getattr(obj, 'year_of_study', '') or '',
+                getattr(obj, 'family_status', '') or '',
+                getattr(obj, 'father_income', '') or '',
+                getattr(obj, 'mother_income', '') or '',
+                obj.status or '',
+                submitted_str,
+                obj.email or '',
+                'Yes' if getattr(obj, 'confirmation', False) else 'No',
+                'Yes' if getattr(obj, 'confirmation', False) else 'No',
+                'Yes' if getattr(obj, 'confirmation', False) else 'No'
+            ])
+
+        total_processed += len(batch)
+        # Optional: Add progress logging for very large exports
+        if total_processed % 5000 == 0:
+            print(f"Processed {total_processed} records...")
+
+    # Create HTTP response
+    response = HttpResponse(output.getvalue(), content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="bursary_applications_{timezone.now().strftime("%Y%m%d_%H%M%S")}.csv"'
     return response
-export_to_csv.short_description = "Export selected to CSV"
+
+export_to_csv.short_description = "Export selected to CSV (Optimized for 6000+ records)"
 
 # =============================
 # Bulk Status Actions
@@ -168,6 +196,7 @@ class BursaryApplicationAdmin(admin.ModelAdmin):
     search_fields = ("full_name", "id_number", "email", "reference_number", "institution_name")
     list_filter = ("ward", "level_of_study", "institution_type", "family_status", "status", "submitted_at", "disability")
     readonly_fields = ("reference_number", "submitted_at", "status_history")
+    list_per_page = 100  # Show more items per page for bulk operations
 
     actions = [
         export_to_csv,
@@ -178,6 +207,19 @@ class BursaryApplicationAdmin(admin.ModelAdmin):
         find_all_duplicates,
         force_delete_applications,  # ✅ now properly defined and working
     ]
+
+    def get_actions(self, request):
+        """Override to add export all action"""
+        actions = super().get_actions(request)
+        actions['export_all_to_csv'] = (self.export_all_to_csv, 'export_all_to_csv', 'Export ALL applications to CSV')
+        return actions
+
+    def export_all_to_csv(self, request, queryset):
+        """Export ALL applications to CSV, not just selected ones"""
+        from django.db.models import Q
+        all_queryset = self.model.objects.all().order_by('-submitted_at')
+        return export_to_csv(self, request, all_queryset)
+    export_all_to_csv.short_description = "Export ALL applications to CSV (6000+ records)"
 
     inlines = [ApplicationStatusLogInline]
 
