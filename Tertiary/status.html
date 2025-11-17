@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="api-base" content="http://127.0.0.1:8000">
+    <script>
+      (function(){
+        try {
+          var host = window.location.hostname || '';
+          if (host === 'localhost' || host === '127.0.0.1') {
+            window.API_BASE_URL = 'http://127.0.0.1:8000';
+          } else if (host.endsWith('onrender.com')) {
+            window.API_BASE_URL = 'https://masinga-ngcdf-bursary.onrender.com';
+          } else {
+            var meta = document.querySelector('meta[name="api-base"]');
+            if (meta && meta.content) {
+              window.API_BASE_URL = meta.content;
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
     <title>Check Application Status - Masinga NG-CDF</title>
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/bursary.css">
