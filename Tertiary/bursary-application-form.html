@@ -106,7 +106,7 @@
                 <input type="tel" id="guardian-phone" name="guardian-phone" required inputmode="numeric" pattern="^(\+2547\d{8}|07\d{8})$" placeholder="07XXXXXXXX or +2547XXXXXXXX">
 
                 <label for="guardian-id"><i class="fas fa-id-card-alt"></i> Guardian's/Parent's ID:</label>
-                <input type="text" id="guardian-id" name="guardian-id" required>
+                <input type="text" id="guardian-id" name="guardian-id" required inputmode="numeric" pattern="^\d{4,12}$" placeholder="Numeric only">
             </fieldset>
  
             <!-- Residence Details -->
@@ -129,13 +129,13 @@
                 <input type="text" id="chief-name" name="chief-name" required>
 
                 <label for="chief-phone"><i class="fas fa-phone-alt"></i> Chief's Phone Number:</label>
-                <input type="tel" id="chief-phone" name="chief-phone" required>
+                <input type="tel" id="chief-phone" name="chief-phone" required inputmode="numeric" pattern="^(\+2547\d{8}|07\d{8})$" placeholder="07XXXXXXXX or +2547XXXXXXXX">
 
                 <label for="sub-chief-name"><i class="fas fa-user-tie"></i> Sub-Chief's Name:</label>
                 <input type="text" id="sub-chief-name" name="sub-chief-name" required>
 
                 <label for="sub-chief-phone"><i class="fas fa-phone-alt"></i> Sub-Chief's Phone Number:</label>
-                <input type="tel" id="sub-chief-phone" name="sub-chief-phone" required>
+                <input type="tel" id="sub-chief-phone" name="sub-chief-phone" required inputmode="numeric" pattern="^(\+2547\d{8}|07\d{8})$" placeholder="07XXXXXXXX or +2547XXXXXXXX">
             </fieldset>
 
             <!-- Institution Details -->
@@ -506,6 +506,7 @@
         <p>&copy; 2024 Masinga NG-CDF. All Rights Reserved.</p>
         <p> Created by Jude Kioko</p>
     </footer>
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
     <script defer src="assets/js/global.js"></script>
     <script defer src="assets/js/bursary.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>

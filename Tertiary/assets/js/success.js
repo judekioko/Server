@@ -62,10 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Confetti
-    if (typeof confetti !== 'undefined') {
-      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-    }
+    const blocks = document.querySelectorAll('.success-header-banner, .reference-highlight, .email-notification-preview, .success-actions');
+    blocks.forEach(b => { if (b) b.classList.add('fade-in'); });
+    if (typeof confetti !== 'undefined') { confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); }
   } catch (e) {
     // Fallback: go back to form
     window.location.replace('bursary-application-form.html');

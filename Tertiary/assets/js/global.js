@@ -99,4 +99,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   initTheme();
+
+  const backTop = document.getElementById('back-to-top');
+  function onScroll(){
+    if (!backTop) return;
+    if (window.scrollY > 300) backTop.classList.add('show'); else backTop.classList.remove('show');
+  }
+  function onTop(){ window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  window.addEventListener('scroll', onScroll);
+  backTop && backTop.addEventListener('click', onTop);
+  onScroll();
 });

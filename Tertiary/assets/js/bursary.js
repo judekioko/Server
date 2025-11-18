@@ -538,6 +538,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const pn = document.getElementById('phone-number');
     const gp = document.getElementById('guardian-phone');
+    const cp = document.getElementById('chief-phone');
+    const scp = document.getElementById('sub-chief-phone');
     const idn = document.getElementById('id-number');
     function digitsOnly(v){ return (v||'').replace(/\D+/g,''); }
     function normalizePhone(v){
@@ -547,7 +549,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (d.startsWith('0') && d.length >= 10) return d.slice(0, 10);
         return v;
     }
-    [pn, gp].forEach(el => {
+    [pn, gp, cp, scp].forEach(el => {
         if (!el) return;
         el.addEventListener('input', () => { el.value = normalizePhone(el.value); });
         el.addEventListener('blur', () => { el.value = normalizePhone(el.value); });
@@ -555,6 +557,53 @@ document.addEventListener("DOMContentLoaded", () => {
     if (idn){
         idn.addEventListener('input', () => { idn.value = digitsOnly(idn.value).slice(0,12); });
     }
+
+    function setFieldError(el, message){
+        if (!el) return;
+        el.classList.add('invalid');
+        let id = el.id + '-error';
+        let err = document.getElementById(id);
+        if (!err){
+            err = document.createElement('div');
+            err.id = id;
+            err.className = 'field-error';
+            el.insertAdjacentElement('afterend', err);
+        }
+        err.textContent = message || '';
+    }
+    function clearFieldError(el){
+        if (!el) return;
+        el.classList.remove('invalid');
+        let id = el.id + '-error';
+        let err = document.getElementById(id);
+        if (err) err.textContent = '';
+    }
+    function validateAll(){
+        let ok = true;
+        const email = document.getElementById('email');
+        const amount = document.getElementById('amount');
+        const phone = document.getElementById('phone-number');
+        const gphone = document.getElementById('guardian-phone');
+        const idnum = document.getElementById('id-number');
+        const ward = document.getElementById('ward');
+        [email, amount, phone, gphone, idnum, ward].forEach(clearFieldError);
+        if (email && !email.value.includes('@')){ setFieldError(email, 'Invalid email'); ok = false; }
+        const amtVal = amount ? parseInt(amount.value || '0', 10) : 0;
+        if (amount && (!amtVal || amtVal <= 0)){ setFieldError(amount, 'Enter a valid amount'); ok = false; }
+        const phonePattern = /^(\+2547\d{8}|07\d{8})$/;
+        if (phone && !phonePattern.test(phone.value)){ setFieldError(phone, 'Format: 07XXXXXXXX or +2547XXXXXXXX'); ok = false; }
+        if (gphone && !phonePattern.test(gphone.value)){ setFieldError(gphone, 'Format: 07XXXXXXXX or +2547XXXXXXXX'); ok = false; }
+        const idDigits = (idnum ? idnum.value : '').replace(/\D+/g,'');
+        if (idnum && (idDigits.length < 4 || idDigits.length > 12)){ setFieldError(idnum, 'ID must be 4-12 digits'); ok = false; }
+        if (ward && !ward.value){ setFieldError(ward, 'Select ward'); ok = false; }
+        return ok;
+    }
+    ['email','amount','phone-number','guardian-phone','id-number','ward'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('input', () => { clearFieldError(el); });
+        el.addEventListener('blur', () => { validateAll(); });
+    });
 });
 
 // ================================
@@ -631,6 +680,7 @@ async function submitApplicationToAPI() {
     const timeout = setTimeout(() => controller.abort(), CONFIG.REQUEST_TIMEOUT);
 
     try {
+        if (!validateAll()) { return; }
         // Create FormData object
         const formData = new FormData();
 
