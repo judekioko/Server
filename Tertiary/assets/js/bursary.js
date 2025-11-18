@@ -604,6 +604,8 @@ document.addEventListener("DOMContentLoaded", () => {
         el.addEventListener('input', () => { clearFieldError(el); });
         el.addEventListener('blur', () => { validateAll(); });
     });
+
+    try { window.validateAll = validateAll; } catch {}
 });
 
 // ================================
@@ -680,7 +682,7 @@ async function submitApplicationToAPI() {
     const timeout = setTimeout(() => controller.abort(), CONFIG.REQUEST_TIMEOUT);
 
     try {
-        if (!validateAll()) { return; }
+        if (typeof window.validateAll === 'function' && !window.validateAll()) { return; }
         // Create FormData object
         const formData = new FormData();
 
