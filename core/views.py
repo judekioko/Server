@@ -5,4 +5,4 @@ from django.http import JsonResponse
 
 def health(request):
     """Health check endpoint for monitoring"""
-    return JsonResponse({'status': 'ok'})
+    return JsonResponse({"status": "Backend is live"})

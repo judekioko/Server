@@ -12,6 +12,7 @@ from django.contrib.auth import views as auth_views
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 urlpatterns = [
+    path('', views.home, name='home'),
     # Health check endpoint
     path('health/', views.health, name='health'),
 
