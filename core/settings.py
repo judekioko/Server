@@ -24,15 +24,18 @@ if not SECRET_KEY:
     else:
         raise ValueError("SECRET_KEY environment variable must be set!")
 
-# Parse ALLOWED_HOSTS properly
-ALLOWED_HOSTS_ENV = os.environ.get('ALLOWED_HOSTS', 'localhost')
-ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS_ENV.split(',')]
+raw_hosts = os.environ.get("ALLOWED_HOSTS", "")
+ALLOWED_HOSTS = [h.strip() for h in raw_hosts.split(",") if h.strip()]
 
-# In production, add wildcard for Render subdomains
+if not ALLOWED_HOSTS:
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+
 if not DEBUG:
-    ALLOWED_HOSTS.append('.onrender.com')
+    if ".onrender.com" not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(".onrender.com")
 
-print(f"DEBUG: ALLOWED_HOSTS = {ALLOWED_HOSTS}")  # Remove this after testing
+print("ALLOWED_HOSTS =", ALLOWED_HOSTS)
+
 
 # Security settings for production
 if not DEBUG:

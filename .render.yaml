@@ -27,13 +27,7 @@ services:
           name: bursary-db
           property: connectionString
 
-  # FRONTEND STATIC SERVICE
-  - type: static
-    name: masinga-ngcdf-frontend
-    rootDir: Tertiary               # <-- frontend path
-    buildCommand: ""                # No build step, HTML/CSS/JS only
-    staticPublishPath: .            # publish everything in Tertiary folder
-
+  
 databases:
   - name: bursary-db
     plan: free
