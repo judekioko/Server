@@ -24,18 +24,28 @@ if not SECRET_KEY:
     else:
         raise ValueError("SECRET_KEY environment variable must be set!")
 
+# =========================
+# ALLOWED_HOSTS Configuration
+# =========================
+# Always include both development and production hosts
+ALLOWED_HOSTS = [
+    'localhost', 
+    '127.0.0.1', 
+    '0.0.0.0',
+    'masinga-backend.onrender.com',  # Your future backend domain
+    '.onrender.com',  # All render subdomains
+]
+
+# Add any additional hosts from environment
 raw_hosts = os.environ.get("ALLOWED_HOSTS", "")
-ALLOWED_HOSTS = [h.strip() for h in raw_hosts.split(",") if h.strip()]
+if raw_hosts:
+    ALLOWED_HOSTS.extend([h.strip() for h in raw_hosts.split(",") if h.strip()])
 
-if not ALLOWED_HOSTS:
-    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+# Remove duplicates
+ALLOWED_HOSTS = list(set(ALLOWED_HOSTS))
 
-if not DEBUG:
-    if ".onrender.com" not in ALLOWED_HOSTS:
-        ALLOWED_HOSTS.append(".onrender.com")
-
+print("DEBUG =", DEBUG)
 print("ALLOWED_HOSTS =", ALLOWED_HOSTS)
-
 
 # Security settings for production
 if not DEBUG:
@@ -103,7 +113,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 # =========================
-# Database (PostgreSQL)
+# Database (PostgreSQL or SQLite)
 # =========================
 if os.environ.get("DATABASE_URL"):
     # Production database (Render)
@@ -158,10 +168,7 @@ USE_TZ = True
 # =========================
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
 STATICFILES_DIRS = []  # No frontend files here
-
-# Use WhiteNoise for static file compression
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
@@ -172,28 +179,30 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
 
 # =========================
-# CORS Settings
+# CORS Settings - UPDATED FOR LIVE FRONTEND
 # =========================
 CORS_ALLOW_CREDENTIALS = True
 
+# Allow both local development and production frontend
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',  # Local frontend development
+    'http://127.0.0.1:3000',  # Local frontend development  
+    'https://masinga-frontend.onrender.com',  # Live frontend
+]
+
+# In development, also allow all origins for flexibility
 if DEBUG:
-    # Allow all origins in development
     CORS_ALLOW_ALL_ORIGINS = True
-else:
-    # Allow only your live frontend domain
-    CORS_ALLOWED_ORIGINS = [
-        'https://masinga-frontend.onrender.com',
-    ]
 
 # =========================
-# CSRF Settings
+# CSRF Settings - UPDATED FOR LIVE FRONTEND
 # =========================
-if DEBUG:
-    CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000']
-else:
-    CSRF_TRUSTED_ORIGINS = [
-        'https://masinga-frontend.onrender.com',
-    ]
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',  # Local backend
+    'http://127.0.0.1:8000',  # Local backend
+    'https://masinga-frontend.onrender.com',  # Live frontend
+    'https://masinga-backend.onrender.com',  # Future backend
+]
 
 # =========================
 # Default primary key
@@ -241,10 +250,9 @@ SPECTACULAR_SETTINGS = {
 # Email Configuration
 # =========================
 EMAIL_BACKEND = os.environ.get(
-    'EMAIL_BACKEND', 
+    'EMAIL_BACKEND',
     'django.core.mail.backends.smtp.EmailBackend'
 )
-
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
