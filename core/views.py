@@ -1,8 +1,8 @@
-from django.shortcuts import render
+# ===========================
+# core/views.py (CLEANED)
+# ===========================
 from django.http import JsonResponse
 
-def home(request):
-    return render(request, 'Tertiary/index.html')
-
 def health(request):
+    """Health check endpoint for monitoring"""
     return JsonResponse({'status': 'ok'})

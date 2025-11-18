@@ -1,4 +1,7 @@
-# core/urls.py
+
+# ===========================
+# core/urls.py (CLEANED)
+# ===========================
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -9,7 +12,7 @@ from django.contrib.auth import views as auth_views
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    # Health check endpoint
     path('health/', views.health, name='health'),
 
     # Admin Dashboard
@@ -19,6 +22,7 @@ urlpatterns = [
     # Bursary app URLs
     path('bursary/', include('bursary.urls')),
 
+    # API Documentation
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path('api/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
