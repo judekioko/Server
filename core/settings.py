@@ -88,7 +88,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates', BASE_DIR / 'Tertiary'],
+        'DIRS': [BASE_DIR / 'templates'],  # Removed Tertiary frontend
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -159,9 +159,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'Tertiary',
-]
+STATICFILES_DIRS = []  # No frontend files here
 
 # Use WhiteNoise for static file compression
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -176,16 +174,26 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
 # =========================
 # CORS Settings
 # =========================
-# In production, specify exact origins
-if DEBUG:
-    CORS_ALLOW_ALL_ORIGINS = True
-else:
-    CORS_ALLOWED_ORIGINS = [o for o in os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',') if o]
-
 CORS_ALLOW_CREDENTIALS = True
 
+if DEBUG:
+    # Allow all origins in development
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    # Allow only your live frontend domain
+    CORS_ALLOWED_ORIGINS = [
+        'https://masinga-frontend.onrender.com',
+    ]
+
+# =========================
 # CSRF Settings
-CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', 'http://localhost:8000,http://127.0.0.1:8000').split(',')
+# =========================
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000']
+else:
+    CSRF_TRUSTED_ORIGINS = [
+        'https://masinga-frontend.onrender.com',
+    ]
 
 # =========================
 # Default primary key
@@ -218,8 +226,8 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle'
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '100/hour',  # Anonymous users: 100 requests per hour
-        'user': '1000/hour'  # Authenticated users: 1000 requests per hour
+        'anon': '100/hour',
+        'user': '1000/hour'
     }
 }
 
@@ -243,8 +251,6 @@ EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
-
-# Email timeout
 EMAIL_TIMEOUT = 10  # seconds
 
 # =========================
@@ -267,7 +273,7 @@ LOGGING = {
         'file': {
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': BASE_DIR / 'logs' / 'django.log',
-            'maxBytes': 1024 * 1024 * 10,  # 10MB
+            'maxBytes': 1024 * 1024 * 10,
             'backupCount': 5,
             'formatter': 'verbose',
         },
