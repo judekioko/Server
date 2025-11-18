@@ -545,7 +545,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function normalizePhone(v){
         const d = digitsOnly(v);
         if (d.startsWith('254') && d.length >= 12) return '+254' + d.slice(3, 12);
-        if (d.startsWith('7') && d.length >= 9) return '0' + d.slice(0, 9);
+        if ((d.startsWith('7') || d.startsWith('1')) && d.length >= 9) return '0' + d.slice(0, 9);
         if (d.startsWith('0') && d.length >= 10) return d.slice(0, 10);
         return v;
     }
@@ -590,9 +590,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (email && !email.value.includes('@')){ setFieldError(email, 'Invalid email'); ok = false; }
         const amtVal = amount ? parseInt(amount.value || '0', 10) : 0;
         if (amount && (!amtVal || amtVal <= 0)){ setFieldError(amount, 'Enter a valid amount'); ok = false; }
-        const phonePattern = /^(\+2547\d{8}|07\d{8})$/;
-        if (phone && !phonePattern.test(phone.value)){ setFieldError(phone, 'Format: 07XXXXXXXX or +2547XXXXXXXX'); ok = false; }
-        if (gphone && !phonePattern.test(gphone.value)){ setFieldError(gphone, 'Format: 07XXXXXXXX or +2547XXXXXXXX'); ok = false; }
+        const phonePattern = /^(\+254(?:7|1)\d{8}|0(?:7|1)\d{8})$/;
+        if (phone && !phonePattern.test(phone.value)){ setFieldError(phone, 'Format: 07XXXXXXXX / 01XXXXXXXX or +2547/1XXXXXXXX'); ok = false; }
+        if (gphone && !phonePattern.test(gphone.value)){ setFieldError(gphone, 'Format: 07XXXXXXXX / 01XXXXXXXX or +2547/1XXXXXXXX'); ok = false; }
         const idDigits = (idnum ? idnum.value : '').replace(/\D+/g,'');
         if (idnum && (idDigits.length < 4 || idDigits.length > 12)){ setFieldError(idnum, 'ID must be 4-12 digits'); ok = false; }
         if (ward && !ward.value){ setFieldError(ward, 'Select ward'); ok = false; }
