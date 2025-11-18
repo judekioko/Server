@@ -6,9 +6,11 @@ from django.conf.urls.static import static
 from core.admin_dashboard import admin_dashboard_view
 from . import views
 from django.contrib.auth import views as auth_views
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('health/', views.health, name='health'),
 
     # Admin Dashboard
     path('admin/dashboard/', admin_dashboard_view, name='admin-dashboard'),
@@ -16,6 +18,10 @@ urlpatterns = [
 
     # Bursary app URLs
     path('bursary/', include('bursary.urls')),
+
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/docs/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path('api/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
 
     # =========================
     # Admin Password Reset URLs

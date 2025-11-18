@@ -117,11 +117,24 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       qs('status-error').style.display = 'none';
+      btn.disabled = true;
+      const original = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking...';
       try {
         const data = await fetchStatus(ref);
         renderResult(data);
       } catch (e) {
         showError(e.message || 'Failed to fetch status');
+      }
+      btn.disabled = false;
+      btn.innerHTML = original;
+    });
+  }
+  if (input) {
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        btn && btn.click();
       }
     });
   }

@@ -24,6 +24,15 @@ class BursaryAnalytics:
         """
         Get high-level overview statistics
         """
+        from time import time
+        global _overview_cache
+        try:
+            cache_entry = _overview_cache
+        except NameError:
+            _overview_cache = {'ts': 0, 'data': None}
+            cache_entry = _overview_cache
+        if time() - cache_entry['ts'] < 300 and cache_entry['data'] is not None:
+            return cache_entry['data']
         stats = self.queryset.aggregate(
             total_applications=Count('id'),
             total_amount_requested=Sum('amount'),
@@ -40,6 +49,7 @@ class BursaryAnalytics:
         stats['rejection_rate'] = round((stats['rejected_count'] / total) * 100, 2)
         stats['pending_rate'] = round((stats['pending_count'] / total) * 100, 2)
         
+        _overview_cache = {'ts': time(), 'data': stats}
         return stats
     
     def get_ward_distribution(self) -> List[Dict]:
@@ -401,6 +411,86 @@ def export_applications_csv(request):
 
     resp = StreamingHttpResponse(row_iter(), content_type='text/csv')
     resp['Content-Disposition'] = 'attachment; filename="bursary_applications.csv"'
+    return resp
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def export_applications_xlsx(request):
+    from django.http import HttpResponse
+    from openpyxl import Workbook
+    from .models import BursaryApplication
+    qs = BursaryApplication.objects.all().order_by('-submitted_at')
+    start_date = request.query_params.get('start_date')
+    end_date = request.query_params.get('end_date')
+    status_filter = request.query_params.get('status')
+    ward = request.query_params.get('ward')
+    if start_date:
+        qs = qs.filter(submitted_at__gte=start_date)
+    if end_date:
+        qs = qs.filter(submitted_at__lte=end_date)
+    if status_filter:
+        qs = qs.filter(status=status_filter)
+    if ward:
+        qs = qs.filter(ward=ward)
+    wb = Workbook()
+    ws = wb.active
+    ws.title = 'Applications'
+    headers = [
+        'Reference Number','Full Name','Gender','Disability','ID Number',
+        'Phone Number','Guardian Phone','Guardian ID','Ward','Village',
+        'Chief Name','Chief Phone','Sub Chief Name','Sub Chief Phone',
+        'Level of Study','Institution Type','Institution Name','Admission Number',
+        'Amount','Mode of Study','Year of Study','Family Status',
+        'Father Income','Mother Income','Status','Submitted At',
+        'Email','Confirmation','Data Consent','Communication Consent'
+    ]
+    ws.append(headers)
+    from django.utils import timezone as tz
+    for obj in qs.iterator():
+        submitted = obj.submitted_at
+        if submitted:
+            submitted = tz.localtime(submitted) if tz.is_aware(submitted) else submitted
+            submitted_str = submitted.strftime('%Y-%m-%d %H:%M:%S')
+        else:
+            submitted_str = ''
+        ws.append([
+            obj.reference_number or '',
+            obj.full_name or '',
+            obj.gender or '',
+            'Yes' if getattr(obj, 'disability', False) else 'No',
+            obj.id_number or '',
+            obj.phone_number or '',
+            obj.guardian_phone or '',
+            getattr(obj, 'guardian_id', '') or '',
+            obj.ward or '',
+            obj.village or '',
+            getattr(obj, 'chief_name', '') or '',
+            getattr(obj, 'chief_phone', '') or '',
+            getattr(obj, 'sub_chief_name', '') or '',
+            getattr(obj, 'sub_chief_phone', '') or '',
+            getattr(obj, 'level_of_study', '') or '',
+            getattr(obj, 'institution_type', '') or '',
+            obj.institution_name or '',
+            getattr(obj, 'admission_number', '') or '',
+            obj.amount if obj.amount is not None else '',
+            getattr(obj, 'mode_of_study', '') or '',
+            getattr(obj, 'year_of_study', '') or '',
+            getattr(obj, 'family_status', '') or '',
+            getattr(obj, 'father_income', '') or '',
+            getattr(obj, 'mother_income', '') or '',
+            obj.status or '',
+            submitted_str,
+            obj.email or '',
+            'Yes' if getattr(obj, 'confirmation', False) else 'No',
+            'Yes' if getattr(obj, 'data_consent', False) else 'No',
+            'Yes' if getattr(obj, 'communication_consent', False) else 'No'
+        ])
+    from io import BytesIO
+    stream = BytesIO()
+    wb.save(stream)
+    stream.seek(0)
+    resp = HttpResponse(stream.getvalue(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    resp['Content-Disposition'] = 'attachment; filename="bursary_applications.xlsx"'
     return resp
 
 

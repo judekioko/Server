@@ -18,6 +18,7 @@ from .analytics import (
     analytics_comprehensive,
     export_analytics_csv,
     export_applications_csv,
+    export_applications_xlsx,
     analytics_dashboard_view
 )
 
@@ -88,6 +89,10 @@ urlpatterns = [
     path("applications/export-csv/", 
          export_applications_csv, 
          name="applications-export-csv"),
+
+    path("applications/export-xlsx/", 
+         export_applications_xlsx, 
+         name="applications-export-xlsx"),
     
     path("analytics/dashboard/", 
          analytics_dashboard_view, 

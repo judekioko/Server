@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuToggle = document.querySelector(".menu-toggle");
   const nav = document.querySelector("nav ul");
   const body = document.body;
+  const themeToggle = document.getElementById('theme-toggle');
 
   function initMobileMenu() {
     if (!menuToggle || !nav) return;
@@ -80,4 +81,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   initMobileMenu();
+
+  function initTheme() {
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark') body.classList.add('dark');
+    } catch {}
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark');
+        try {
+          localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+        } catch {}
+        themeToggle.textContent = body.classList.contains('dark') ? '☀️' : '🌙';
+      });
+      themeToggle.textContent = body.classList.contains('dark') ? '☀️' : '🌙';
+    }
+  }
+  initTheme();
 });

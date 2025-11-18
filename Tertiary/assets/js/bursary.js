@@ -535,6 +535,26 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    const pn = document.getElementById('phone-number');
+    const gp = document.getElementById('guardian-phone');
+    const idn = document.getElementById('id-number');
+    function digitsOnly(v){ return (v||'').replace(/\D+/g,''); }
+    function normalizePhone(v){
+        const d = digitsOnly(v);
+        if (d.startsWith('254') && d.length >= 12) return '+254' + d.slice(3, 12);
+        if (d.startsWith('7') && d.length >= 9) return '0' + d.slice(0, 9);
+        if (d.startsWith('0') && d.length >= 10) return d.slice(0, 10);
+        return v;
+    }
+    [pn, gp].forEach(el => {
+        if (!el) return;
+        el.addEventListener('input', () => { el.value = normalizePhone(el.value); });
+        el.addEventListener('blur', () => { el.value = normalizePhone(el.value); });
+    });
+    if (idn){
+        idn.addEventListener('input', () => { idn.value = digitsOnly(idn.value).slice(0,12); });
+    }
 });
 
 // ================================
@@ -695,18 +715,46 @@ async function submitApplicationToAPI() {
             method = 'PUT';
         }
 
-        const response = await fetch(url, {
-            method,
-            headers: csrfToken ? { 'X-CSRFToken': csrfToken } : {},
-            body: formData,
-            signal: controller.signal
+        const progress = document.getElementById('upload-progress');
+        const bar = document.getElementById('upload-bar');
+        const pct = document.getElementById('upload-percent');
+
+        const data = await new Promise((resolve, reject) => {
+            try {
+                const xhr = new XMLHttpRequest();
+                xhr.open(method, url, true);
+                if (csrfToken) xhr.setRequestHeader('X-CSRFToken', csrfToken);
+                if (progress) progress.style.display = 'block';
+                xhr.upload.onprogress = function(e){
+                    if (!e.lengthComputable) return;
+                    const percent = Math.round((e.loaded / e.total) * 100);
+                    if (bar) bar.style.width = percent + '%';
+                    if (pct) pct.textContent = percent + '%';
+                };
+                const to = setTimeout(() => {
+                    try { xhr.abort(); } catch {}
+                    reject(new Error('Request timeout. Please check your connection and try again.'));
+                }, CONFIG.REQUEST_TIMEOUT);
+                xhr.onreadystatechange = function(){
+                    if (xhr.readyState === 4){
+                        clearTimeout(to);
+                        if (progress) progress.style.display = 'none';
+                        let json = {};
+                        try { json = JSON.parse(xhr.responseText || '{}'); } catch {}
+                        if (xhr.status >= 200 && xhr.status < 300){
+                            resolve(json);
+                        } else {
+                            reject(new Error(Utils.formatErrorMessage(json)));
+                        }
+                    }
+                };
+                xhr.send(formData);
+            } catch (err) {
+                reject(err);
+            }
         });
 
-        clearTimeout(timeout);
-
-        const data = await response.json();
-
-        if (response.ok) {
+        if (data && (data.reference_number || editMode)) {
             // Success
             if (loadingDiv) loadingDiv.style.display = 'none';
             
@@ -756,7 +804,6 @@ async function submitApplicationToAPI() {
             }
             
         } else {
-            // Handle errors
             const errorMessage = Utils.formatErrorMessage(data);
             throw new Error(errorMessage);
         }

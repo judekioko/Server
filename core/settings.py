@@ -201,6 +201,7 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.AnonRateThrottle',
         'rest_framework.throttling.UserRateThrottle'
@@ -209,6 +210,12 @@ REST_FRAMEWORK = {
         'anon': '100/hour',  # Anonymous users: 100 requests per hour
         'user': '1000/hour'  # Authenticated users: 1000 requests per hour
     }
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Masinga NG-CDF Bursary API',
+    'DESCRIPTION': 'API for bursary applications, status, analytics and admin operations',
+    'VERSION': '1.0.0',
 }
 
 # =========================

@@ -19,6 +19,25 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+body.dark {
+  background: #121212;
+  color: #eaeaea;
+}
+body.dark header {
+  border-bottom-color: #222;
+}
+body.dark nav ul li a {
+  color: #eaeaea;
+}
+body.dark nav ul li a:hover,
+body.dark nav ul li a.active {
+  color: #ffd700;
+  background: rgba(255,255,255,0.1);
+}
+body.dark footer {
+  border-top-color: #222;
+}
+
 /* === Kenyan Flag Header === */
 header {
   display: flex;
@@ -126,6 +145,22 @@ nav ul li a.active {
   z-index: 1001;
   border-radius: 4px;
   transition: all 0.3s ease;
+}
+
+.theme-toggle {
+  font-size: 1rem;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.3);
+  color: #fff;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+.theme-toggle:hover {
+  background: rgba(255,255,255,0.25);
+}
+body.dark .theme-toggle {
+  background: rgba(255,255,255,0.1);
 }
 
 .menu-toggle:hover {
