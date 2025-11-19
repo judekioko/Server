@@ -193,6 +193,10 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000',
     'https://masinga-frontend.onrender.com',
     'https://masinga-backend.onrender.com',
+    "http://127.0.0.1:5500",  # VS Code Live Server default port
+    "http://localhost:5500",
+    "http://127.0.0.1:5501",  # Alternative port
+    "http://localhost:5501"
 ]
 
 # =========================
@@ -321,3 +325,8 @@ SESSION_COOKIE_SAMESITE = 'Lax'
 # Admin Security
 # =========================
 ADMIN_URL = os.environ.get('ADMIN_URL', 'admin/')
+
+# =========================
+# Authentication Settings
+# =========================
+LOGIN_URL = '/admin/login/'
