@@ -44,9 +44,6 @@ if raw_hosts:
 # Remove duplicates
 ALLOWED_HOSTS = list(set(ALLOWED_HOSTS))
 
-print("DEBUG =", DEBUG)
-print("ALLOWED_HOSTS =", ALLOWED_HOSTS)
-
 # Security settings for production
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
@@ -258,7 +255,11 @@ EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
+DEFAULT_FROM_EMAIL = (
+    os.environ.get('DEFAULT_FROM_EMAIL')
+    or EMAIL_HOST_USER
+    or 'no-reply@masinga.local'
+)
 EMAIL_TIMEOUT = 10  # seconds
 
 # =========================
@@ -305,7 +306,7 @@ LOGGING = {
 }
 
 # Create logs directory if it doesn't exist
-(BASE_DIR / 'logs').mkdir(exist_ok=True)
+(BASE_DIR / 'logs').mkdir(parents=True, exist_ok=True)
 
 # =========================
 # Session Security

@@ -36,17 +36,14 @@ class DuplicateApplicationDetector:
         # Get current academic year cutoff (last 6 months)
         six_months_ago = timezone.now() - timedelta(days=180)
         
-        # Check for exact ID number match
-        exact_id_matches = BursaryApplication.objects.filter(
-            id_number=id_number,
-            submitted_at__gte=six_months_ago
-        ).exclude(status='rejected')
-        
+        # Hard block: any existing application with the same ID number
+        exact_id_matches = BursaryApplication.objects.filter(id_number=id_number)
         if exact_id_matches.exists():
+            first_match = exact_id_matches.first()
             logger.warning(f"Duplicate detected: ID {id_number} already has application")
             return {
                 'is_duplicate': True,
-                'reason': f'An application with ID number {id_number} already exists. Reference: {exact_id_matches.first().reference_number}',
+                'reason': f'An application with ID number {id_number} already exists. Reference: {first_match.reference_number}',
                 'existing_applications': exact_id_matches,
                 'match_type': 'exact_id'
             }
