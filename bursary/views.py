@@ -23,6 +23,7 @@ from django.utils import timezone
 import logging
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.contrib.auth import authenticate
 
 # Import custom modules
 from .duplicate_detection import DuplicateApplicationDetector, DuplicatePreventionMixin
@@ -323,3 +324,41 @@ def logout_view(request):
     logout(request)
     request.session.flush()
     return redirect('admin:login')
+
+
+# ===========================
+#  API Auth (Token)
+# ===========================
+@api_view(['POST'])
+@permission_classes([permissions.AllowAny])
+def api_login(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+    if not username or not password:
+        return Response({'error': 'username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
+    user = authenticate(request, username=username, password=password)
+    if not user:
+        return Response({'error': 'invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+    from rest_framework.authtoken.models import Token
+    token, _ = Token.objects.get_or_create(user=user)
+    return Response({
+        'token': token.key,
+        'user': {
+            'id': user.id,
+            'username': user.username,
+            'is_staff': user.is_staff,
+            'is_superuser': user.is_superuser,
+        }
+    })
+
+
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def api_logout(request):
+    try:
+        from rest_framework.authtoken.models import Token
+        Token.objects.filter(user=request.user).delete()
+    except Exception:
+        pass
+    logout(request)
+    return Response({'message': 'logged out'})

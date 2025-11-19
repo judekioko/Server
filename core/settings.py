@@ -27,24 +27,20 @@ if not SECRET_KEY:
 # =========================
 # ALLOWED_HOSTS Configuration
 # =========================
-# Always include both development and production hosts
 ALLOWED_HOSTS = [
     'localhost', 
     '127.0.0.1', 
     '0.0.0.0',
-    'masinga-backend.onrender.com',  # Your future backend domain
-    '.onrender.com',  # All render subdomains
+    'masinga-backend.onrender.com',
+    '.onrender.com',
 ]
 
-# Add any additional hosts from environment
 raw_hosts = os.environ.get("ALLOWED_HOSTS", "")
 if raw_hosts:
     ALLOWED_HOSTS.extend([h.strip() for h in raw_hosts.split(",") if h.strip()])
 
-# Remove duplicates
 ALLOWED_HOSTS = list(set(ALLOWED_HOSTS))
 
-# Security settings for production
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
@@ -52,7 +48,7 @@ if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'DENY'
-    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
 
@@ -68,8 +64,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bursary',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'django_filters',
+    'drf_spectacular',
 ]
 
 # =========================
@@ -77,7 +75,7 @@ INSTALLED_APPS = [
 # =========================
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # For static files in production
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -95,7 +93,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # Removed Tertiary frontend
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -113,7 +111,6 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database (PostgreSQL or SQLite)
 # =========================
 if os.environ.get("DATABASE_URL"):
-    # Production database (Render)
     DATABASES = {
         'default': dj_database_url.parse(
             os.environ.get("DATABASE_URL"),
@@ -165,40 +162,37 @@ USE_TZ = True
 # =========================
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = []  # No frontend files here
+STATICFILES_DIRS = []
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# File upload settings
-FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
-DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 
 # =========================
-# CORS Settings - UPDATED FOR LIVE FRONTEND
+# CORS Settings
 # =========================
 CORS_ALLOW_CREDENTIALS = True
 
-# Allow both local development and production frontend
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',  # Local frontend development
-    'http://127.0.0.1:3000',  # Local frontend development  
-    'https://masinga-frontend.onrender.com',  # Live frontend
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'https://masinga-frontend.onrender.com',
 ]
 
-# In development, also allow all origins for flexibility
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 
 # =========================
-# CSRF Settings - UPDATED FOR LIVE FRONTEND
+# CSRF Settings
 # =========================
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:8000',  # Local backend
-    'http://127.0.0.1:8000',  # Local backend
-    'https://masinga-frontend.onrender.com',  # Live frontend
-    'https://masinga-backend.onrender.com',  # Future backend
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'https://masinga-frontend.onrender.com',
+    'https://masinga-backend.onrender.com',
 ]
 
 # =========================
@@ -219,6 +213,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20,
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -248,7 +243,7 @@ SPECTACULAR_SETTINGS = {
 # =========================
 EMAIL_BACKEND = os.environ.get(
     'EMAIL_BACKEND',
-    'django.core.mail.backends.smtp.EmailBackend'
+    'django.core.mail.backends.console.EmailBackend' if DEBUG else 'django.core.mail.backends.smtp.EmailBackend'
 )
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
@@ -260,7 +255,14 @@ DEFAULT_FROM_EMAIL = (
     or EMAIL_HOST_USER
     or 'no-reply@masinga.local'
 )
-EMAIL_TIMEOUT = 10  # seconds
+EMAIL_TIMEOUT = 10
+
+# =========================
+# Password Reset Configuration
+# =========================
+PASSWORD_RESET_TIMEOUT = 3600  # 1 hour in seconds
+PASSWORD_RESET_EMAIL_TEMPLATE_NAME = 'password_reset_email.html'
+PASSWORD_RESET_SUBJECT_TEMPLATE_NAME = 'password_reset_subject.txt'
 
 # =========================
 # Logging Configuration
@@ -305,13 +307,12 @@ LOGGING = {
     },
 }
 
-# Create logs directory if it doesn't exist
 (BASE_DIR / 'logs').mkdir(parents=True, exist_ok=True)
 
 # =========================
 # Session Security
 # =========================
-SESSION_COOKIE_AGE = 3600  # 1 hour
+SESSION_COOKIE_AGE = 3600
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Lax'
@@ -319,4 +320,4 @@ SESSION_COOKIE_SAMESITE = 'Lax'
 # =========================
 # Admin Security
 # =========================
-ADMIN_URL = os.environ.get('ADMIN_URL', 'admin/')  # Allow custom admin URL
+ADMIN_URL = os.environ.get('ADMIN_URL', 'admin/')
