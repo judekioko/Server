@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Masinga NG-CDF Bursary System Admin Login</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-container h1 {
+      margin-bottom: 20px;
+      color: #003366;
+    }
+
+    .login-container form div {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .login-container label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #003366;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      background: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .login-container button:hover {
+      background: #004a99;
+    }
+
+    .login-container p {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .login-container a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+
+    .login-container a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-container">
+  <h1>Masinga NG-CDF Bursary System Admin</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div>
+      <label for="id_username">Username</label>
+      {{ form.username }}
+    </div>
+    <div>
+      <label for="id_password">Password</label>
+      {{ form.password }}
+    </div>
+    <button type="submit">Login</button>
+  </form>
+
+  <p><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
+  <p>Don't have an account? Contact the system administrator.</p>
+  <p>Thank you for using Masinga NG-CDF Bursary System Admin!</p>
+  <p>System Developed By Jude Kioko</p>
+</div>
+
+</body>
+</html>

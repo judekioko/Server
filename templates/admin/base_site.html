@@ -1,0 +1,33 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}Masinga NG-CDF Admin Dashboard{% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'css/admin_custom.css' %}">
+{% endblock %}
+
+{% block branding %}
+<div id="branding">
+  <h1 id="site-name" style="display: flex; align-items: center; gap: 10px;">
+    
+    <span>Masinga NG-CDF Admin Dashboard</span>
+  </h1>
+</div>
+{% endblock %}
+
+{% block nav-global %}
+<div style="float:right; margin-right:20px;">
+  <a href="/" style="color:#fff; text-decoration:none;">🏠 Back to Website</a>
+</div>
+{% endblock %}
+<a href="{% url 'admin-dashboard' %}" style="color:#fff; text-decoration:none; margin-left:15px;">
+  📊 Dashboard
+</a>
+
+
+{% block footer %}
+<div id="footer">
+  &copy; {{ current_year|default:2025 }} Masinga NG-CDF | Developed by Jude Kioko
+</div>
+{% endblock %}

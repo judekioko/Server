@@ -1,0 +1,1142 @@
+INFO 2025-12-01 08:45:00,983 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 08:46:40,804 basehttp "GET /admin/bursary/bursaryapplication/add/ HTTP/1.1" 302 0
+INFO 2025-12-01 08:46:43,152 basehttp "GET /admin/login/?next=/admin/bursary/bursaryapplication/add/ HTTP/1.1" 200 2593
+WARNING 2025-12-01 08:46:43,668 log Not Found: /favicon.ico
+WARNING 2025-12-01 08:46:43,669 basehttp "GET /favicon.ico HTTP/1.1" 404 4501
+INFO 2025-12-01 08:46:53,947 basehttp "POST /admin/login/?next=/admin/bursary/bursaryapplication/add/ HTTP/1.1" 200 2607
+INFO 2025-12-01 08:47:09,964 basehttp "POST /admin/login/?next=/admin/bursary/bursaryapplication/add/ HTTP/1.1" 302 0
+WARNING 2025-12-01 08:47:10,031 log Forbidden (Permission denied): /admin/bursary/bursaryapplication/add/
+Traceback (most recent call last):
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\options.py", line 1984, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\options.py", line 1840, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\options.py", line 1859, in _changeform_view
+    raise PermissionDenied
+django.core.exceptions.PermissionDenied
+WARNING 2025-12-01 08:47:10,503 basehttp "GET /admin/bursary/bursaryapplication/add/ HTTP/1.1" 403 135
+WARNING 2025-12-01 08:47:15,972 log Forbidden (CSRF token from POST incorrect.): /admin/login/
+WARNING 2025-12-01 08:47:16,022 basehttp "POST /admin/login/?next=/admin/bursary/bursaryapplication/add/ HTTP/1.1" 403 2503
+INFO 2025-12-01 08:50:34,356 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 08:50:41,966 basehttp "GET /admin/login/?next=/admin/bursary/bursaryapplication/add/ HTTP/1.1" 302 0
+INFO 2025-12-01 08:50:43,044 basehttp "GET /admin/ HTTP/1.1" 200 7590
+INFO 2025-12-01 08:50:52,525 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18231
+WARNING 2025-12-01 08:50:52,605 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:50:52,839 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 08:51:08,291 basehttp "POST /admin/logout/ HTTP/1.1" 200 3305
+WARNING 2025-12-01 08:51:08,355 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:51:10,013 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-01 08:51:10,191 basehttp "GET /admin/login/?next=/admin/bursary/bursaryapplication/ HTTP/1.1" 200 2593
+INFO 2025-12-01 08:51:21,893 basehttp "POST /admin/login/?next=/admin/bursary/bursaryapplication/ HTTP/1.1" 200 2607
+INFO 2025-12-01 08:51:36,826 basehttp "POST /admin/login/?next=/admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-01 08:51:36,945 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 20779
+WARNING 2025-12-01 08:51:37,062 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:51:37,080 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 08:51:55,867 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 15389
+WARNING 2025-12-01 08:51:55,930 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:51:56,057 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 08:51:56,108 basehttp "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-12-01 08:52:01,714 basehttp "GET /admin/auth/user/1/change/ HTTP/1.1" 200 26287
+WARNING 2025-12-01 08:52:01,812 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:52:01,834 basehttp "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-12-01 08:52:01,869 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-12-01 08:52:01,900 basehttp "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-12-01 08:52:02,020 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 08:52:02,720 basehttp "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-12-01 08:52:02,722 basehttp "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15845
+INFO 2025-12-01 08:52:02,749 basehttp "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2025-12-01 08:52:02,755 basehttp "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-12-01 08:52:02,760 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-12-01 08:52:02,933 basehttp "GET /static/admin/img/selector-icons.svg HTTP/1.1" 304 0
+INFO 2025-12-01 08:52:02,948 basehttp "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+INFO 2025-12-01 08:52:02,957 basehttp "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+INFO 2025-12-01 08:52:06,720 basehttp "GET /admin/auth/user/1/delete/ HTTP/1.1" 200 10786
+WARNING 2025-12-01 08:52:06,794 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:52:08,497 basehttp "POST /admin/auth/user/1/delete/ HTTP/1.1" 302 0
+INFO 2025-12-01 08:52:08,585 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 15081
+WARNING 2025-12-01 08:52:08,680 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:52:08,698 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 08:52:11,465 basehttp "GET /admin/auth/user/4/change/ HTTP/1.1" 200 26287
+WARNING 2025-12-01 08:52:11,531 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:52:11,548 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 08:52:17,294 basehttp "POST /admin/auth/user/4/change/ HTTP/1.1" 302 0
+INFO 2025-12-01 08:52:17,355 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 15122
+WARNING 2025-12-01 08:52:17,435 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:52:17,456 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 08:52:19,729 basehttp "GET /admin/auth/user/3/change/ HTTP/1.1" 200 26374
+WARNING 2025-12-01 08:52:19,810 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:52:20,082 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 08:52:26,652 basehttp "POST /admin/auth/user/3/change/ HTTP/1.1" 302 0
+INFO 2025-12-01 08:52:26,731 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 15124
+WARNING 2025-12-01 08:52:26,820 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:52:26,846 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 08:52:31,589 basehttp "GET / HTTP/1.1" 200 155
+INFO 2025-12-01 08:52:33,921 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 14929
+WARNING 2025-12-01 08:52:33,976 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:52:38,879 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 20779
+WARNING 2025-12-01 08:52:38,949 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:52:38,966 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 08:52:40,953 basehttp "GET /admin/bursary/applicationstatuslog/ HTTP/1.1" 200 16584
+WARNING 2025-12-01 08:52:41,011 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:52:41,262 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 08:56:07,818 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 08:56:08,099 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-01 08:56:08,100 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 73
+INFO 2025-12-01 08:56:19,661 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 08:56:19,970 sms_service Africa's Talking API key not configured
+INFO 2025-12-01 08:56:20,006 views Email sent successfully to ['raphaelmutiso983@gmail.com']
+WARNING 2025-12-01 08:56:20,007 sms_service SMS service not enabled
+WARNING 2025-12-01 08:56:20,007 sms_service SMS service not enabled
+INFO 2025-12-01 08:56:20,008 views Application created: MNG-3BF29E03
+INFO 2025-12-01 08:56:20,016 basehttp "POST /api/bursary/apply/ HTTP/1.1" 201 1177
+INFO 2025-12-01 08:56:38,127 basehttp "GET /api/bursary/applications/MNG-3BF29E03/ HTTP/1.1" 200 1064
+INFO 2025-12-01 08:57:54,697 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 21584
+WARNING 2025-12-01 08:57:54,773 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:57:54,795 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 08:58:02,004 basehttp "GET /admin/bursary/applicationstatuslog/ HTTP/1.1" 200 16584
+WARNING 2025-12-01 08:58:02,061 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:58:03,298 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 21584
+WARNING 2025-12-01 08:58:03,350 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:58:04,199 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 14929
+WARNING 2025-12-01 08:58:04,268 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:58:05,077 basehttp "GET /admin/auth/user/3/change/ HTTP/1.1" 200 26374
+WARNING 2025-12-01 08:58:05,165 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:58:06,041 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 14929
+WARNING 2025-12-01 08:58:06,103 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:58:06,733 basehttp "GET /admin/auth/user/4/change/ HTTP/1.1" 200 26287
+WARNING 2025-12-01 08:58:06,811 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:58:07,703 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 14929
+WARNING 2025-12-01 08:58:07,770 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 08:58:08,469 basehttp "GET /admin/auth/user/1/delete/ HTTP/1.1" 302 0
+INFO 2025-12-01 08:58:08,563 basehttp "GET /admin/ HTTP/1.1" 200 10170
+WARNING 2025-12-01 08:58:08,652 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 09:17:11,122 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\models.py changed, reloading.
+INFO 2025-12-01 09:17:38,997 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 09:19:47,627 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\serializers.py changed, reloading.
+INFO 2025-12-01 09:19:55,439 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 09:20:40,203 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 09:23:56,281 basehttp "GET /admin/ HTTP/1.1" 200 10003
+INFO 2025-12-01 09:24:01,136 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 21584
+WARNING 2025-12-01 09:24:01,247 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 09:24:01,289 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 09:24:06,668 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 200 12070
+WARNING 2025-12-01 09:24:06,744 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 09:24:08,536 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-01 09:24:08,609 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 14818
+WARNING 2025-12-01 09:24:08,699 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 09:24:08,721 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 09:26:26,798 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 09:26:27,372 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-01 09:26:27,374 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 81
+INFO 2025-12-01 09:26:35,138 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 09:26:35,272 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-01 09:26:35,273 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 81
+INFO 2025-12-01 09:26:38,625 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 09:26:38,838 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-01 09:26:38,839 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 81
+INFO 2025-12-01 09:26:47,674 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 09:26:47,775 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-01 09:26:47,776 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 81
+INFO 2025-12-01 09:26:49,840 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 09:26:49,944 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-01 09:26:49,946 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 81
+INFO 2025-12-01 09:37:21,268 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 09:37:29,598 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-01 09:37:29,606 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 81
+INFO 2025-12-01 09:40:09,199 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\serializers.py changed, reloading.
+INFO 2025-12-01 09:40:31,435 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 09:41:42,346 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 09:41:43,330 sms_service Africa's Talking API key not configured
+INFO 2025-12-01 09:41:47,385 views Email sent successfully to ['raphaelmutiso983@gmail.com']
+WARNING 2025-12-01 09:41:47,407 sms_service SMS service not enabled
+WARNING 2025-12-01 09:41:47,413 sms_service SMS service not enabled
+INFO 2025-12-01 09:41:47,414 views Application created: MNG-557E6D03
+INFO 2025-12-01 09:41:47,441 basehttp "POST /api/bursary/apply/ HTTP/1.1" 201 1516
+INFO 2025-12-01 09:42:27,020 basehttp "GET /api/bursary/applications/MNG-557E6D03/ HTTP/1.1" 200 1403
+WARNING 2025-12-01 09:43:10,939 base Session data corrupted
+INFO 2025-12-01 09:43:11,462 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-01 09:43:11,596 basehttp "GET /admin/login/?next=/admin/bursary/bursaryapplication/ HTTP/1.1" 200 2593
+INFO 2025-12-01 09:43:20,444 basehttp "POST /admin/login/?next=/admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-01 09:43:20,655 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18333
+WARNING 2025-12-01 09:43:20,761 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 09:43:20,808 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 09:43:25,908 basehttp "GET /admin/bursary/bursaryapplication/6/change/ HTTP/1.1" 200 38101
+WARNING 2025-12-01 09:43:25,986 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 09:43:26,001 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 09:45:00,001 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 09:45:00,259 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-01 09:45:00,260 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 73
+INFO 2025-12-01 09:45:09,810 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 09:45:10,129 sms_service Africa's Talking API key not configured
+INFO 2025-12-01 09:45:14,016 views Email sent successfully to ['mutisojude47@gmail.com']
+WARNING 2025-12-01 09:45:14,017 sms_service SMS service not enabled
+WARNING 2025-12-01 09:45:14,018 sms_service SMS service not enabled
+INFO 2025-12-01 09:45:14,018 views Application created: MNG-53F90F55
+INFO 2025-12-01 09:45:14,024 basehttp "POST /api/bursary/apply/ HTTP/1.1" 201 1598
+INFO 2025-12-01 09:46:48,046 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 09:46:48,100 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-01 09:46:48,105 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 108
+INFO 2025-12-01 09:47:15,243 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 09:47:15,281 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-01 09:47:15,285 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 103
+INFO 2025-12-01 09:47:45,533 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 09:47:45,644 sms_service Africa's Talking API key not configured
+INFO 2025-12-01 09:47:49,625 views Email sent successfully to ['judekioko15@gmail.com']
+WARNING 2025-12-01 09:47:49,632 sms_service SMS service not enabled
+WARNING 2025-12-01 09:47:49,644 sms_service SMS service not enabled
+INFO 2025-12-01 09:47:49,644 views Application created: MNG-F85E91F3
+INFO 2025-12-01 09:47:49,651 basehttp "POST /api/bursary/apply/ HTTP/1.1" 201 1745
+INFO 2025-12-01 09:49:46,817 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 09:49:46,874 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-01 09:49:46,875 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 108
+INFO 2025-12-01 09:50:15,249 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 09:50:15,282 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-01 09:50:15,286 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 108
+INFO 2025-12-01 10:00:59,909 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\serializers.py changed, reloading.
+INFO 2025-12-01 10:01:50,910 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 10:03:18,373 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 10:03:18,668 duplicate_detection Duplicate detected: Email mutisojude47@gmail.com + Phone +254111313952
+WARNING 2025-12-01 10:03:18,706 duplicate_detection Blocked duplicate application: An application with this email and phone number already exists. Reference: MNG-53F90F55
+WARNING 2025-12-01 10:03:18,746 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-01 10:03:18,748 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 145
+INFO 2025-12-01 10:03:39,075 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 10:03:39,127 duplicate_detection Duplicate detected: Email mutisojude47@gmail.com + Phone +254111313952
+WARNING 2025-12-01 10:03:39,130 duplicate_detection Blocked duplicate application: An application with this email and phone number already exists. Reference: MNG-53F90F55
+WARNING 2025-12-01 10:03:39,136 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-01 10:03:39,138 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 145
+INFO 2025-12-01 10:03:56,241 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+INFO 2025-12-01 10:03:56,313 duplicate_detection Potential duplicate detected (fuzzy): Ngundo Musemi in kivaa
+INFO 2025-12-01 10:03:56,317 duplicate_detection Suspicious application allowed: A similar application was found. If this is not you, proceed. Reference: MNG-F85E91F3
+WARNING 2025-12-01 10:03:56,808 sms_service Africa's Talking API key not configured
+INFO 2025-12-01 10:04:00,769 views Email sent successfully to ['mutisojude47@gmail.com']
+WARNING 2025-12-01 10:04:00,784 sms_service SMS service not enabled
+WARNING 2025-12-01 10:04:00,792 sms_service SMS service not enabled
+INFO 2025-12-01 10:04:00,804 views Application created: MNG-62112E16
+INFO 2025-12-01 10:04:00,847 basehttp "POST /api/bursary/apply/ HTTP/1.1" 201 1680
+INFO 2025-12-01 10:04:11,875 basehttp "GET /admin/bursary/bursaryapplication/6/change/ HTTP/1.1" 200 38101
+WARNING 2025-12-01 10:04:12,447 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:04:15,903 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 20737
+WARNING 2025-12-01 10:04:16,193 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:04:16,251 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:04:18,471 basehttp "GET /admin/bursary/bursaryapplication/9/change/ HTTP/1.1" 200 38086
+WARNING 2025-12-01 10:04:19,228 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:04:19,281 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:04:40,164 basehttp "GET /admin/bursary/bursaryapplication/9/change/ HTTP/1.1" 200 38086
+WARNING 2025-12-01 10:04:40,262 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:04:40,284 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:04:42,244 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 20737
+WARNING 2025-12-01 10:04:42,322 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:04:42,358 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:04:46,924 basehttp "GET /admin/bursary/bursaryapplication/9/change/ HTTP/1.1" 200 38086
+WARNING 2025-12-01 10:04:47,010 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:04:47,056 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:05:34,460 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 20737
+WARNING 2025-12-01 10:05:34,536 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:05:54,859 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-01 10:05:55,271 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 20930
+WARNING 2025-12-01 10:05:55,391 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:05:55,417 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:09:38,904 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\serializers.py changed, reloading.
+INFO 2025-12-01 10:10:04,803 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 10:33:49,652 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 10:33:57,495 basehttp "GET /media/uploads/death_certificates/IMG-20250718-WA0009.jpg HTTP/1.1" 200 133688
+INFO 2025-12-01 10:34:54,104 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 20737
+WARNING 2025-12-01 10:34:54,360 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:34:54,494 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:34:57,483 basehttp "GET /admin/bursary/bursaryapplication/9/change/ HTTP/1.1" 200 38086
+WARNING 2025-12-01 10:34:57,930 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:34:57,961 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:50:34,569 basehttp "GET /admin/bursary/bursaryapplication/9/change/ HTTP/1.1" 200 38086
+WARNING 2025-12-01 10:50:35,020 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:50:37,549 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 20737
+WARNING 2025-12-01 10:50:37,618 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:50:37,645 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+WARNING 2025-12-01 10:50:47,640 sms_service Africa's Talking API key not configured
+INFO 2025-12-01 10:50:52,337 views Email sent successfully to ['mutisojude47@gmail.com']
+WARNING 2025-12-01 10:50:52,362 sms_service SMS service not enabled
+INFO 2025-12-01 10:50:55,285 views Email sent successfully to ['judekioko15@gmail.com']
+WARNING 2025-12-01 10:50:55,362 sms_service SMS service not enabled
+INFO 2025-12-01 10:50:58,672 views Email sent successfully to ['mutisojude47@gmail.com']
+WARNING 2025-12-01 10:50:58,728 sms_service SMS service not enabled
+INFO 2025-12-01 10:51:02,153 views Email sent successfully to ['raphaelmutiso983@gmail.com']
+WARNING 2025-12-01 10:51:02,165 sms_service SMS service not enabled
+INFO 2025-12-01 10:51:02,188 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-01 10:51:02,488 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 20883
+WARNING 2025-12-01 10:51:02,737 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:51:02,890 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:54:03,462 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 200 11886
+WARNING 2025-12-01 10:54:03,533 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:54:06,041 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-01 10:54:06,140 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 14818
+WARNING 2025-12-01 10:54:06,234 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:54:06,249 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:54:17,160 basehttp "GET /admin/bursary/bursaryapplication/?ward__exact=kivaa HTTP/1.1" 200 15393
+WARNING 2025-12-01 10:54:17,232 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:54:17,251 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:54:19,479 basehttp "GET /admin/bursary/bursaryapplication/?ward__exact=masinga-central HTTP/1.1" 200 15673
+WARNING 2025-12-01 10:54:19,558 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:54:19,580 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:54:22,052 basehttp "GET /admin/bursary/bursaryapplication/? HTTP/1.1" 200 14668
+WARNING 2025-12-01 10:54:22,126 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:54:22,149 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:54:45,838 basehttp "GET /admin/bursary/bursaryapplication/? HTTP/1.1" 200 14668
+WARNING 2025-12-01 10:54:45,910 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:54:45,927 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:56:09,547 basehttp "GET /admin/bursary/bursaryapplication/?ward__exact=ndithini HTTP/1.1" 200 15477
+WARNING 2025-12-01 10:56:09,626 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:56:09,640 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:56:11,957 basehttp "GET /admin/bursary/bursaryapplication/? HTTP/1.1" 200 14668
+WARNING 2025-12-01 10:56:12,022 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:56:12,038 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:56:14,977 basehttp "GET /admin/bursary/bursaryapplication/?ward__exact=kivaa HTTP/1.1" 200 15393
+WARNING 2025-12-01 10:56:15,053 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:56:15,077 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:56:16,161 basehttp "GET /admin/bursary/bursaryapplication/? HTTP/1.1" 200 14668
+WARNING 2025-12-01 10:56:16,248 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:56:16,264 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:56:18,858 basehttp "GET /admin/bursary/bursaryapplication/?ward__exact=masinga-central HTTP/1.1" 200 15673
+WARNING 2025-12-01 10:56:18,934 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:56:18,952 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:56:19,779 basehttp "GET /admin/bursary/bursaryapplication/? HTTP/1.1" 200 14668
+WARNING 2025-12-01 10:56:19,850 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:56:19,868 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:56:45,659 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 14668
+WARNING 2025-12-01 10:56:45,755 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:56:45,797 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:56:50,541 basehttp "GET /admin/bursary/applicationstatuslog/ HTTP/1.1" 200 12530
+WARNING 2025-12-01 10:56:50,628 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:56:50,665 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:56:52,300 basehttp "GET /admin/bursary/applicationstatuslog/ HTTP/1.1" 200 12530
+WARNING 2025-12-01 10:56:52,407 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:56:52,426 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:56:53,954 basehttp "GET /admin/bursary/applicationdeadline/ HTTP/1.1" 200 12072
+WARNING 2025-12-01 10:56:54,039 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:56:54,058 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:56:55,571 basehttp "GET /admin/bursary/applicationdeadline/ HTTP/1.1" 200 12072
+WARNING 2025-12-01 10:56:55,724 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:56:56,144 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:56:58,772 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 14668
+WARNING 2025-12-01 10:56:58,860 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:56:58,901 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 10:59:14,774 basehttp "POST /admin/logout/ HTTP/1.1" 200 3305
+WARNING 2025-12-01 10:59:14,851 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 10:59:16,683 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-01 10:59:16,734 basehttp "GET /admin/login/?next=/admin/bursary/bursaryapplication/ HTTP/1.1" 200 2593
+INFO 2025-12-01 15:13:28,741 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 15:15:24,836 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 15:28:50,469 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\views.py changed, reloading.
+INFO 2025-12-01 15:29:11,992 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 15:30:26,395 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\views.py changed, reloading.
+INFO 2025-12-01 15:30:50,510 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 15:34:11,551 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\views.py changed, reloading.
+INFO 2025-12-01 15:34:21,467 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 15:35:14,765 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\views.py changed, reloading.
+INFO 2025-12-01 15:35:21,981 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 15:35:30,284 basehttp "GET /admin/login/?next=/admin/bursary/bursaryapplication/ HTTP/1.1" 200 2593
+INFO 2025-12-01 15:35:40,629 basehttp "POST /admin/login/?next=/admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-01 15:35:41,374 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 14668
+WARNING 2025-12-01 15:35:41,481 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 15:35:41,523 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 15:35:44,150 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 14668
+WARNING 2025-12-01 15:35:44,254 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 15:35:44,428 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 15:35:45,953 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 14668
+WARNING 2025-12-01 15:35:46,017 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 15:35:46,033 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 15:35:47,585 basehttp "GET /admin/bursary/applicationstatuslog/ HTTP/1.1" 200 12530
+WARNING 2025-12-01 15:35:47,672 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 15:35:48,399 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 15:35:50,827 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 14929
+WARNING 2025-12-01 15:35:50,898 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 15:35:50,917 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 15:37:00,248 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 15:37:00,528 sms_service Africa's Talking API key not configured
+WARNING 2025-12-01 15:37:00,532 views Notification failed: cannot import name 'generate_confirmation_email_html' from 'bursary.views' (C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\views.py)
+INFO 2025-12-01 15:37:00,538 basehttp "POST /api/bursary/apply/ HTTP/1.1" 201 1452
+INFO 2025-12-01 15:37:18,431 basehttp "GET /api/bursary/applications/MNG-6EF9F6AF/ HTTP/1.1" 200 1416
+INFO 2025-12-01 15:39:39,137 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18584
+WARNING 2025-12-01 15:39:39,432 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 15:39:39,455 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 15:39:42,401 basehttp "GET /admin/bursary/bursaryapplication/10/change/ HTTP/1.1" 200 38115
+WARNING 2025-12-01 15:39:42,477 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 15:39:42,498 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 15:39:49,773 basehttp "POST /admin/bursary/bursaryapplication/10/change/ HTTP/1.1" 302 0
+INFO 2025-12-01 15:39:49,836 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18836
+WARNING 2025-12-01 15:39:49,910 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 15:39:49,921 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 15:42:20,821 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 15:42:21,472 sms_service Africa's Talking API key not configured
+WARNING 2025-12-01 15:42:21,475 views Notification failed: cannot import name 'generate_confirmation_email_html' from 'bursary.views' (C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\views.py)
+INFO 2025-12-01 15:42:21,489 basehttp "POST /api/bursary/apply/ HTTP/1.1" 201 1454
+INFO 2025-12-01 15:44:23,932 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\views.py changed, reloading.
+INFO 2025-12-01 15:44:29,948 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 15:51:09,212 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 15:52:26,864 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\urls.py changed, reloading.
+INFO 2025-12-01 15:52:35,822 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 15:55:40,042 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 15:56:56,014 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-01 15:56:56,202 sms_service Africa's Talking API key not configured
+INFO 2025-12-01 15:57:03,714 views Email sent successfully to ['mutisojude47@gmail.com']
+WARNING 2025-12-01 15:57:03,715 sms_service SMS service not enabled
+WARNING 2025-12-01 15:57:03,715 sms_service SMS service not enabled
+INFO 2025-12-01 15:57:03,716 views Application created: MNG-C356B771
+INFO 2025-12-01 15:57:03,743 basehttp "POST /api/bursary/apply/ HTTP/1.1" 201 1529
+INFO 2025-12-01 16:27:10,287 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 20209
+WARNING 2025-12-01 16:27:11,065 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+WARNING 2025-12-01 16:27:24,981 sms_service Africa's Talking API key not configured
+INFO 2025-12-01 16:27:29,582 views Email sent successfully to ['mutisojude47@gmail.com']
+WARNING 2025-12-01 16:27:29,586 sms_service SMS service not enabled
+INFO 2025-12-01 16:27:33,001 views Email sent successfully to ['raphaelmutiso983@gmail.com']
+WARNING 2025-12-01 16:27:33,002 sms_service SMS service not enabled
+INFO 2025-12-01 16:27:33,265 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-01 16:27:33,648 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 20353
+WARNING 2025-12-01 16:27:33,768 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:27:34,637 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+ERROR 2025-12-01 16:28:31,425 log Internal Server Error: /admin/bursary/bursaryapplication/
+Traceback (most recent call last):
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\options.py", line 2057, in changelist_view
+    response = self.response_action(
+        request, queryset=cl.get_queryset(request)
+    )
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\options.py", line 1686, in response_action
+    response = func(self, request, queryset)
+TypeError: BursaryApplicationAdmin.export_all_to_csv() takes 3 positional arguments but 4 were given
+ERROR 2025-12-01 16:28:31,453 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 500 125604
+INFO 2025-12-01 16:37:34,807 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\admin.py changed, reloading.
+INFO 2025-12-01 16:37:41,187 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 16:40:03,637 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 16:40:29,584 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 200 516
+ERROR 2025-12-01 16:40:41,817 log Internal Server Error: /admin/bursary/bursaryapplication/
+Traceback (most recent call last):
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 74, in resolve_template
+    return get_template(template, using=self.using)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: admin/bursary/change_list.html
+ERROR 2025-12-01 16:40:41,872 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 500 88988
+INFO 2025-12-01 16:40:45,791 basehttp "GET /admin/bursary/bursaryapplication/10/change/ HTTP/1.1" 200 44644
+ERROR 2025-12-01 16:40:51,521 log Internal Server Error: /admin/bursary/bursaryapplication/
+Traceback (most recent call last):
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 74, in resolve_template
+    return get_template(template, using=self.using)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: admin/bursary/change_list.html
+ERROR 2025-12-01 16:40:51,614 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 500 88998
+INFO 2025-12-01 16:40:55,098 basehttp "GET /admin/bursary/bursaryapplication/10/change/ HTTP/1.1" 200 44644
+INFO 2025-12-01 16:40:58,768 basehttp "POST /admin/logout/ HTTP/1.1" 200 3305
+WARNING 2025-12-01 16:40:58,873 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:41:00,659 basehttp "GET /admin/bursary/bursaryapplication/10/change/ HTTP/1.1" 302 0
+INFO 2025-12-01 16:41:01,160 basehttp "GET /admin/login/?next=/admin/bursary/bursaryapplication/10/change/ HTTP/1.1" 200 2593
+INFO 2025-12-01 16:41:17,620 basehttp "POST /admin/login/?next=/admin/bursary/bursaryapplication/10/change/ HTTP/1.1" 302 0
+INFO 2025-12-01 16:41:19,065 basehttp "GET /admin/bursary/bursaryapplication/10/change/ HTTP/1.1" 200 44644
+WARNING 2025-12-01 16:41:19,409 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:41:21,287 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+ERROR 2025-12-01 16:41:33,890 log Internal Server Error: /admin/bursary/bursaryapplication/
+Traceback (most recent call last):
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 74, in resolve_template
+    return get_template(template, using=self.using)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: admin/bursary/change_list.html
+ERROR 2025-12-01 16:41:33,904 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 500 88998
+INFO 2025-12-01 16:41:36,807 basehttp "GET /admin/bursary/bursaryapplication/10/change/ HTTP/1.1" 200 44644
+WARNING 2025-12-01 16:41:36,900 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:41:38,990 basehttp "GET /admin/bursary/applicationstatuslog/ HTTP/1.1" 200 15499
+WARNING 2025-12-01 16:41:39,090 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:41:39,112 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+ERROR 2025-12-01 16:41:41,247 log Internal Server Error: /admin/bursary/bursaryapplication/
+Traceback (most recent call last):
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\response.py", line 74, in resolve_template
+    return get_template(template, using=self.using)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: admin/bursary/change_list.html
+ERROR 2025-12-01 16:41:41,253 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 500 88990
+INFO 2025-12-01 16:44:48,775 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 16:44:55,124 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 17070
+WARNING 2025-12-01 16:44:55,367 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:44:56,057 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:45:02,270 basehttp "GET /admin/bursary/applicationdeadline/ HTTP/1.1" 200 10732
+WARNING 2025-12-01 16:45:02,374 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:45:02,526 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:45:04,169 basehttp "GET /admin/bursary/applicationstatuslog/ HTTP/1.1" 200 13686
+WARNING 2025-12-01 16:45:04,227 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:45:04,454 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:45:06,313 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 17070
+WARNING 2025-12-01 16:45:06,373 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:45:06,617 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:45:18,038 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-01 16:45:18,545 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 17263
+WARNING 2025-12-01 16:45:18,633 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:45:18,864 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:45:23,177 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 200 438
+INFO 2025-12-01 16:45:33,792 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 200 438
+INFO 2025-12-01 16:45:41,674 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-01 16:45:41,785 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 17199
+WARNING 2025-12-01 16:45:41,904 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:45:42,316 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:45:46,091 basehttp "GET /admin/bursary/bursaryapplication/?status__exact=pending HTTP/1.1" 200 14177
+WARNING 2025-12-01 16:45:46,154 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:45:46,526 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:45:50,268 basehttp "GET /admin/bursary/bursaryapplication/? HTTP/1.1" 200 17070
+WARNING 2025-12-01 16:45:50,331 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:45:50,569 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:45:52,984 basehttp "GET /admin/bursary/bursaryapplication/?ward__exact=kivaa HTTP/1.1" 200 17781
+WARNING 2025-12-01 16:45:53,058 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:45:53,163 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:45:55,780 basehttp "GET /admin/bursary/bursaryapplication/?ward__exact=masinga-central HTTP/1.1" 200 14197
+WARNING 2025-12-01 16:45:55,842 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:45:55,954 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:45:58,236 basehttp "GET /admin/bursary/bursaryapplication/?level_of_study__exact=degree&ward__exact=masinga-central HTTP/1.1" 200 14659
+WARNING 2025-12-01 16:45:58,321 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:45:58,434 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:46:01,289 basehttp "GET /admin/bursary/bursaryapplication/?level_of_study__exact=diploma&ward__exact=masinga-central HTTP/1.1" 200 14672
+WARNING 2025-12-01 16:46:01,364 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:46:01,539 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:46:03,660 basehttp "GET /admin/bursary/bursaryapplication/?level_of_study__exact=diploma&ward__exact=masinga-central HTTP/1.1" 200 14672
+WARNING 2025-12-01 16:46:03,732 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:46:03,875 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:46:06,153 basehttp "GET /admin/bursary/bursaryapplication/?level_of_study__exact=degree&ward__exact=masinga-central HTTP/1.1" 200 14659
+WARNING 2025-12-01 16:46:06,229 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:46:06,380 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:46:10,027 basehttp "GET /admin/bursary/bursaryapplication/? HTTP/1.1" 200 17070
+WARNING 2025-12-01 16:46:10,084 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:46:10,219 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:46:18,138 basehttp "POST /admin/bursary/bursaryapplication/? HTTP/1.1" 200 11555
+WARNING 2025-12-01 16:46:18,218 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:46:20,037 basehttp "POST /admin/bursary/bursaryapplication/? HTTP/1.1" 302 0
+INFO 2025-12-01 16:46:20,097 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 12959
+WARNING 2025-12-01 16:46:20,168 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:46:20,182 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:46:24,877 basehttp "POST /admin/logout/ HTTP/1.1" 200 3305
+WARNING 2025-12-01 16:46:24,929 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:46:26,305 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-01 16:46:26,345 basehttp "GET /admin/login/?next=/admin/bursary/bursaryapplication/ HTTP/1.1" 200 2593
+INFO 2025-12-01 16:46:36,032 basehttp "POST /admin/login/?next=/admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-01 16:46:36,144 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 10139
+WARNING 2025-12-01 16:46:36,249 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:46:36,314 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:46:38,110 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 10139
+WARNING 2025-12-01 16:46:38,259 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:46:38,282 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:46:41,210 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 10139
+WARNING 2025-12-01 16:46:41,310 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:46:41,348 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-01 16:46:49,997 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 11272
+WARNING 2025-12-01 16:46:50,152 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:46:54,927 basehttp "GET / HTTP/1.1" 200 155
+INFO 2025-12-01 16:46:56,752 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 11272
+INFO 2025-12-01 16:47:40,251 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\admin.py changed, reloading.
+INFO 2025-12-01 16:47:45,456 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 16:48:55,687 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\admin.py changed, reloading.
+INFO 2025-12-01 16:49:05,661 autoreload Watching for file changes with StatReloader
+INFO 2025-12-01 16:49:06,593 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 11272
+WARNING 2025-12-01 16:49:06,856 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:49:08,485 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 12120
+WARNING 2025-12-01 16:49:08,550 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-01 16:49:08,574 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 08:53:58,483 autoreload Watching for file changes with StatReloader
+INFO 2025-12-03 08:55:52,414 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 2593
+WARNING 2025-12-03 08:55:52,933 log Not Found: /favicon.ico
+WARNING 2025-12-03 08:55:52,941 basehttp "GET /favicon.ico HTTP/1.1" 404 4501
+INFO 2025-12-03 08:56:12,421 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-12-03 08:56:13,295 basehttp "GET /admin/ HTTP/1.1" 200 9971
+WARNING 2025-12-03 08:56:13,394 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 08:56:16,686 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 14668
+WARNING 2025-12-03 08:56:16,834 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 08:56:16,884 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 08:57:56,476 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-03 08:57:57,813 sms_service Africa's Talking API key not configured
+INFO 2025-12-03 08:58:02,866 views Email sent successfully to ['monicamwelu146@gmail.com']
+WARNING 2025-12-03 08:58:03,040 sms_service SMS service not enabled
+WARNING 2025-12-03 08:58:03,046 sms_service SMS service not enabled
+INFO 2025-12-03 08:58:03,047 views Application created: MNG-A8B808DD
+INFO 2025-12-03 08:58:03,481 basehttp "POST /api/bursary/apply/ HTTP/1.1" 201 1539
+INFO 2025-12-03 09:00:46,374 basehttp "GET /api/bursary/applications/MNG-A8B808DD/ HTTP/1.1" 200 1426
+INFO 2025-12-03 09:01:08,634 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18596
+WARNING 2025-12-03 09:01:08,878 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 09:01:08,939 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+WARNING 2025-12-03 09:01:23,107 sms_service Africa's Talking API key not configured
+INFO 2025-12-03 09:01:26,795 views Email sent successfully to ['monicamwelu146@gmail.com']
+WARNING 2025-12-03 09:01:26,797 sms_service SMS service not enabled
+INFO 2025-12-03 09:01:26,811 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-03 09:01:26,930 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18739
+WARNING 2025-12-03 09:01:26,993 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 09:01:27,050 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 09:29:38,228 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18597
+WARNING 2025-12-03 09:29:38,493 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 09:30:01,977 basehttp "GET /admin/bursary/bursaryapplication/13/change/ HTTP/1.1" 200 39631
+WARNING 2025-12-03 09:30:02,066 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 09:30:02,110 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 09:30:06,121 basehttp "POST /admin/bursary/bursaryapplication/13/change/ HTTP/1.1" 302 0
+INFO 2025-12-03 09:30:06,206 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18853
+WARNING 2025-12-03 09:30:06,288 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 09:30:06,302 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 09:51:57,557 autoreload Watching for file changes with StatReloader
+INFO 2025-12-03 10:02:41,325 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18597
+WARNING 2025-12-03 10:02:41,678 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 10:24:55,808 autoreload Watching for file changes with StatReloader
+WARNING 2025-12-03 10:28:40,990 log Not Found: /api/deadline/
+WARNING 2025-12-03 10:28:41,009 basehttp "GET /api/deadline/ HTTP/1.1" 404 4507
+INFO 2025-12-03 10:28:41,620 basehttp - Broken pipe from ('127.0.0.1', 54430)
+INFO 2025-12-03 10:32:30,265 autoreload Watching for file changes with StatReloader
+WARNING 2025-12-03 10:35:28,827 log Not Found: /api/deadline/
+WARNING 2025-12-03 10:35:28,830 basehttp "GET /api/deadline/ HTTP/1.1" 404 4507
+WARNING 2025-12-03 10:36:21,246 log Not Found: /api/bursary/
+WARNING 2025-12-03 10:36:21,247 basehttp "GET /api/bursary/ HTTP/1.1" 404 9652
+INFO 2025-12-03 10:37:06,452 basehttp "GET /api/bursary/deadline/ HTTP/1.1" 200 60
+INFO 2025-12-03 10:39:04,636 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:39:37,716 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:39:38,027 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:39:38,263 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:39:38,505 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:39:38,751 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:39:39,197 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:39:39,457 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:39:39,701 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:39:40,129 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:39:40,445 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:23,996 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:24,092 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:24,164 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:24,239 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:24,317 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:24,429 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:24,507 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:24,588 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:24,673 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:24,754 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:24,843 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:24,930 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:25,018 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:25,116 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:25,287 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:25,522 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:25,647 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:25,917 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:26,006 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:26,097 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:26,189 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:26,275 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:26,361 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:26,449 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:26,536 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:26,663 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:26,824 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:27,174 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:27,284 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:27,708 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:27,804 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:28,476 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:28,923 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:29,025 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:29,194 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:29,322 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:29,430 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:29,691 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:30,083 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:30,411 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:32,319 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:32,422 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:33,067 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:33,454 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:33,866 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:34,029 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:34,112 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:34,243 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:34,798 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:34,881 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:35,251 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:35,340 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:35,425 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:35,574 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:35,792 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:36,142 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:36,518 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:36,605 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:36,705 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:36,952 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:37,171 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:37,277 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:37,616 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:38,647 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:39,114 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:39,202 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:40,706 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:40,779 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:41,782 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:41,853 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:42,521 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:42,602 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:42,684 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:44,016 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:44,373 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:44,576 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:44,841 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:44,912 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:44,995 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:45,094 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:46,300 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:46,387 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:46,511 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:47,138 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:47,382 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:47,469 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:47,565 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:42:47,651 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+WARNING 2025-12-03 10:42:47,773 log Too Many Requests: /api/bursary/fast-submit/
+WARNING 2025-12-03 10:42:47,776 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 429 71
+WARNING 2025-12-03 10:42:50,698 log Too Many Requests: /api/bursary/fast-submit/
+WARNING 2025-12-03 10:42:50,699 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 429 71
+WARNING 2025-12-03 10:42:55,129 log Too Many Requests: /api/bursary/fast-submit/
+WARNING 2025-12-03 10:42:55,130 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 429 71
+WARNING 2025-12-03 10:43:00,464 log Too Many Requests: /api/bursary/fast-submit/
+WARNING 2025-12-03 10:43:00,465 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 429 71
+WARNING 2025-12-03 10:43:03,457 log Too Many Requests: /api/bursary/fast-submit/
+WARNING 2025-12-03 10:43:03,458 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 429 71
+WARNING 2025-12-03 10:43:03,865 log Too Many Requests: /api/bursary/fast-submit/
+WARNING 2025-12-03 10:43:03,866 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 429 71
+WARNING 2025-12-03 10:43:03,974 log Too Many Requests: /api/bursary/fast-submit/
+WARNING 2025-12-03 10:43:03,975 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 429 71
+WARNING 2025-12-03 10:43:04,128 log Too Many Requests: /api/bursary/fast-submit/
+WARNING 2025-12-03 10:43:04,130 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 429 71
+WARNING 2025-12-03 10:43:05,326 log Too Many Requests: /api/bursary/fast-submit/
+WARNING 2025-12-03 10:43:05,328 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 429 71
+WARNING 2025-12-03 10:43:05,698 log Too Many Requests: /api/bursary/fast-submit/
+WARNING 2025-12-03 10:43:05,699 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 429 71
+WARNING 2025-12-03 10:43:05,891 log Too Many Requests: /api/bursary/fast-submit/
+WARNING 2025-12-03 10:43:05,892 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 429 71
+WARNING 2025-12-03 10:43:06,852 log Too Many Requests: /api/bursary/fast-submit/
+WARNING 2025-12-03 10:43:06,861 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 429 71
+INFO 2025-12-03 10:45:37,509 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 95162
+INFO 2025-12-03 10:49:53,521 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\core\settings.py changed, reloading.
+INFO 2025-12-03 10:50:13,198 autoreload Watching for file changes with StatReloader
+ERROR 2025-12-03 10:50:42,794 log Internal Server Error: /api/bursary/fast-submit/
+ERROR 2025-12-03 10:50:42,797 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 500 74
+INFO 2025-12-03 10:52:29,097 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:52:42,222 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:52:42,404 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:52:42,541 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:52:42,694 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:52:42,823 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:52:42,969 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:52:43,166 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:52:43,320 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:52:43,910 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:52:44,142 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:06,989 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:07,056 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:07,164 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:07,248 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:07,326 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:07,520 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:07,590 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:07,668 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:07,727 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:07,811 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:08,134 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:08,239 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:08,691 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:08,990 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:10,709 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:11,609 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:11,848 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:12,126 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:12,555 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:13,857 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:16,187 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:16,619 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:16,975 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:17,163 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:17,256 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:17,459 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:17,916 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:18,414 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:18,755 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:18,818 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:18,977 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:19,420 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:19,784 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:20,773 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:20,919 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:21,058 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:21,494 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:21,617 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:21,679 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:21,742 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:22,125 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:22,782 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:22,841 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:22,901 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:22,975 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:23,038 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:23,105 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:23,280 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:23,619 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:23,674 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:23,734 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:23,800 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:23,886 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:24,151 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:24,386 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:24,461 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:24,525 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:24,607 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:24,697 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:24,764 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:25,325 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:25,378 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:25,448 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:25,523 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:25,584 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:25,803 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:25,988 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:26,247 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:26,311 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:26,371 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:26,437 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:26,508 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:26,576 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:26,631 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:26,692 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:26,770 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:26,937 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:27,000 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:27,057 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:27,113 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:28,757 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:28,832 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:29,020 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:29,094 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:29,159 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:29,246 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:29,312 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:29,374 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:29,526 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:29,611 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:29,684 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:29,766 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:29,831 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:29,898 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:30,333 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:30,407 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:30,644 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:31,375 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:31,431 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:53:31,514 basehttp "POST /api/bursary/fast-submit/ HTTP/1.1" 201 101
+INFO 2025-12-03 10:55:51,656 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 95406
+WARNING 2025-12-03 10:55:52,099 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 10:55:52,297 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 10:56:00,151 basehttp "GET /admin/bursary/bursaryapplication/?p=2 HTTP/1.1" 200 98226
+WARNING 2025-12-03 10:56:00,259 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 10:56:00,280 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 10:56:04,973 basehttp "GET /admin/bursary/bursaryapplication/?p=3 HTTP/1.1" 200 26949
+WARNING 2025-12-03 10:56:05,056 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 10:56:05,077 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 10:56:08,246 basehttp "GET /admin/bursary/bursaryapplication/?p=1 HTTP/1.1" 200 98032
+WARNING 2025-12-03 10:56:08,351 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 10:56:08,410 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+ERROR 2025-12-03 10:56:22,877 log Internal Server Error: /admin/bursary/bursaryapplication/
+Traceback (most recent call last):
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\options.py", line 2057, in changelist_view
+    response = self.response_action(
+        request, queryset=cl.get_queryset(request)
+    )
+  File "C:\Users\mutis\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\admin\options.py", line 1686, in response_action
+    response = func(self, request, queryset)
+TypeError: BursaryApplicationAdmin.export_all_to_csv() takes 3 positional arguments but 4 were given
+ERROR 2025-12-03 10:56:22,912 basehttp "POST /admin/bursary/bursaryapplication/?p=1 HTTP/1.1" 500 130248
+INFO 2025-12-03 10:56:27,246 basehttp "GET /admin/bursary/bursaryapplication/?p=1 HTTP/1.1" 200 98032
+INFO 2025-12-03 10:56:33,724 basehttp "POST /admin/bursary/bursaryapplication/?p=1 HTTP/1.1" 200 13658
+INFO 2025-12-03 10:57:23,429 basehttp "POST /admin/bursary/bursaryapplication/?p=1 HTTP/1.1" 200 27928
+WARNING 2025-12-03 10:57:23,970 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 10:57:27,998 basehttp "POST /admin/bursary/bursaryapplication/?p=1 HTTP/1.1" 302 0
+INFO 2025-12-03 10:57:28,370 basehttp "GET /admin/bursary/bursaryapplication/?p=1 HTTP/1.1" 200 98395
+WARNING 2025-12-03 10:57:28,477 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 10:57:28,516 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 10:57:37,350 basehttp "POST /admin/bursary/bursaryapplication/?p=1 HTTP/1.1" 200 28148
+WARNING 2025-12-03 10:57:37,424 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 10:57:41,258 basehttp "POST /admin/bursary/bursaryapplication/?p=1 HTTP/1.1" 302 0
+INFO 2025-12-03 10:57:41,353 basehttp "GET /admin/bursary/bursaryapplication/?p=1 HTTP/1.1" 200 26660
+WARNING 2025-12-03 10:57:41,435 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 10:57:41,470 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 10:57:52,024 basehttp "POST /admin/bursary/bursaryapplication/?p=1 HTTP/1.1" 200 12576
+WARNING 2025-12-03 10:57:52,092 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 10:57:54,155 basehttp "POST /admin/bursary/bursaryapplication/?p=1 HTTP/1.1" 302 0
+INFO 2025-12-03 10:57:54,215 basehttp "GET /admin/bursary/bursaryapplication/?p=1 HTTP/1.1" 200 14845
+WARNING 2025-12-03 10:57:54,302 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 10:57:54,320 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 10:59:17,588 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 14668
+WARNING 2025-12-03 10:59:17,963 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 10:59:18,040 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 11:44:22,542 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 14668
+WARNING 2025-12-03 11:44:25,120 log Not Found: /favicon.ico
+WARNING 2025-12-03 11:44:25,127 basehttp "GET /favicon.ico HTTP/1.1" 404 4501
+INFO 2025-12-03 12:20:07,987 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 14668
+INFO 2025-12-03 12:20:11,479 basehttp "GET /admin/bursary/bursaryapplication/?p=1 HTTP/1.1" 200 14694
+INFO 2025-12-03 12:25:14,180 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-03 12:25:15,023 sms_service Africa's Talking API key not configured
+INFO 2025-12-03 12:25:18,769 views Email sent successfully to ['raphaelmutiso983@gmail.com']
+WARNING 2025-12-03 12:25:18,773 sms_service SMS service not enabled
+WARNING 2025-12-03 12:25:18,776 sms_service SMS service not enabled
+INFO 2025-12-03 12:25:18,780 views Application created: MNG-8FC00058
+INFO 2025-12-03 12:25:18,799 basehttp "POST /api/bursary/apply/ HTTP/1.1" 201 1687
+INFO 2025-12-03 12:25:43,043 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18586
+WARNING 2025-12-03 12:25:43,183 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 12:25:43,216 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 12:25:45,941 basehttp "GET /admin/bursary/bursaryapplication/224/change/ HTTP/1.1" 200 38114
+WARNING 2025-12-03 12:25:46,039 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 12:25:46,061 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 12:25:46,133 basehttp "GET /static/admin/js/inlines.js HTTP/1.1" 304 0
+INFO 2025-12-03 13:14:14,210 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\admin.py changed, reloading.
+INFO 2025-12-03 13:15:53,701 autoreload Watching for file changes with StatReloader
+INFO 2025-12-03 13:16:07,293 basehttp "GET /admin/bursary/bursaryapplication/224/change/ HTTP/1.1" 200 38114
+WARNING 2025-12-03 13:16:07,533 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 13:16:07,667 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 13:16:14,670 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18576
+WARNING 2025-12-03 13:16:14,797 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 13:16:14,818 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 13:16:44,891 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 200 682
+INFO 2025-12-03 13:17:09,560 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-03 13:17:09,768 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18704
+WARNING 2025-12-03 13:17:09,982 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 13:17:09,994 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 13:17:10,890 basehttp "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+INFO 2025-12-03 13:17:25,679 basehttp "GET /admin/bursary/bursaryapplication/224/change/ HTTP/1.1" 200 38114
+WARNING 2025-12-03 13:17:25,799 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 13:17:25,823 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 13:20:32,866 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\bursary\admin.py changed, reloading.
+INFO 2025-12-03 13:20:53,469 autoreload Watching for file changes with StatReloader
+INFO 2025-12-03 13:23:21,061 autoreload Watching for file changes with StatReloader
+INFO 2025-12-03 13:23:30,046 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18576
+WARNING 2025-12-03 13:23:30,382 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 13:23:30,544 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 13:23:34,470 basehttp "GET /admin/bursary/bursaryapplication/224/change/ HTTP/1.1" 200 43640
+WARNING 2025-12-03 13:23:34,591 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 13:23:34,614 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 13:23:41,328 basehttp "GET /media/uploads/death_certificates/IMG_20250805_104032.jpg HTTP/1.1" 200 4273127
+INFO 2025-12-03 13:23:42,786 basehttp "GET /admin/bursary/bursaryapplication/224/change/ HTTP/1.1" 200 43640
+WARNING 2025-12-03 13:23:42,850 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 13:23:46,548 basehttp "GET /media/uploads/single_parent_proof/IMG_20250805_104032_RzySLQE.jpg HTTP/1.1" 200 4273127
+INFO 2025-12-03 13:23:47,373 basehttp "GET /admin/bursary/bursaryapplication/224/change/ HTTP/1.1" 200 43640
+WARNING 2025-12-03 13:23:47,450 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 13:24:24,307 basehttp "POST /admin/bursary/bursaryapplication/224/change/ HTTP/1.1" 302 0
+INFO 2025-12-03 13:24:24,394 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18826
+WARNING 2025-12-03 13:24:24,509 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 13:24:24,533 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 13:34:28,094 autoreload Watching for file changes with StatReloader
+INFO 2025-12-03 13:34:46,549 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18577
+WARNING 2025-12-03 13:34:47,604 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 404 1874
+INFO 2025-12-03 13:34:48,025 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 13:41:47,693 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\core\settings.py changed, reloading.
+INFO 2025-12-03 13:42:10,999 autoreload Watching for file changes with StatReloader
+INFO 2025-12-03 13:43:05,327 autoreload Watching for file changes with StatReloader
+INFO 2025-12-03 13:43:16,115 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18577
+INFO 2025-12-03 13:43:16,663 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 13:43:17,542 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 200 1221
+INFO 2025-12-03 13:43:32,548 basehttp "GET /admin/bursary/applicationstatuslog/ HTTP/1.1" 200 12530
+INFO 2025-12-03 13:43:32,687 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 13:43:39,755 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18577
+INFO 2025-12-03 13:43:39,878 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 13:43:45,027 basehttp "GET /admin/auth/ HTTP/1.1" 200 9972
+INFO 2025-12-03 13:43:53,211 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18577
+INFO 2025-12-03 13:43:53,485 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 13:43:56,863 basehttp "GET /admin/auth/ HTTP/1.1" 200 9972
+INFO 2025-12-03 13:50:23,245 basehttp "GET /admin/auth/ HTTP/1.1" 200 9972
+WARNING 2025-12-03 13:50:26,651 log Not Found: /favicon.ico
+WARNING 2025-12-03 13:50:26,653 basehttp "GET /favicon.ico HTTP/1.1" 404 4501
+INFO 2025-12-03 13:50:29,859 basehttp "GET /admin/auth/ HTTP/1.1" 200 9972
+INFO 2025-12-03 13:51:50,930 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\core\urls.py changed, reloading.
+INFO 2025-12-03 13:52:20,917 autoreload Watching for file changes with StatReloader
+INFO 2025-12-03 13:55:45,991 autoreload C:\Users\mutis\OneDrive\Desktop\Server-main\core\urls.py changed, reloading.
+INFO 2025-12-03 13:55:56,524 autoreload Watching for file changes with StatReloader
+INFO 2025-12-03 13:59:50,380 basehttp "GET /admin/auth/ HTTP/1.1" 200 9972
+INFO 2025-12-03 13:59:54,657 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18577
+INFO 2025-12-03 13:59:54,771 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+WARNING 2025-12-03 14:00:00,774 sms_service Africa's Talking API key not configured
+INFO 2025-12-03 14:00:00,812 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-03 14:00:00,915 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18719
+INFO 2025-12-03 14:00:01,044 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 14:11:43,779 basehttp "GET /admin/bursary/applicationstatuslog/ HTTP/1.1" 200 12530
+INFO 2025-12-03 14:11:43,960 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 14:11:45,739 basehttp "GET /admin/bursary/applicationdeadline/ HTTP/1.1" 200 12072
+INFO 2025-12-03 14:11:45,819 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 14:11:50,593 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18577
+INFO 2025-12-03 14:11:50,665 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 14:11:56,216 basehttp "GET /admin/bursary/applicationstatuslog/ HTTP/1.1" 200 12530
+INFO 2025-12-03 14:11:56,305 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-03 14:11:59,447 basehttp "GET /admin/auth/ HTTP/1.1" 200 9972
+INFO 2025-12-03 14:12:23,063 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-12-03 14:12:23,233 basehttp "GET /admin/ HTTP/1.1" 200 10003
+INFO 2025-12-03 14:12:34,171 basehttp "GET /admin/ HTTP/1.1" 200 10003
+INFO 2025-12-03 14:15:46,223 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-03 14:15:46,708 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-03 14:15:46,709 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 73
+WARNING 2025-12-03 14:15:54,799 sms_service Africa's Talking API key not configured
+INFO 2025-12-03 14:15:58,113 views Email sent successfully to ['mutisojude47@gmail.com']
+WARNING 2025-12-03 14:15:58,116 sms_service SMS service not enabled
+WARNING 2025-12-03 14:15:58,117 sms_service SMS service not enabled
+INFO 2025-12-03 14:15:58,118 views Application created: MNG-F2DDEF1A
+INFO 2025-12-03 14:15:58,130 basehttp "POST /api/bursary/apply/ HTTP/1.1" 201 1528
+INFO 2025-12-03 14:17:13,674 basehttp "GET /admin/ HTTP/1.1" 200 10002
+INFO 2025-12-03 14:17:20,580 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 19382
+INFO 2025-12-03 14:17:20,660 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-05 08:50:21,719 autoreload Watching for file changes with StatReloader
+INFO 2025-12-05 08:54:03,843 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 2593
+WARNING 2025-12-05 08:54:04,347 log Not Found: /favicon.ico
+WARNING 2025-12-05 08:54:04,349 basehttp "GET /favicon.ico HTTP/1.1" 404 4501
+INFO 2025-12-05 08:54:16,716 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-12-05 08:54:17,685 basehttp "GET /admin/ HTTP/1.1" 200 10002
+INFO 2025-12-05 08:54:18,038 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 304 0
+INFO 2025-12-05 08:54:26,373 basehttp "GET /admin/auth/user/ HTTP/1.1" 200 14929
+INFO 2025-12-05 08:54:26,648 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-05 08:54:30,915 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 19382
+INFO 2025-12-05 08:54:32,225 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-05 08:54:38,302 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 200 10906
+INFO 2025-12-05 08:54:39,826 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 302 0
+INFO 2025-12-05 08:54:39,976 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 14818
+INFO 2025-12-05 08:54:40,121 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-05 08:55:54,347 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-05 08:55:54,975 sms_service Africa's Talking API key not configured
+INFO 2025-12-05 08:55:59,349 views Email sent successfully to ['raphaelmutiso983@gmail.com']
+WARNING 2025-12-05 08:55:59,356 sms_service SMS service not enabled
+WARNING 2025-12-05 08:55:59,358 sms_service SMS service not enabled
+INFO 2025-12-05 08:55:59,362 views Application created: MNG-95E67858
+INFO 2025-12-05 08:55:59,390 basehttp "POST /api/bursary/apply/ HTTP/1.1" 201 1532
+INFO 2025-12-05 09:00:08,623 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18582
+INFO 2025-12-05 09:00:08,770 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-05 09:00:16,484 basehttp "POST /admin/bursary/bursaryapplication/ HTTP/1.1" 200 82
+INFO 2025-12-05 09:00:27,127 basehttp "GET /admin/bursary/bursaryapplication/?ward__exact=masinga-central HTTP/1.1" 200 17088
+INFO 2025-12-05 09:00:27,232 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-05 09:00:29,605 basehttp "GET /admin/bursary/bursaryapplication/?ward__exact=kivaa HTTP/1.1" 200 19567
+INFO 2025-12-05 09:00:29,686 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-05 09:00:33,519 basehttp "GET /admin/bursary/bursaryapplication/?disability__exact=0&ward__exact=kivaa HTTP/1.1" 200 20608
+INFO 2025-12-05 09:00:33,640 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-05 10:31:38,260 autoreload Watching for file changes with StatReloader
+INFO 2025-12-05 10:34:46,066 autoreload Watching for file changes with StatReloader
+INFO 2025-12-05 10:35:00,940 autoreload Watching for file changes with StatReloader
+INFO 2025-12-05 10:35:05,430 basehttp "GET /admin/bursary/bursaryapplication/?disability__exact=0&ward__exact=kivaa HTTP/1.1" 302 0
+INFO 2025-12-05 10:35:05,508 basehttp "GET /admin/login/?next=/admin/bursary/bursaryapplication/%3Fdisability__exact%3D0%26ward__exact%3Dkivaa HTTP/1.1" 200 2593
+INFO 2025-12-05 10:35:13,940 basehttp "POST /admin/login/?next=/admin/bursary/bursaryapplication/%3Fdisability__exact%3D0%26ward__exact%3Dkivaa HTTP/1.1" 302 0
+INFO 2025-12-05 10:35:14,103 basehttp "GET /admin/bursary/bursaryapplication/?disability__exact=0&ward__exact=kivaa HTTP/1.1" 200 20623
+INFO 2025-12-05 10:35:14,255 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-05 10:35:26,023 basehttp "POST /admin/bursary/bursaryapplication/?disability__exact=0&ward__exact=kivaa HTTP/1.1" 200 10738
+INFO 2025-12-05 10:35:30,988 basehttp "POST /admin/bursary/bursaryapplication/?disability__exact=0&ward__exact=kivaa HTTP/1.1" 302 0
+INFO 2025-12-05 10:35:31,053 basehttp "GET /admin/bursary/bursaryapplication/?disability__exact=0&ward__exact=kivaa HTTP/1.1" 200 16319
+INFO 2025-12-05 10:35:31,174 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-05 10:50:57,368 autoreload Watching for file changes with StatReloader
+INFO 2025-12-05 10:52:30,819 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-05 10:52:31,003 sms_service Africa's Talking API key not configured
+INFO 2025-12-05 10:52:34,655 views Email sent successfully to ['raphaelmutiso983@gmail.com']
+WARNING 2025-12-05 10:52:34,659 sms_service SMS service not enabled
+WARNING 2025-12-05 10:52:34,662 sms_service SMS service not enabled
+INFO 2025-12-05 10:52:34,665 views Application created: MNG-29120C50
+INFO 2025-12-05 10:52:34,697 basehttp - Broken pipe from ('127.0.0.1', 54913)
+INFO 2025-12-05 10:54:57,730 basehttp "GET /admin/bursary/bursaryapplication/?disability__exact=0&ward__exact=kivaa HTTP/1.1" 200 20622
+WARNING 2025-12-05 11:03:43,638 log Not Found: /api/bursary/applications/MNG-95E67858/
+WARNING 2025-12-05 11:03:43,642 basehttp "GET /api/bursary/applications/MNG-95E67858/ HTTP/1.1" 404 59
+INFO 2025-12-05 11:03:58,062 basehttp "GET /api/bursary/applications/MNG-29120C50/ HTTP/1.1" 200 1397
+INFO 2025-12-05 11:04:05,819 basehttp "GET /api/bursary/applications/MNG-29120C50/ HTTP/1.1" 200 1397
+INFO 2025-12-05 11:04:25,220 basehttp "GET /api/bursary/applications/MNG-29120C50/ HTTP/1.1" 200 1397

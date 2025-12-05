@@ -1,0 +1,211 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block title %}Masinga NG-CDF Admin Dashboard{% endblock %}
+
+{% block content %}
+<h1>📊 Dashboard Summary</h1>
+
+<div style="display:flex; flex-wrap:wrap; gap:20px; margin-top:20px;">
+  <div class="card">
+    <h2>🧍 Total Applications</h2>
+    <p>{{ total_apps }}</p>
+  </div>
+  <div class="card">
+    <h2>💰 Total Amount Requested</h2>
+    <p>KSh {{ total_amount|floatformat:2 }}</p>
+  </div>
+  <div class="card">
+    <h2>🏫 Total Institutions</h2>
+    <p>{{ total_institutions }}</p>
+  </div>
+  <div class="card">
+    <h2>📅 Latest Submission</h2>
+    <p>{{ latest_submission|date:"F j, Y, g:i a" }}</p>
+    <a href="{% url 'admin_logout' %}" class="logout-btn">Logout</a>
+  </div>
+</div>
+
+<div style="display:flex; flex-wrap:wrap; gap:20px; margin-top:20px;">
+  <div class="card">
+    <h2>Pending</h2>
+    <p>{{ overview.pending_count }} ({{ overview.pending_rate }}%)</p>
+  </div>
+  <div class="card">
+    <h2>Approved</h2>
+    <p>{{ overview.approved_count }} ({{ overview.approval_rate }}%)</p>
+  </div>
+  <div class="card">
+    <h2>Rejected</h2>
+    <p>{{ overview.rejected_count }} ({{ overview.rejection_rate }}%)</p>
+  </div>
+  <div class="card">
+    <h2>Avg Amount</h2>
+    <p>KSh {{ overview.average_amount|default:0|floatformat:2 }}</p>
+  </div>
+</div>
+
+<div class="chart-container">
+  <canvas id="statusChart"></canvas>
+</div>
+
+<div class="chart-container">
+  <canvas id="monthlyChart"></canvas>
+</div>
+
+<div class="table-grid">
+  <div class="table-card">
+    <h2>Ward Distribution</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Ward</th>
+          <th>Applications</th>
+          <th>Approved</th>
+          <th>Pending</th>
+          <th>Rejected</th>
+          <th>Total Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for w in ward_distribution %}
+        <tr>
+          <td>{{ w.ward|title }}</td>
+          <td>{{ w.count }}</td>
+          <td>{{ w.approved }}</td>
+          <td>{{ w.pending }}</td>
+          <td>{{ w.rejected }}</td>
+          <td>KSh {{ w.total_amount|default:0|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-card">
+    <h2>Top Institutions</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Institution</th>
+          <th>Type</th>
+          <th>Applications</th>
+          <th>Approved</th>
+          <th>Avg Amount</th>
+          <th>Total Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for inst in top_institutions %}
+        <tr>
+          <td>{{ inst.institution_name }}</td>
+          <td>{{ inst.institution_type|title }}</td>
+          <td>{{ inst.count }}</td>
+          <td>{{ inst.approved_count }}</td>
+          <td>KSh {{ inst.average_amount|default:0|floatformat:2 }}</td>
+          <td>KSh {{ inst.total_amount|default:0|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+  flex: 1 1 200px;
+  text-align: center;
+  border-top: 5px solid #0066cc;
+}
+.card h2 {
+  font-size: 16px;
+  color: #003366;
+  margin-bottom: 10px;
+}
+.card p {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0066cc;
+}
+.chart-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+.table-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+.table-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+.table-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table-card th, .table-card td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+}
+.logout-btn {
+  display: inline-block;
+  margin-top: 10px;
+  background: #666;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+{{ overview|json_script:"overview-data" }}
+{{ monthly_trends|json_script:"monthly-trends-data" }}
+<script>
+const overview = JSON.parse(document.getElementById('overview-data')?.textContent || '{}');
+const monthly = JSON.parse(document.getElementById('monthly-trends-data')?.textContent || '[]');
+
+const statusData = {
+  labels: ['Pending','Approved','Rejected'],
+  datasets: [{
+    data: [
+      Number(overview.pending_count || 0),
+      Number(overview.approved_count || 0),
+      Number(overview.rejected_count || 0)
+    ],
+    backgroundColor: ['#ff9800','#008000','#bb0000']
+  }]
+};
+const statusCtx = document.getElementById('statusChart');
+if (statusCtx && window.Chart) {
+  new Chart(statusCtx, { type: 'pie', data: statusData });
+}
+
+const monthlyLabels = monthly.map(m => {
+  try {
+    const d = new Date(m.month);
+    return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  } catch (e) {
+    return m.month || '';
+  }
+});
+const monthlyCounts = monthly.map(m => Number(m.total_applications || 0));
+const monthlyCtx = document.getElementById('monthlyChart');
+if (monthlyCtx && window.Chart) {
+  new Chart(monthlyCtx, {
+    type: 'line',
+    data: { labels: monthlyLabels, datasets: [{ label: 'Applications', data: monthlyCounts, borderColor: '#0066cc', tension: 0.2 }] }
+  });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,74 @@
+/* =============================
+   Masinga NG-CDF Admin Styling
+   ============================= */
+
+/* Header */
+#header {
+  background: linear-gradient(90deg, #003366, #0066cc);
+  color: #fff;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+#branding h1 {
+  font-size: 20px;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Body background */
+#content {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+/* Table headers */
+.module caption {
+  background-color: #0066cc !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+/* Buttons */
+.button, input[type=submit], input[type=button] {
+  background: #0066cc;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.button:hover, input[type=submit]:hover {
+  background: #004c99;
+}
+
+/* Sidebar */
+#nav-sidebar {
+  background: #f2f5f9;
+  border-right: 1px solid #ccc;
+}
+
+/* Footer */
+#footer {
+  background-color: #e9ecef;
+  color: #333;
+  text-align: center;
+  padding: 10px;
+  font-size: 13px;
+}
+
+/* Links */
+a:link, a:visited {
+  color: #003366;
+}
+
+a:hover {
+  color: #0066cc;
+}

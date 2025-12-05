@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="api-base" content="http://127.0.0.1:8000">
+    <script>
+      (function(){
+        try {
+          var host = window.location.hostname || '';
+          if (host === 'localhost' || host === '127.0.0.1') {
+            window.API_BASE_URL = 'http://127.0.0.1:8000';
+          } else if (host.endsWith('onrender.com')) {
+            window.API_BASE_URL = 'https://masinga-ngcdf-bursary.onrender.com';
+          } else {
+            var meta = document.querySelector('meta[name="api-base"]');
+            if (meta && meta.content) {
+              window.API_BASE_URL = meta.content;
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <title>Check Application Status - Masinga NG-CDF</title>
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/bursary.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <h1>
+                <img src="assets/images/cdf-logo.jpg" alt="Masinga Logo" class="logo">
+                Masinga NG-CDF Website
+            </h1>
+        </div>
+        <div class="header-right">
+            <nav>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="bursary-application-form.html"><i class="fas fa-file-alt"></i> Apply</a></li>
+                    <li><a href="status.html" class="active"><i class="fas fa-search"></i> Check Status</a></li>
+                </ul>
+            </nav>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
+            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="bursary-form">
+            <h2><i class="fas fa-info-circle"></i> Check Your Application Status</h2>
+
+            <div class="form-group">
+                <label for="ref-input"><i class="fas fa-bookmark"></i> Reference Number</label>
+                <input type="text" id="ref-input" placeholder="e.g., MNG-XXXXXXX">
+            </div>
+            <button id="check-status-btn"><i class="fas fa-search"></i> Check Status</button>
+
+            <div id="status-error" style="display:none; color:#bb0000; margin-top:1rem;" role="alert" aria-live="assertive"></div>
+
+            <div id="status-result" style="display:none; margin-top:1.5rem;">
+                <div class="application-summary-box">
+                    <h4 style="color: #006400; margin-bottom: 15px;">
+                        <i class="fas fa-clipboard-check"></i> Application Details
+                    </h4>
+                    <div class="summary-item"><span class="summary-label">Reference Number:</span><span class="summary-value" id="res-ref"></span></div>
+                    <div class="summary-item"><span class="summary-label">Applicant Name:</span><span class="summary-value" id="res-name"></span></div>
+                    <div class="summary-item"><span class="summary-label">Institution:</span><span class="summary-value" id="res-institution"></span></div>
+                    <div class="summary-item"><span class="summary-label">Amount Requested:</span><span class="summary-value">KSh <span id="res-amount"></span></span></div>
+                    <div class="summary-item"><span class="summary-label">Ward:</span><span class="summary-value" id="res-ward"></span></div>
+                    <div class="summary-item"><span class="summary-label">Submitted:</span><span class="summary-value" id="res-submitted"></span></div>
+                    <div class="summary-item"><span class="summary-label">Current Status:</span><span class="summary-value" id="res-status" style="font-weight:bold;"></span></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Masinga NG-CDF. All Rights Reserved.</p>
+    </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
+
+    <script defer src="assets/js/global.js"></script>
+    <script defer src="assets/js/status.js"></script>
+</body>
+</html>
+
