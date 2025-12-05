@@ -1,0 +1,18 @@
+﻿# Python/Django
+__pycache__/
+*.pyc
+*.pyo
+*.sqlite3
+*.log
+.env
+
+# VSCode
+.vscode/
+
+# Django media/uploads
+media/
+uploads/
+
+# Node / frontend
+node_modules/
+dist/
