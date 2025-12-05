@@ -3,10 +3,12 @@ __pycache__/
 *.pyc
 *.pyo
 *.sqlite3
+
+# Logs
 *.log
 .env
 
-# VSCode
+# VS Code settings
 .vscode/
 
 # Django media/uploads
