@@ -1,13 +1,12 @@
-﻿# bursary/urls.py - WORKING VERSION
+﻿# bursary/urls.py - PRODUCTION URLS
 """
-Complete URL configuration - working version
+Production URL configuration
 """
 
 from django.urls import path
 from . import views
 
 # Import feature views
-from .duplicate_detection import check_duplicate_application
 from .editing_views import (
     BursaryApplicationUpdateView,
     check_edit_eligibility,
@@ -23,43 +22,36 @@ from .analytics import (
 )
 
 urlpatterns = [
-    # ===========================
-    # FAST ENDPOINT (Only the one we have)
-    # ===========================
-    path("fast-submit/", 
-         views.fast_submit_application, 
-         name="fast-submit"),
-    
-    # ===========================
-    # Core Application Endpoints
-    # ===========================
+    # ========================
+    #  CORE APPLICATION
+    # ========================
     path("apply/", 
          views.BursaryApplicationCreateView.as_view(), 
          name="bursary-apply"),
     
+    path("fast-api/", 
+         views.fast_submit_api, 
+         name="fast-api-submit"),
+    
+    # ========================
+    #  APPLICATION MANAGEMENT
+    # ========================
     path("applications/", 
          views.BursaryApplicationListView.as_view(), 
          name="bursary-list"),
     
-    path("applications/<str:reference_number>/", 
+    path("applications/<str:ref>/", 
          views.BursaryApplicationDetailView.as_view(), 
          name="bursary-detail"),
     
-    # ===========================
-    # Status Management
-    # ===========================
-    path("applications/<str:reference_number>/update-status/", 
+    path("applications/<str:ref>/update-status/", 
          views.BursaryApplicationUpdateStatusView.as_view(), 
          name="bursary-update-status"),
     
-    path("applications/<str:reference_number>/history/", 
-         views.application_status_history, 
-         name="bursary-status-history"),
-    
-    # ===========================
-    # Application Editing
-    # ===========================
-    path("applications/<str:reference_number>/edit/", 
+    # ========================
+    #  APPLICATION EDITING
+    # ========================
+    path("applications/<str:ref>/edit/", 
          BursaryApplicationUpdateView.as_view(), 
          name="bursary-edit"),
     
@@ -71,16 +63,9 @@ urlpatterns = [
          get_application_for_edit, 
          name="get-for-edit"),
     
-    # ===========================
-    # Duplicate Detection
-    # ===========================
-    path("check-duplicate/", 
-         check_duplicate_application, 
-         name="check-duplicate"),
-    
-    # ===========================
-    # Analytics
-    # ===========================
+    # ========================
+    #  ANALYTICS
+    # ========================
     path("analytics/overview/", 
          analytics_overview, 
          name="analytics-overview"),
@@ -92,11 +77,11 @@ urlpatterns = [
     path("analytics/export-csv/", 
          export_analytics_csv, 
          name="analytics-export"),
-
+    
     path("applications/export-csv/", 
          export_applications_csv, 
          name="applications-export-csv"),
-
+    
     path("applications/export-xlsx/", 
          export_applications_xlsx, 
          name="applications-export-xlsx"),
@@ -105,17 +90,29 @@ urlpatterns = [
          analytics_dashboard_view, 
          name="analytics-dashboard"),
     
-    # ===========================
-    # Deadline Information
-    # ===========================
+    # ========================
+    #  SYSTEM INFO
+    # ========================
     path("deadline/", 
          views.deadline_status, 
          name="deadline-status"),
     
-    # ===========================
-    # Authentication
-    # ===========================
-    path('logout/', 
+    path("health/", 
+         views.health_check, 
+         name="health-check"),
+    
+    # ========================
+    #  AUTHENTICATION
+    # ========================
+    path("auth/login/", 
+         views.api_login, 
+         name="api-login"),
+    
+    path("auth/logout/", 
+         views.api_logout, 
+         name="api-logout"),
+    
+    path("logout/", 
          views.logout_view, 
-         name='admin_logout'),
+         name="admin_logout"),
 ]

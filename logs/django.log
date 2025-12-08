@@ -1140,3 +1140,72 @@ WARNING 2025-12-05 11:03:43,642 basehttp "GET /api/bursary/applications/MNG-95E6
 INFO 2025-12-05 11:03:58,062 basehttp "GET /api/bursary/applications/MNG-29120C50/ HTTP/1.1" 200 1397
 INFO 2025-12-05 11:04:05,819 basehttp "GET /api/bursary/applications/MNG-29120C50/ HTTP/1.1" 200 1397
 INFO 2025-12-05 11:04:25,220 basehttp "GET /api/bursary/applications/MNG-29120C50/ HTTP/1.1" 200 1397
+INFO 2025-12-05 13:40:56,878 autoreload Watching for file changes with StatReloader
+INFO 2025-12-05 13:42:32,006 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-05 13:42:33,388 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-05 13:42:33,390 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 73
+WARNING 2025-12-05 13:45:54,840 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-05 13:45:54,843 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 92
+INFO 2025-12-05 13:46:41,720 basehttp "GET /admin/bursary/bursaryapplication/?disability__exact=0&ward__exact=kivaa HTTP/1.1" 302 0
+INFO 2025-12-05 13:46:42,242 basehttp "GET /admin/login/?next=/admin/bursary/bursaryapplication/%3Fdisability__exact%3D0%26ward__exact%3Dkivaa HTTP/1.1" 200 2593
+INFO 2025-12-05 13:46:52,735 basehttp "POST /admin/login/?next=/admin/bursary/bursaryapplication/%3Fdisability__exact%3D0%26ward__exact%3Dkivaa HTTP/1.1" 302 0
+INFO 2025-12-05 13:46:53,645 basehttp "GET /admin/bursary/bursaryapplication/?disability__exact=0&ward__exact=kivaa HTTP/1.1" 200 20622
+INFO 2025-12-05 13:46:54,316 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+WARNING 2025-12-05 13:47:01,111 sms_service Africa's Talking API key not configured
+INFO 2025-12-05 13:47:05,784 views Email sent successfully to ['raphaelmutiso983@gmail.com']
+WARNING 2025-12-05 13:47:05,789 sms_service SMS service not enabled
+INFO 2025-12-05 13:47:06,696 basehttp "POST /admin/bursary/bursaryapplication/?disability__exact=0&ward__exact=kivaa HTTP/1.1" 302 0
+INFO 2025-12-05 13:47:07,025 basehttp "GET /admin/bursary/bursaryapplication/?disability__exact=0&ward__exact=kivaa HTTP/1.1" 200 20765
+INFO 2025-12-05 13:47:07,498 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-05 14:13:48,008 basehttp "POST /admin/logout/ HTTP/1.1" 200 3305
+INFO 2025-12-05 14:13:49,905 basehttp "GET /admin/bursary/bursaryapplication/?disability__exact=0&ward__exact=kivaa HTTP/1.1" 302 0
+INFO 2025-12-05 14:13:49,984 basehttp "GET /admin/login/?next=/admin/bursary/bursaryapplication/%3Fdisability__exact%3D0%26ward__exact%3Dkivaa HTTP/1.1" 200 2593
+INFO 2025-12-05 22:08:31,672 autoreload Watching for file changes with StatReloader
+INFO 2025-12-05 22:08:48,441 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 2593
+WARNING 2025-12-05 22:08:48,810 log Not Found: /favicon.ico
+WARNING 2025-12-05 22:08:48,812 basehttp "GET /favicon.ico HTTP/1.1" 404 4501
+INFO 2025-12-05 22:08:57,291 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-12-05 22:08:57,682 basehttp "GET /admin/ HTTP/1.1" 200 10002
+INFO 2025-12-05 22:08:57,757 basehttp "GET /static/css/admin_custom.css HTTP/1.1" 304 0
+INFO 2025-12-05 22:09:01,465 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 18597
+INFO 2025-12-05 22:09:01,692 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-05 22:23:35,313 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+WARNING 2025-12-05 22:23:35,848 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-05 22:23:35,850 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 120
+WARNING 2025-12-05 22:23:46,728 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-05 22:23:46,729 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 48
+WARNING 2025-12-05 22:23:55,801 duplicate_detection Duplicate detected: Email raphaelmutiso983@gmail.com + Phone +254796340024
+WARNING 2025-12-05 22:23:55,814 duplicate_detection Blocked duplicate application: An application with this email and phone number already exists. Reference: MNG-29120C50
+WARNING 2025-12-05 22:23:55,826 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-05 22:23:55,828 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 145
+WARNING 2025-12-05 22:24:04,296 duplicate_detection Duplicate detected: Email raphaelmutiso983@gmail.com + Phone +254796340024
+WARNING 2025-12-05 22:24:04,301 duplicate_detection Blocked duplicate application: An application with this email and phone number already exists. Reference: MNG-29120C50
+WARNING 2025-12-05 22:24:04,305 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-05 22:24:04,306 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 145
+WARNING 2025-12-05 22:24:06,999 duplicate_detection Duplicate detected: Email raphaelmutiso983@gmail.com + Phone +254796340024
+WARNING 2025-12-05 22:24:07,012 duplicate_detection Blocked duplicate application: An application with this email and phone number already exists. Reference: MNG-29120C50
+WARNING 2025-12-05 22:24:07,020 log Bad Request: /api/bursary/apply/
+WARNING 2025-12-05 22:24:07,021 basehttp "POST /api/bursary/apply/ HTTP/1.1" 400 145
+WARNING 2025-12-05 22:24:24,578 sms_service Africa's Talking API key not configured
+INFO 2025-12-05 22:24:28,950 views Email sent successfully to ['raphaelmutiso983@gmail.com']
+WARNING 2025-12-05 22:24:28,952 sms_service SMS service not enabled
+WARNING 2025-12-05 22:24:28,953 sms_service SMS service not enabled
+INFO 2025-12-05 22:24:28,953 views Application created: MNG-D813372D
+INFO 2025-12-05 22:24:28,973 basehttp - Broken pipe from ('127.0.0.1', 51973)
+INFO 2025-12-05 22:25:56,308 basehttp "GET /admin/bursary/bursaryapplication/ HTTP/1.1" 200 19423
+INFO 2025-12-05 22:26:37,826 basehttp "GET /api/bursary/applications/MNG-D813372D/ HTTP/1.1" 200 1420
+INFO 2025-12-05 22:27:35,749 basehttp "OPTIONS /api/bursary/check-edit-eligibility/ HTTP/1.1" 200 0
+INFO 2025-12-05 22:27:35,768 basehttp "POST /api/bursary/check-edit-eligibility/ HTTP/1.1" 200 171
+INFO 2025-12-05 22:27:35,774 basehttp "OPTIONS /api/bursary/get-application-for-edit/ HTTP/1.1" 200 0
+INFO 2025-12-05 22:27:35,797 basehttp "POST /api/bursary/get-application-for-edit/ HTTP/1.1" 200 1437
+INFO 2025-12-05 22:27:55,954 basehttp "GET /api/bursary/applications/MNG-D813372D/ HTTP/1.1" 200 1420
+INFO 2025-12-08 08:29:00,629 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 08:29:09,249 views Shutting down thread pool...
+INFO 2025-12-08 08:30:57,112 views Shutting down thread pool...
+INFO 2025-12-08 08:31:18,043 views Shutting down thread pool...
+INFO 2025-12-08 08:32:21,177 autoreload Watching for file changes with StatReloader
+INFO 2025-12-08 08:34:05,369 basehttp "OPTIONS /api/bursary/apply/ HTTP/1.1" 200 0
+INFO 2025-12-08 08:34:05,420 views Starting application submission
+INFO 2025-12-08 08:34:06,699 views Application MNG-F0C2FD0F created in 1.096s
+INFO 2025-12-08 08:34:06,816 basehttp - Broken pipe from ('127.0.0.1', 60889)
+INFO 2025-12-08 08:34:10,420 views Confirmation email sent to raphaelmutiso983@gmail.com

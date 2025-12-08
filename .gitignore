@@ -1,20 +1,41 @@
-﻿# Python/Django
+# =======================
+# PYTHON / DJANGO PROJECT
+# =======================
+
+# Byte-compiled / cache
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+
+# Environment variables
+.env
+*.env
+
+# Django static files
+/static/
+staticfiles/
+
+# Media (user uploads)
+media/
+
+# SQLite database (if used)
 *.sqlite3
 
 # Logs
 *.log
-.env
 
 # VS Code settings
 .vscode/
 
-# Django media/uploads
-media/
-uploads/
+# PyCharm
+.idea/
 
-# Node / frontend
-node_modules/
-dist/
+# OS garbage
+Thumbs.db
+.DS_Store
+
