@@ -447,7 +447,11 @@ else:
 # ========================
 #  ADMIN CONFIGURATION
 # ========================
-ADMIN_URL = 'secure-admin/'
+# Environment-specific admin URL configuration
+if IS_PRODUCTION:
+    ADMIN_URL = 'secure-admin/'
+else:
+    ADMIN_URL = 'admin/'
 
 # ========================
 #  APPLICATION SETTINGS
@@ -477,6 +481,7 @@ if __name__ == '__main__' or 'runserver' in sys.argv:
     print(f"Environment: {'PRODUCTION' if IS_PRODUCTION else 'DEVELOPMENT'}")
     print(f"Debug Mode: {'ON' if DEBUG else 'OFF'}")
     print(f"Database: {'PostgreSQL' if IS_PRODUCTION else 'SQLite'}")
+    print(f"Admin URL: /{ADMIN_URL}")
     print(f"Allowed Hosts: {ALLOWED_HOSTS[:3]}{'...' if len(ALLOWED_HOSTS) > 3 else ''}")
     print(f"Static Root: {STATIC_ROOT}")
     print(f"Media Root: {MEDIA_ROOT}")
