@@ -2,12 +2,11 @@
 """
 Production-ready views with:
 - Immediate responses (<150ms)
-- Background processing
+- Synchronous email sending
 - Robust error handling
-- SMS disabled for speed
+- Email notifications
 """
 
-import threading
 import time
 import logging
 from concurrent.futures import ThreadPoolExecutor
@@ -49,112 +48,64 @@ def background_task(func):
 
 
 # ===========================
-#  EMAIL FUNCTIONS (BACKGROUND)
+#  EMAIL FUNCTIONS
 # ===========================
-@background_task
 def send_confirmation_email(application):
-    """Send confirmation email in background"""
+    """Send confirmation email to applicant - SYNCHRONOUS"""
     try:
+        logger.info(f"[EMAIL] Starting email send for {application.full_name} ({application.email})")
+        
+        if not application.email:
+            logger.warning(f"[WARNING] No email for application {application.reference_number}")
+            return False
+        
         subject = f"Masinga NG-CDF Application Received - {application.reference_number}"
         
-        # Format data
         amount_str = f"KSh {application.amount:,}" if application.amount else "Pending"
         ward_pretty = (application.ward or '').replace('-', ' ').title()
         submitted = application.submitted_at.strftime('%d %B %Y') if application.submitted_at else ''
         
-        html_content = f"""
-        <!DOCTYPE html>
-        <html>
-        <head><meta charset="utf-8"></head>
-        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-                <div style="background: linear-gradient(90deg, #006400, #bb0000, #000000); 
-                          color: #fff; padding: 20px; text-align:center; border-radius: 8px 8px 0 0;">
-                    <h2 style="margin:0;">Masinga NG-CDF Bursary</h2>
-                </div>
-                <div style="background: #f9f9f9; border: 1px solid #eee; padding: 20px; border-radius: 0 0 8px 8px;">
-                    <h3 style="margin-top:0; color: #006400;">Application Received</h3>
-                    <p>Dear <strong>{application.full_name}</strong>,</p>
-                    <p>Your bursary application has been received and is under review.</p>
-                    
-                    <div style="background: #e6ffe6; border: 2px solid #008000; padding: 15px; 
-                              border-radius: 5px; text-align:center; margin: 20px 0;">
-                        <strong style="font-size: 1.1rem;">REFERENCE NUMBER</strong><br>
-                        <span style="font-size: 1.4rem; font-weight: bold;">{application.reference_number}</span>
-                    </div>
-                    
-                    <div style="background: white; border: 1px solid #eee; padding: 15px; border-radius: 5px; margin: 15px 0;">
-                        <div style="display: flex; margin: 5px 0;">
-                            <div style="width: 150px; color:#555; font-weight:bold;">Applicant:</div>
-                            <div>{application.full_name}</div>
-                        </div>
-                        <div style="display: flex; margin: 5px 0;">
-                            <div style="width: 150px; color:#555; font-weight:bold;">Institution:</div>
-                            <div>{application.institution_name or 'Not specified'}</div>
-                        </div>
-                        <div style="display: flex; margin: 5px 0;">
-                            <div style="width: 150px; color:#555; font-weight:bold;">Amount:</div>
-                            <div>{amount_str}</div>
-                        </div>
-                        <div style="display: flex; margin: 5px 0;">
-                            <div style="width: 150px; color:#555; font-weight:bold;">Ward:</div>
-                            <div>{ward_pretty}</div>
-                        </div>
-                        <div style="display: flex; margin: 5px 0;">
-                            <div style="width: 150px; color:#555; font-weight:bold;">Submitted:</div>
-                            <div>{submitted}</div>
-                        </div>
-                    </div>
-                    
-                    <p><strong>Important:</strong> Keep your reference number for tracking.</p>
-                    <p style="color:#666; font-size: 0.9rem; margin-top: 20px;">
-                        Contact: bursary@masingacdf.go.ke
-                    </p>
-                </div>
-            </div>
-        </body>
-        </html>
-        """
+        html_content = f"""<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;"><div style="max-width: 600px; margin: 0 auto; padding: 20px;"><div style="background: linear-gradient(90deg, #006400, #bb0000, #000000); color: #fff; padding: 20px; text-align:center; border-radius: 8px 8px 0 0;"><h2 style="margin:0;">Masinga NG-CDF Bursary</h2></div><div style="background: #f9f9f9; border: 1px solid #eee; padding: 20px; border-radius: 0 0 8px 8px;"><h3 style="margin-top:0; color: #006400;">Application Received</h3><p>Dear <strong>{application.full_name}</strong>,</p><p>Your bursary application has been received and is under review.</p><div style="background: #e6ffe6; border: 2px solid #008000; padding: 15px; border-radius: 5px; text-align:center; margin: 20px 0;"><strong style="font-size: 1.1rem;">REFERENCE NUMBER</strong><br><span style="font-size: 1.4rem; font-weight: bold;">{application.reference_number}</span></div><div style="background: white; border: 1px solid #eee; padding: 15px; border-radius: 5px; margin: 15px 0;"><div style="display: flex; margin: 5px 0;"><div style="width: 150px; color:#555; font-weight:bold;">Applicant:</div><div>{application.full_name}</div></div><div style="display: flex; margin: 5px 0;"><div style="width: 150px; color:#555; font-weight:bold;">Institution:</div><div>{application.institution_name or 'Not specified'}</div></div><div style="display: flex; margin: 5px 0;"><div style="width: 150px; color:#555; font-weight:bold;">Amount:</div><div>{amount_str}</div></div><div style="display: flex; margin: 5px 0;"><div style="width: 150px; color:#555; font-weight:bold;">Ward:</div><div>{ward_pretty}</div></div><div style="display: flex; margin: 5px 0;"><div style="width: 150px; color:#555; font-weight:bold;">Submitted:</div><div>{submitted}</div></div></div><p><strong>Important:</strong> Keep your reference number for tracking.</p><p style="color:#666; font-size: 0.9rem; margin-top: 20px;">Contact: bursary@masingacdf.go.ke</p></div></div></body></html>"""
         
-        # Plain text version
-        plain_content = f"""
-        Masinga NG-CDF Bursary Application Received
+        plain_content = f"""Masinga NG-CDF Bursary Application Received
+
+Dear {application.full_name},
+
+Your application has been received and is under review.
+
+REFERENCE NUMBER: {application.reference_number}
+
+Applicant: {application.full_name}
+Institution: {application.institution_name or 'Not specified'}
+Amount: {amount_str}
+Ward: {ward_pretty}
+Submitted: {submitted}
+
+Keep your reference number for tracking.
+Contact: bursary@masingacdf.go.ke"""
         
-        Dear {application.full_name},
+        logger.info(f"[EMAIL] Creating message for {application.email}")
+        logger.info(f"[EMAIL] From: {settings.DEFAULT_FROM_EMAIL}")
+        logger.info(f"[EMAIL] Subject: {subject}")
         
-        Your application has been received and is under review.
+        msg = EmailMultiAlternatives(
+            subject=subject,
+            body=plain_content,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[application.email],
+            reply_to=[settings.DEFAULT_FROM_EMAIL]
+        )
+        msg.attach_alternative(html_content, "text/html")
         
-        REFERENCE NUMBER: {application.reference_number}
+        logger.info(f"[EMAIL] Sending email to {application.email}...")
+        result = msg.send(fail_silently=False)
         
-        Applicant: {application.full_name}
-        Institution: {application.institution_name or 'Not specified'}
-        Amount: {amount_str}
-        Ward: {ward_pretty}
-        Submitted: {submitted}
-        
-        Keep your reference number for tracking.
-        Contact: bursary@masingacdf.go.ke
-        """
-        
-        if application.email:
-            try:
-                msg = EmailMultiAlternatives(
-                    subject=subject,
-                    body=plain_content,
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    to=[application.email],
-                    reply_to=[settings.DEFAULT_FROM_EMAIL]
-                )
-                msg.attach_alternative(html_content, "text/html")
-                msg.send(fail_silently=False)
-                logger.info(f"✅ Confirmation email sent to {application.email}")
-            except Exception as e:
-                logger.error(f"❌ Failed to send email to {application.email}: {str(e)}")
-        else:
-            logger.warning(f"⚠️ No email for application {application.reference_number}")
+        logger.info(f"[OK] Email sent successfully to {application.email} (result: {result})")
+        return True
             
     except Exception as e:
-        logger.error(f"❌ Email error: {str(e)}")
+        logger.error(f"[ERROR] Email exception: {type(e).__name__}: {str(e)}", exc_info=True)
+        return False
 
 
 # ===========================
@@ -172,10 +123,10 @@ def process_background_validation(application_id, data):
         
         # Complex validations can go here
         # They run after response is sent to user
-        logger.info(f"✅ Background validation started for {application.reference_number}")
+        logger.info(f"[OK] Background validation started for {application.reference_number}")
         
     except Exception as e:
-        logger.error(f"❌ Background validation error: {str(e)}")
+        logger.error(f"[ERROR] Background validation error: {str(e)}")
 
 
 # ===========================
@@ -202,14 +153,14 @@ class BursaryApplicationCreateView(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         """Ultra-fast submission with immediate response"""
         start_time = time.time()
-        logger.info(f"🚀 Application submission started")
+        logger.info(f"[LAUNCH] Application submission started")
         
         try:
             # 1. FAST VALIDATION (under 50ms)
             serializer = self.get_serializer(data=request.data)
             if not serializer.is_valid():
                 response_time = time.time() - start_time
-                logger.warning(f"❌ Validation failed in {response_time:.3f}s: {serializer.errors}")
+                logger.warning(f"[ERROR] Validation failed in {response_time:.3f}s: {serializer.errors}")
                 return Response({
                     'success': False,
                     'message': 'Please check your information',
@@ -221,7 +172,10 @@ class BursaryApplicationCreateView(generics.CreateAPIView):
             with transaction.atomic():
                 application = serializer.save(status='pending')
             
-            # 3. PREPARE IMMEDIATE RESPONSE (under 30ms)
+            # 3. SEND EMAIL SYNCHRONOUSLY (before response)
+            email_sent = send_confirmation_email(application)
+            
+            # 4. PREPARE IMMEDIATE RESPONSE (under 30ms)
             response_time = time.time() - start_time
             
             success_data = {
@@ -236,16 +190,15 @@ class BursaryApplicationCreateView(generics.CreateAPIView):
                 'ward': application.ward or '',
                 'submitted_at': application.submitted_at.isoformat(),
                 'response_time_ms': int(response_time * 1000),
-                'note': 'You will receive confirmation email shortly. Save your reference number.',
+                'note': 'Confirmation email has been sent to your email address. Save your reference number.',
                 'next_steps': 'Check your email for confirmation and use reference number to track status.'
             }
             
-            # 4. SCHEDULE BACKGROUND TASKS (NON-BLOCKING)
-            send_confirmation_email(application)
+            # 5. SCHEDULE BACKGROUND TASKS (NON-BLOCKING)
             process_background_validation(application.id, request.data)
             
-            # 5. RETURN IMMEDIATE RESPONSE (total under 150ms)
-            logger.info(f"✅ Application {application.reference_number} submitted in {response_time:.3f}s")
+            # 6. RETURN IMMEDIATE RESPONSE (total under 150ms)
+            logger.info(f"[OK] Application {application.reference_number} submitted in {response_time:.3f}s")
             
             return Response(
                 success_data,
@@ -255,7 +208,7 @@ class BursaryApplicationCreateView(generics.CreateAPIView):
             
         except Exception as e:
             response_time = time.time() - start_time
-            logger.error(f"❌ Submission error in {response_time:.3f}s: {str(e)}", exc_info=True)
+            logger.error(f"[ERROR] Submission error in {response_time:.3f}s: {str(e)}", exc_info=True)
             
             return Response({
                 'success': False,
@@ -301,6 +254,74 @@ class BursaryApplicationDetailView(generics.RetrieveAPIView):
 # ===========================
 #  STATUS UPDATE (ADMIN)
 # ===========================
+def send_status_update_email(application, new_status):
+    """Send status update email to applicant"""
+    try:
+        logger.info(f"[EMAIL] Sending status update email for {application.full_name} ({application.email})")
+        
+        if not application.email:
+            logger.warning(f"[WARNING] No email for application {application.reference_number}")
+            return False
+        
+        status_text = new_status.replace('_', ' ').upper()
+        
+        if new_status == 'approved':
+            status_color = '#008000'
+            status_message = 'Congratulations! Your bursary application has been APPROVED.'
+            details = 'You will receive further instructions regarding fund disbursement shortly.'
+        elif new_status == 'rejected':
+            status_color = '#bb0000'
+            status_message = 'We regret to inform you that your bursary application has been REJECTED.'
+            details = 'If you believe this is an error, please contact our office for clarification.'
+        else:
+            status_color = '#ff9800'
+            status_message = f'Your bursary application status has been updated to: {status_text}'
+            details = 'Please check your application for more details.'
+        
+        subject = f"Application Status Update - {status_text} - {application.reference_number}"
+        
+        html_content = f"""<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;"><div style="max-width: 600px; margin: 0 auto; padding: 20px;"><div style="background: linear-gradient(90deg, #006400, #bb0000, #000000); color: #fff; padding: 20px; text-align:center; border-radius: 8px 8px 0 0;"><h2 style="margin:0;">Masinga NG-CDF Bursary</h2></div><div style="background: #f9f9f9; border: 1px solid #eee; padding: 20px; border-radius: 0 0 8px 8px;"><h3 style="margin-top:0; color: #006400;">Application Status Update</h3><p>Dear <strong>{application.full_name}</strong>,</p><p>{status_message}</p><div style="background: {status_color}; color: white; padding: 15px; border-radius: 5px; text-align:center; margin: 20px 0;"><strong style="font-size: 1.2rem;">Status: {status_text}</strong></div><div style="background: white; border: 1px solid #eee; padding: 15px; border-radius: 5px; margin: 15px 0;"><div style="display: flex; margin: 5px 0;"><div style="width: 150px; color:#555; font-weight:bold;">Reference:</div><div>{application.reference_number}</div></div><div style="display: flex; margin: 5px 0;"><div style="width: 150px; color:#555; font-weight:bold;">Applicant:</div><div>{application.full_name}</div></div><div style="display: flex; margin: 5px 0;"><div style="width: 150px; color:#555; font-weight:bold;">Institution:</div><div>{application.institution_name or 'Not specified'}</div></div><div style="display: flex; margin: 5px 0;"><div style="width: 150px; color:#555; font-weight:bold;">Amount:</div><div>KSh {application.amount:,}</div></div></div><p>{details}</p><p style="color:#666; font-size: 0.9rem; margin-top: 20px;">Contact: bursary@masingacdf.go.ke</p></div></div></body></html>"""
+        
+        plain_content = f"""Masinga NG-CDF Bursary - Application Status Update
+
+Dear {application.full_name},
+
+{status_message}
+
+Reference Number: {application.reference_number}
+Applicant: {application.full_name}
+Institution: {application.institution_name or 'Not specified'}
+Amount: KSh {application.amount:,}
+Status: {status_text}
+
+{details}
+
+Contact: bursary@masingacdf.go.ke"""
+        
+        logger.info(f"[EMAIL] Creating status update message for {application.email}")
+        logger.info(f"[EMAIL] From: {settings.DEFAULT_FROM_EMAIL}")
+        logger.info(f"[EMAIL] Subject: {subject}")
+        
+        msg = EmailMultiAlternatives(
+            subject=subject,
+            body=plain_content,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[application.email],
+            reply_to=[settings.DEFAULT_FROM_EMAIL]
+        )
+        msg.attach_alternative(html_content, "text/html")
+        
+        logger.info(f"[EMAIL] Sending status update email to {application.email}...")
+        result = msg.send(fail_silently=False)
+        
+        logger.info(f"[OK] Status update email sent successfully to {application.email} (result: {result})")
+        return True
+            
+    except Exception as e:
+        logger.error(f"[ERROR] Status update email exception: {type(e).__name__}: {str(e)}", exc_info=True)
+        return False
+
+
 class BursaryApplicationUpdateStatusView(generics.UpdateAPIView):
     """Admin status update"""
     serializer_class = FullApplicationSerializer
@@ -331,14 +352,18 @@ class BursaryApplicationUpdateStatusView(generics.UpdateAPIView):
                 reason=request.data.get('reason', '')
             )
             
+            # Send status update email to applicant
+            email_sent = send_status_update_email(application, new_status)
+            
             return Response({
                 'success': True,
                 'message': f'Status updated from {old_status} to {new_status}',
-                'reference_number': application.reference_number
+                'reference_number': application.reference_number,
+                'email_sent': email_sent
             })
             
         except Exception as e:
-            logger.error(f"❌ Status update error: {str(e)}")
+            logger.error(f"[ERROR] Status update error: {str(e)}")
             return Response({
                 'success': False,
                 'error': 'Failed to update status'
@@ -372,10 +397,40 @@ def deadline_status(request):
             'message': 'Applications are open' if deadline.is_open else 'Applications are closed'
         })
     except Exception as e:
-        logger.error(f"❌ Deadline error: {str(e)}")
+        logger.error(f"[ERROR] Deadline error: {str(e)}")
         return Response({
             'success': False,
             'error': 'Failed to get deadline info'
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['POST'])
+@permission_classes([permissions.AllowAny])
+def check_id_exists(request):
+    """Check if ID number already exists in database"""
+    try:
+        id_number = request.data.get('id_number', '').strip()
+        
+        if not id_number:
+            return Response({
+                'exists': False,
+                'message': 'No ID number provided'
+            })
+        
+        # Check if ID exists
+        exists = BursaryApplication.objects.filter(id_number=id_number).exists()
+        
+        return Response({
+            'exists': exists,
+            'id_number': id_number,
+            'message': 'ID already used' if exists else 'ID is available'
+        })
+    except Exception as e:
+        logger.error(f"[ERROR] ID check error: {str(e)}")
+        return Response({
+            'exists': False,
+            'error': 'Could not verify ID availability',
+            'message': 'Please try again'
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -430,7 +485,7 @@ def fast_submit_api(request):
         
         response_time = time.time() - start_time
         
-        # Background email
+        # Send email synchronously
         send_confirmation_email(application)
         
         return Response({
@@ -443,7 +498,7 @@ def fast_submit_api(request):
         
     except Exception as e:
         response_time = time.time() - start_time
-        logger.error(f"❌ Fast API error: {str(e)}")
+        logger.error(f"[ERROR] Fast API error: {str(e)}")
         
         return Response({
             'success': False,
@@ -515,5 +570,5 @@ import atexit
 @atexit.register
 def cleanup():
     """Clean shutdown of background workers"""
-    logger.info("🔄 Shutting down background workers...")
+    logger.info("[RELOAD] Shutting down background workers...")
     executor.shutdown(wait=False)

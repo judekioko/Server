@@ -2,7 +2,6 @@
 Enhanced Admin with all features:
 - CSV Export (selected & all)
 - Bulk Email
-- SMS Notifications  
 - Duplicate Detection
 - Status Management
 """
@@ -28,7 +27,6 @@ from .bulk_email import (
     send_deadline_reminder_action,
     bulk_email_form_view
 )
-from .sms_service import NotificationManager
 
 logger = logging.getLogger(__name__)
 
@@ -135,8 +133,7 @@ def export_all_to_csv(modeladmin, request, queryset):
 # Bulk Status Actions
 # =============================
 def _bulk_status_change(request, queryset, status):
-    """Internal helper to update status and notify"""
-    notification_manager = NotificationManager()
+    """Internal helper to update status"""
     count = 0
 
     for app in queryset.filter(status='pending'):
@@ -152,16 +149,9 @@ def _bulk_status_change(request, queryset, status):
             changed_by=request.user,
             reason=f"Bulk {status}"
         )
+        count += 1
 
-        # Send notifications
-        try:
-            notification_manager.notify_status_change(app, status)
-            count += 1
-        except Exception as e:
-            logger.error(f"Failed to notify {app.full_name}: {str(e)}")
-            messages.warning(request, f"Failed to notify {app.full_name}: {str(e)}")
-
-    messages.success(request, f"{count} applications {status} and notified")
+    messages.success(request, f"{count} applications updated to {status}")
 
 
 @admin.action(description="Approve selected applications")
@@ -223,13 +213,13 @@ class BursaryApplicationAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('Personal Information', {
-            'fields': ('full_name', 'gender', 'disability', 'disability_proof', 'id_number', 'id_upload_front', 'id_upload_back', 'applicant_photo')
+            'fields': ('full_name', 'gender', 'disability', 'id_number', 'id_upload_front', 'id_upload_back')
         }),
         ('Contact Information', {
             'fields': ('email', 'phone_number', 'guardian_phone', 'guardian_id')
         }),
         ('Residence Details', {
-            'fields': ('ward', 'village', 'chief_name', 'chief_phone', 'sub_chief_name', 'sub_chief_phone', 'chief_letter')
+            'fields': ('ward', 'village', 'chief_name', 'chief_phone', 'sub_chief_name', 'sub_chief_phone')
         }),
         ('Institution Details', {
             'fields': ('level_of_study', 'institution_type', 'institution_name', 'admission_number', 'amount', 'mode_of_study', 'year_of_study', 'admission_letter', 'transcript')

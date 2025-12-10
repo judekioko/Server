@@ -75,9 +75,17 @@ class FastApplicationSerializer(serializers.ModelSerializer):
         return value
     
     def validate_id_number(self, value):
-        """Fast ID validation"""
+        """Fast ID validation with duplicate check"""
         if not value:
             return value
+        
+        # Check if ID number already exists in database
+        if BursaryApplication.objects.filter(id_number=value).exists():
+            raise serializers.ValidationError(
+                'This ID number has already been used to submit an application. '
+                'Each applicant can only submit one application per ID number. '
+                'If you need to edit your application, use the "Edit Application" option instead.'
+            )
             
         # Allow 5-12 digits for now (background will validate properly)
         if re.fullmatch(r'\d{5,12}', value):

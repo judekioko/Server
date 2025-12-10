@@ -101,6 +101,10 @@ urlpatterns = [
          views.health_check, 
          name="health-check"),
     
+    path("check-id-exists/", 
+         views.check_id_exists, 
+         name="check-id-exists"),
+    
     # ========================
     #  AUTHENTICATION
     # ========================

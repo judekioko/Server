@@ -287,18 +287,16 @@ REST_FRAMEWORK = {
 # ========================
 #  EMAIL CONFIGURATION
 # ========================
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
-    EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
-    EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'bursary@masingangcdf.org')
-    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
-    EMAIL_TIMEOUT = 30
+# Always use SMTP for sending emails to applicants
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'bursary@masingangcdf.org')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_TIMEOUT = 30
 
-DEFAULT_FROM_EMAIL = f'Masinga NG-CDF Bursary <{EMAIL_HOST_USER if not DEBUG else "dev@localhost"}>'
+DEFAULT_FROM_EMAIL = f'Masinga NG-CDF Bursary <{EMAIL_HOST_USER}>'
 
 # ========================
 #  LOGGING CONFIGURATION

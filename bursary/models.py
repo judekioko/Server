@@ -6,7 +6,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.utils import timezone
-from django.db.models.signals import pre_delete
+from django.db.models.signals import pre_delete, post_save
 from django.dispatch import receiver
 
 
@@ -122,20 +122,7 @@ class BursaryApplication(models.Model):
         choices=[("male", "Male"), ("female", "Female")]
     )
     
-    applicant_photo = models.FileField(
-        upload_to="uploads/applicant_photos/",
-        blank=True,
-        null=True
-    )
-    
     disability = models.BooleanField(default=False)
-    
-    disability_proof = models.FileField(
-        upload_to="uploads/disability_proof/",
-        blank=True,
-        null=True
-    )
-    
     id_number = models.CharField(max_length=50, unique=True)
 
     id_upload_front = models.FileField(upload_to="uploads/ids/front/")
@@ -317,8 +304,6 @@ class BursaryApplication(models.Model):
         
         # Define all file fields to delete
         file_fields = [
-            (self.applicant_photo, "applicant_photo"),
-            (self.disability_proof, "disability_proof"),
             (self.id_upload_front, "id_upload_front"),
             (self.id_upload_back, "id_upload_back"),
             (self.chief_letter, "chief_letter"),
@@ -348,8 +333,6 @@ class BursaryApplication(models.Model):
         
         # Collect directories from all file fields
         file_fields = [
-            self.applicant_photo,
-            self.disability_proof,
             self.id_upload_front,
             self.id_upload_back,
             self.chief_letter,
@@ -377,8 +360,6 @@ class BursaryApplication(models.Model):
         file_info = []
         
         file_fields = [
-            (self.applicant_photo, "Applicant Photo"),
-            (self.disability_proof, "Disability Proof"),
             (self.id_upload_front, "ID Front"),
             (self.id_upload_back, "ID Back"),
             (self.chief_letter, "Chief Letter"),
@@ -464,6 +445,28 @@ def handle_bursary_application_delete(sender, instance, **kwargs):
 
 
 # =====================
+# Signal for Status Changes (Admin Panel)
+# =====================
+@receiver(post_save, sender=BursaryApplication)
+def send_status_change_email(sender, instance, created, update_fields, **kwargs):
+    """Send email when application status changes via admin panel"""
+    if created or not update_fields or 'status' not in update_fields:
+        return
+    
+    try:
+        from .views import send_status_update_email
+        import logging
+        logger = logging.getLogger(__name__)
+        
+        logger.info(f"[SIGNAL] Status change detected for {instance.reference_number}")
+        send_status_update_email(instance, instance.status)
+    except Exception as e:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"[SIGNAL ERROR] Failed to send status email: {str(e)}")
+
+
+# =====================
 # Management Command Functions
 # =====================
 def get_orphaned_files():
@@ -480,8 +483,6 @@ def get_orphaned_files():
     # Collect all files currently in use
     for app in BursaryApplication.objects.all().iterator(chunk_size=100):
         file_fields = [
-            app.applicant_photo,
-            app.disability_proof,
             app.id_upload_front,
             app.id_upload_back,
             app.chief_letter,
